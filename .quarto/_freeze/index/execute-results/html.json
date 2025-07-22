@@ -1,0 +1,15 @@
+{
+  "hash": "569dbef218539ace2828065426a14575",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Module Template\"\npage-navigation: false\nformat:\n  html: \n    toc: false\n---\n\n\n\nWelcome to our template module. Every module comprises a series of topical *tutorials*, such as the three linked below.\n\n1. [First Topic](/tutorials/first_tutorial/index.qmd)\n1. [Second Topic](/tutorials/second_tutorial/index.qmd)\n\nEach tutorial will comprise a series of interactive lessons with practice problems embedded throughout. Each tutorial\nsection should be wrapped up with a knowledge quiz.\n\n## Learning Goals\n\nAfter completing this module, you will be able to:\n\n### Tutorial 1\n\n1. A thing you should learn from Tutorial 1.\n1. Another thing you should learn from Tutorial 1.\n1. One more thing you should learn From Tutorial 1.\n\n### Tutorial 2\n\n1. A thing you should learn from Tutorial 2.\n1. Another thing you should learn from Tutorial 2.\n\nClick the button below to get started with the first tutorial.\n\n\n::: {.cell layout-align=\"center\"}\n<section id=\"buttons\">\n  <a id=\"beginButton\" class=\"btn btn-primary\" href=\"/tutorials/first_tutorial/index.html\" role=\"button\">\n  Begin Tutorial\n  </a>\n</section>\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

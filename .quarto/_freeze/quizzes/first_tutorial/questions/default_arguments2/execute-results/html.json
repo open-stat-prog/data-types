@@ -1,0 +1,15 @@
+{
+  "hash": "9eff8ad0b010672aba53c49a0b11ee3e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "Question\n========\n\n\nUse the following help file excerpt to answer the question below.\n\n\n::: {.cell layout-align=\"center\" printr.help.sections='usage'}\n::: {.cell-output-display}\n```{=html}\n<div class=\"r-help-page\"><div class=\"container\"><main>\n\n<table style=\"width: 100%;\"><tr><td>cor</td><td style=\"text-align: right;\">R Documentation</td></tr></table>\n\n<h2>Correlation, Variance and Covariance (Matrices)</h2>\n\n<h3>Usage</h3>\n\n<pre><code class='language-R'>var(x, y = NULL, na.rm = FALSE, use)\n\ncov(x, y = NULL, use = \"everything\",\n    method = c(\"pearson\", \"kendall\", \"spearman\"))\n\ncor(x, y = NULL, use = \"everything\",\n    method = c(\"pearson\", \"kendall\", \"spearman\"))\n\ncov2cor(V)\n</code></pre>\n\n</main>\n\n</div>\n</div>\n```\n:::\n:::\n\nWhat is the default value for the `use` argument of the `cor()` function?\n\nAnswerlist\n----------\n* `\"everything\"`\n* `\"Everything`\n* `\"spearman\"`\n* `\"pearson\"`\n* `\"kendall\"`\n* `c(\"pearson\", \"spearman\", \"kendall\")`\n* `NULL`\n* `method`\n* `y`\n* `x`\n* The `use` argument does not have a defined default value.\n\nSolution\n========\nThe default value for the `use` argument is `\"everything\"`.\n\nAnswerlist\n----------\n* Correct\n* Wrong: The \"E\" should be lowercase\n* Wrong: This is one of the possible methods\n* Wrong: This is one of the possible methods\n* Wrong: This is one of the possible methods\n* Wrong: These are all of the possible methods\n* Wrong: This is the default value for `y`\n* Wrong: This is an argument name\n* Wrong: This is an argument name\n* Wrong: This is an argument name\n* Wrong: There is a default value defined for `use`.\n\nMeta-information\n================\nexname: Default Arguments Selection\nextype: schoice\nexsolution: 10000000000\nexshuffle: 5\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

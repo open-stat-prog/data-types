@@ -1,0 +1,77 @@
+{
+  "quizzes/first_tutorial/questions/arithmetic2.Rmd": {
+    "arithmetic2.html": "ba60039b"
+  },
+  "quizzes/first_tutorial/questions/logical.Rmd": {
+    "logical.html": "7380a806"
+  },
+  "quizzes/first_tutorial/questions/default_arguments2.Rmd": {
+    "default_arguments2.html": "9a6cb3a3"
+  },
+  "quizzes/first_tutorial/index.qmd": {
+    "index.html": "a7d24316"
+  },
+  "quizzes/second_tutorial/questions/bad_question.Rmd": {
+    "bad_question.html": "8a6f3f68"
+  },
+  "quizzes/second_tutorial/questions/default_arguments1.Rmd": {
+    "default_arguments1.html": "49d4b3f0"
+  },
+  "quizzes/second_tutorial/index.qmd": {
+    "index.html": "66f0c828"
+  },
+  "in_progress.qmd": {
+    "in_progress.html": "c8008d46"
+  },
+  "conclusion.qmd": {
+    "conclusion.html": "be3300aa"
+  },
+  "index.qmd": {
+    "index.html": "6a25ea79"
+  },
+  "tutorials/first_tutorial/topic3.qmd": {
+    "topic3.html": "b8caa036"
+  },
+  "tutorials/first_tutorial/topic2.qmd": {
+    "topic2.html": "4353fbbe"
+  },
+  "tutorials/first_tutorial/topic1.qmd": {
+    "topic1.html": "c1b59aa8"
+  },
+  "tutorials/first_tutorial/index.qmd": {
+    "index.html": "62290119"
+  },
+  "tutorials/second_tutorial/topic2.qmd": {
+    "topic2.html": "72d58571"
+  },
+  "tutorials/second_tutorial/topic1.qmd": {
+    "topic1.html": "6cd39110"
+  },
+  "tutorials/second_tutorial/index.qmd": {
+    "index.html": "cb0680d1"
+  },
+  "404.qmd": {
+    "404.html": "3e904150"
+  },
+  "tutorials/first_tutorial/elements_selection.qmd": {
+    "elements_selection.html": "52a104c6"
+  },
+  "tutorials/first_tutorial/vector_operations.qmd": {
+    "vector_operations.html": "4d67cf6f"
+  },
+  "tutorials/first_tutorial/atomic_modes.qmd": {
+    "atomic_modes.html": "cdb41975"
+  },
+  "tutorials/first_tutorial/generating_vectors.qmd": {
+    "generating_vectors.html": "bdf5cd4b"
+  },
+  "tutorials/first_tutorial/topic4.qmd": {
+    "topic4.html": "f5de24ec"
+  },
+  "quizzes/first_tutorial/questions/vec_moltiplication.Rmd": {
+    "vec_moltiplication.html": "51f9f3b9"
+  },
+  "quizzes/first_tutorial/questions/1_to_5.Rmd": {
+    "1_to_5.html": "978b42b1"
+  }
+}

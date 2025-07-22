@@ -1,0 +1,15 @@
+{
+  "hash": "beab299da734705e272b3dab92ff5f7b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "Question\n========\nWhich of the following expressions will return `TRUE`?\n\nAnswerlist\n----------\n* `\"foo\" != \"bar\"`\n* `(8 + 6) < (8 * 6)`\n* `(8 - 1) == 7 & 7 >= (14 / 2)`\n* `\"alice\" == \"bob\" | \"alice\" == \"alice\"`\n* `!(6 > 7)`\n* `TRUE`\n* `FALSE`\n* `\"foo\" == \"bar\"`\n* `(8 - 1) == 7 & 7 > (14 / 2)`\n* `\"alice\" == \"bob\" | \"alice\" != \"alice\"`\n* `\"alice\" == \"bob\" & \"alice\" == \"alice\"`\n* `!TRUE`\n* `TRUE & FALSE`\n\nSolution\n========\n\nAnswerlist\n----------\n* TRUE: \"foo\" is not equal to \"bar\"\n* TRUE: 14 is strictly less than 48\n* TRUE: 7 is equal to 7, and 7 is greater than or equal to 7\n* TRUE: \"alice\" is not equal to \"bob\", but \"alice is equal to \"alice\"\n* TRUE: 6 is not strictly greater than 7, and that result is negated\n* TRUE: Trivially\n* FALSE: Trivially\n* FALSE: \"foo\" is not equal to \"bar\"\n* FALSE: 7 is equal to 7, but 7 is not strictly greater than 7\n* FALSE: \"alice\" is not equal to \"bob\", and \"alice\" is equal to \"alice\"\n* FALSE: \"alice\" is not equal to \"bob\"\n* FALSE: Trivial negation\n* FALSE: Trivially\n\nMeta-information\n================\nexname: Logical Comparisons\nextype: mchoice\nexsolution: 1111110000000\nexshuffle: 6\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

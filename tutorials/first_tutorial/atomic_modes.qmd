@@ -1,0 +1,68 @@
+---
+title: "Atomic Modes"
+---
+
+## Different types of vectors
+
+Vectors in R are essentially sequences of elements. These elements can be of six different types, called *atomic modes*. It's important to note that a vector must have all its elements of the same type, and trying to assign elements of different types to the same vector will result in coercion or an error.
+
+
+### Numeric/double
+
+The first type is the *numeric* or *double* type, and represent the real numbers, the numbers that can have decimal place, like 6.01, 0.04 or -42.1. This is the default type for numbers in R, so if we store a number in an object without specifying otherwise, the type of that object will be numeric. 
+
+```{r}
+v1 <- vector("numeric", 3)
+v1
+
+v1 <- vector("double", 3)
+v1
+```
+
+### Logical
+
+Another fundamental type is the *logical* type, which represents truth values. Logical vectors can only contain the values TRUE or FALSE.
+
+```{r}
+v2 <- vector("logical",3)
+v2
+```
+
+### Character
+
+The character type is used to represent text. Character vectors contain strings, which are sequences of characters enclosed in quotation marks, like "apple", "data", or "42".
+
+```{r}
+v3 <- vector("character",3)
+v3
+```
+
+### Integer
+
+The *integer* type represents whole numbers without decimal places, such as 1, 100, or -5. While integers and numeric (double) values may look similar, they are distinct types in R. Integers are used when exact whole-number representation is needed. They can also offer slight computational advantages in terms of memory usage and performance, especially when working with large datasets.
+
+```{r}
+v4 <- vector("integer",3)
+v4
+```
+
+### Complex
+
+The *complex* type is used to represent complex numbers, which have both a real and an imaginary part. In R, complex numbers are written with an i to indicate the imaginary unit, like 1+2i or 0-3.5i. 
+
+```{r}
+v5 <- vector("complex",3)
+v5
+```
+
+### Raw
+
+The *raw* type represents raw bytes of data, typically used for low-level operations.  This type is rarely used.
+
+```{r}
+v6 <- vector("raw",3)
+v6
+```
+
+
+

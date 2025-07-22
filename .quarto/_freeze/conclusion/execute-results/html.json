@@ -1,0 +1,15 @@
+{
+  "hash": "8ba6c72d407aba3a346346adacf2bfd9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Conclusion\"\nformat:\n  html: \n    toc: false\n    link-external-icon: false\n    link-external-newwindow: false\n---\n\n\n\nUse this page to provide some kind of brief wrap-up.\n\n## Next Steps\n\nIf your module feeds naturally into another, link that module through the button below as a suggestion for further study.\n\n- Here, we're linking to the *First Steps* module.\n\n\n::: {.cell layout-align=\"center\"}\n<section id=\"buttons\">\n  <a id=\"nextButton\" class=\"btn btn-primary float-start\" href=\"https://www.openstatprog.com/first-steps/\" role=\"button\">\n  Next Module\n  </a>\n</section>\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
