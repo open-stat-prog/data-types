@@ -20,9 +20,9 @@ website:
       - icon: github
         menu:
           - text: Source Code
-            href: https://github.com/open-stat-prog/module-template
+            href: https://github.com/open-stat-prog/data-types
           - text: Report a Bug
-            href: https://github.com/open-stat-prog/module-template/issues
+            href: https://github.com/open-stat-prog/data-types/issues
 
   sidebar:
     style: "floating"
@@ -30,21 +30,22 @@ website:
     contents:
       - href: index.qmd
         text: "Overview"
-      - section: tutorials/first_tutorial/index.qmd
-        text: "First Tutorial"
+      - section: tutorials/vectors/index.qmd
+        text: "Vectors"
         contents:
-        - href: tutorials/first_tutorial/atomic_modes.qmd
-        - href: tutorials/first_tutorial/generating_vectors.qmd
-        - href: tutorials/first_tutorial/vector_operations.qmd
-        - href: tutorials/first_tutorial/elements_selection.qmd
-        - href: quizzes/first_tutorial/index.qmd
+        - href: tutorials/vectors/atomic_modes.qmd
+        - href: tutorials/vectors/generating_vectors.qmd
+        - href: tutorials/vectors/vector_operations.qmd
+        - href: tutorials/vectors/elements_selection.qmd
+        - href: quizzes/vectors/index.qmd
           text: "Knowledge Quiz"
-      - section: tutorials/second_tutorial/index.qmd
-        text: "Second Tutorial"
+      - section: tutorials/matrices/index.qmd
+        text: "Matrices"
         contents:
-          - href: tutorials/second_tutorial/topic1.qmd
-          - href: tutorials/second_tutorial/topic2.qmd
-          - href: quizzes/second_tutorial/index.qmd
+          - href: tutorials/matrices/matrix_creation.qmd
+          - href: tutorials/matrices/matrix_operation.qmd
+          - href: tutorials/matrices/matrix_selection.qmd
+          - href: quizzes/matrices/index.qmd
             text: "Knowledge Quiz"
       - href: conclusion.qmd
 

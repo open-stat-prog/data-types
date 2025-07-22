@@ -1,0 +1,45 @@
+---
+title: "Creating matrices"
+---
+
+## Working with Matrices in R
+
+At their core, matrices in R are just atomic vectors with a special attribute: dimensions. When you add a `dim` attribute to a vector, R interprets it as a matrix. This means all the rules of vectors still apply—matrices simply add a structured, two-dimensional layout on top.
+
+## Creating Matrices
+
+The most common way to create a matrix is with the `matrix()` function. We can specify the number of rows and columns, and optionally the data to fill the matrix:
+
+```{r}
+(m1 <- matrix(data = 1, nrow = 3, ncol = 3))
+```
+
+If we inspect the object, we’ll see it now has additional attributes, `dim`:
+
+```{r}
+y1 <- c(1,2,3)
+
+attributes(y1)
+attributes(m1)
+```
+
+By default, R fills matrices column-wise. That means the first column is filled top to bottom, then the second column, and so on:
+
+```{r}
+(m2 <- matrix(1:9, 3, 3))
+```
+
+If we want to fill the matrix row by row instead, we can use the `byrow = TRUE` argument:
+
+```{r}
+(m3 <- matrix(1:9, 3, 3, byrow = TRUE))
+```
+
+
+
+
+
+
+
+
+

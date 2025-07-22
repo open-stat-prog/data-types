@@ -1,0 +1,78 @@
+---
+title: "Matrix operations"
+---
+
+## Matrix Dimensions
+
+Also when working with matrices, it's important to always take into consideration the number of elements in a matrix. However, we must also pay attention to how these elements are distributed — that is, the dimensions of the matrix. Just like with vectors, the `length()` function returns the total number of elements in a matrix.
+
+```{r}
+m1 <- matrix(2,3,3)
+length(m1)
+```
+
+To get the actual dimensions of the matrix, the row and column structure, we use `dim()`:
+
+```{r}
+dim(m1)
+```
+
+# Matrix Aritmetric
+
+Arithmetic with matrices works exactly the same way as with vectors—by default, it's *element-wise*. That means R performs the operation on each pair of corresponding entries in the two matrices. 
+```{r}
+m2 <- matrix(1:9,3,3)
+
+m1 + m2
+m2 - m1
+m1 / m2
+m1 * m2
+```
+
+
+::: {.callout-note}
+
+This isn’t matrix multiplication in the linear algebra sense — it’s just entry-by-entry math. (For actual matrix multiplication, we’d use `%*%`)
+
+:::
+
+Just like vectors, matrices obey R’s recycling rules. If you attempt to perform arithmetic between matrices or vectors of different lengths, R will try to make the lengths match by reusing (or recycling) the shorter one. This can be handy, but it can also produce unexpected results if you’re not careful.
+
+```{r}
+m2
+m3<- c(1,3)
+m2 + m3
+
+```
+
+::: practice
+
+## Practice
+
+a. Create a 5x3 numeric matrix called 'myMat' wherein each column is equal to the vector 1:5.
+b. Multiply each entry in 'myMat' by pi (i.e., the numerical constant).
+
+
+:::: {.panel-tabset}
+## {{< var tab_title.question >}}
+
+```{webr-r}
+
+```
+
+## {{< var tab_title.hint >}}
+
+HINT: The built-in R object `pi` contains the value of pi.
+
+## {{< var tab_title.solution >}}
+
+```{r}
+(myMat <- matrix(1:5,5,3))
+
+myMat*pi
+```
+::::
+
+:::
+
+
