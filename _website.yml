@@ -47,6 +47,22 @@ website:
           - href: tutorials/matrices/matrix_selection.qmd
           - href: quizzes/matrices/index.qmd
             text: "Knowledge Quiz"
+      - section: tutorials/list_df/index.qmd
+        text: "Lists and Dataframes"
+        contents:
+          - href: tutorials/list_df/creating_list.qmd
+          - href: tutorials/list_df/lists_element.qmd
+          - href: tutorials/list_df/data_frame.qmd
+          - href: tutorials/list_df/df_selection.qmd
+          - href: quizzes/list_df/index.qmd
+            text: "Knowledge Quiz"
+      - section: tutorials/factors/index.qmd
+        text: "Factors"
+        contents:
+          - href: tutorials/factors/gen_factors.qmd
+          - href: tutorials/factors/num_and_fac.qmd
+          - href: quizzes/factors/index.qmd
+            text: "Knowledge Quiz"
       - href: conclusion.qmd
 
   page-footer:

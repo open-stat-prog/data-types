@@ -10,28 +10,58 @@ format:
 source(here::here("R", "buttons.R"))
 ```
 
-Welcome to our template module. Every module comprises a series of topical *tutorials*, such as the three linked below.
+Welcome to the module about data types. These structures form the foundation of nearly all data manipulation and analysis workflows in R. Understanding how they work, how they differ, and how to interact with them is essential for writing effective and reliable R code.
 
-1. [First Topic](/tutorials/vectors/index.qmd)
-1. [Second Topic](/tutorials/matrices/index.qmd)
+1. [Vectors](/tutorials/vectors/index.qmd)
+2. [Matrices](/tutorials/matrices/index.qmd)
+3. [Lists and Data Frames](/tutorials/list_df/index.qmd)
+4. [Factors](/tutorials/factors/index.qmd)
 
-Each tutorial will comprise a series of interactive lessons with practice problems embedded throughout. Each tutorial
-section should be wrapped up with a knowledge quiz.
+Each tutorial centers on a specific object type, combining conceptual explanations with hands-on examples to demonstrate how R stores, accesses, and processes data, featuring interactive lessons with embedded practice problems and concluding with a knowledge quiz.
 
 ## Learning Goals
 
 After completing this module, you will be able to:
 
-### Tutorial 1
+### Vectors
 
-1. A thing you should learn from Tutorial 1.
-1. Another thing you should learn from Tutorial 1.
-1. One more thing you should learn From Tutorial 1.
+1. Understand what atomic vectors are and recognize their six types (logical, integer, double, character, complex, raw).
 
-### Tutorial 2
+2. Practice performing element-wise arithmetic and logical operations.
 
-1. A thing you should learn from Tutorial 2.
-1. Another thing you should learn from Tutorial 2.
+3. Learn how to access, modify, and subset elements in a vector using indexing.
+
+### Matrices
+
+1. Understand the relationship between matrices and vectors, and the role of the `dim` attribute.
+
+2. Explore how to inspect the structure and dimensions of matrices.
+
+3. Perform element-wise operations on matrices and understand the behavior of recycling in this context.
+
+4. Use matrix-style indexing to access and assign values in matrices.
+
+## Lists and Data Frames
+
+1. Understand that lists can hold heterogeneous elements, including other lists and functions.
+
+2. Access and modify list elements using different metods and understand the difference between them.
+
+3. Understand that data frames are list-based structures for storing tabular data.
+
+4. Understand that each column is a vector and may differ in type.
+
+5. Use list-style and matrix-style indexing to access columns, rows, and individual elements.
+
+6. Recognize the differences between data frames and matrices, particularly in terms of structure and permitted operations.
+
+## Factors
+
+1. Understand the purpose of factors for representing categorical data in R.
+
+2. Understand how factors are stored internally and how to inspect their attributes.
+
+3. Learn the distinction between factors and numeric types, and why arithmetic operations on factors are invalid.
 
 Click the button below to get started with the first tutorial.
 

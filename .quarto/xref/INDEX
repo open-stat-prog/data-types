@@ -130,5 +130,59 @@
   },
   "tutorials/matrices/matrix_creation.qmd": {
     "matrix_creation.html": "fc93de6b"
+  },
+  "tutorials/list_df/creating_list.qmd": {
+    "creating_list.html": "3e35f9f0"
+  },
+  "tutorials/list_df/lists_elemnent.qmd": {
+    "lists_elemnent.html": "13ea0b35"
+  },
+  "tutorials/list_df/data_frame.qmd": {
+    "data_frame.html": "90a747bb"
+  },
+  "quizzes/list_df/questions/bad_question.Rmd": {
+    "bad_question.html": "47b01078"
+  },
+  "quizzes/list_df/questions/default_arguments1.Rmd": {
+    "default_arguments1.html": "f8870cfc"
+  },
+  "quizzes/list_df/index.qmd": {
+    "index.html": "0b5ac52c"
+  },
+  "tutorials/list_df/lists_element.qmd": {
+    "lists_element.html": "277239a9"
+  },
+  "tutorials/list_df/index.qmd": {
+    "index.html": "9bab7973"
+  },
+  "tutorials/list_df/df_selection.qmd": {
+    "df_selection.html": "3600f161"
+  },
+  "quizzes/factors/questions/bad_question.Rmd": {
+    "bad_question.html": "f7585dd6"
+  },
+  "quizzes/factors/questions/default_arguments1.Rmd": {
+    "default_arguments1.html": "027187d7"
+  },
+  "quizzes/factors/index.qmd": {
+    "index.html": "b4fad246"
+  },
+  "tutorials/factors/num_and_fac.qmd": {
+    "num_and_fac.html": "6498e426"
+  },
+  "tutorials/factors/gen_factors.qmd": {
+    "gen_factors.html": "83850a58"
+  },
+  "tutorials/factors/index.qmd": {
+    "index.html": "7bc96af3"
+  },
+  "quizzes/matrices/questions/1_to_5.Rmd": {
+    "1_to_5.html": "44f79bbd"
+  },
+  "quizzes/matrices/questions/vec_moltiplication.Rmd": {
+    "vec_moltiplication.html": "45272569"
+  },
+  "quizzes/matrices/questions/create_matrix.Rmd": {
+    "create_matrix.html": "c8253d63"
   }
 }

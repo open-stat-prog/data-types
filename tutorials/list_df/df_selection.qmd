@@ -1,0 +1,91 @@
+---
+title: "Data Frames Elements"
+---
+
+## Structure of a Data Frame
+
+Although data frames look like two-dimensional matrices, they are actually lists of equal-length vectors. Each column in a data frame is a vector, and the entire data frame is essentially a named list, where each name corresponds to a column. We can confirm this by checking their structure:
+
+
+```{r}
+df <- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),
+                  b = sample(c("foo", "bar"), 10, replace = TRUE),
+                  c = runif(10))
+is.data.frame(df)  
+is.list(df)       
+```
+
+However, it is important to note that a data frame is not a matrix. Although it may resemble one visually, it behaves differently in many ways. Most notably, you cannot directly apply matrix operations (such as matrix multiplication) to a data frame. To perform matrix operations, you must first convert the data frame to a matrix using `as.matrix()`. Keep in mind that this conversion can introduce coercion—especially if the data frame contains mixed types—so it should be done with caution.
+
+```{r error=TRUE}
+is.matrix(df)       
+d1 <- data.frame(1:10, c(-1, 1), seq(0.1, 1, 0.1))
+d2 <- data.frame(x = 1:10, y = c(-1, 1), z = seq(0.1, 1, 0.1))
+d1 %*% t(d2)        
+as.matrix(d1) %*% t(as.matrix(d2))  
+```
+
+## Accessing Columns and Elements
+
+Because a data frame is built on top of a list, we can access its columns using the same methods we would use for lists. The most common method is the dollar sign operator (`$`), which is used to access a column by name:
+
+```{r}
+df$b
+```
+
+We can also use single or double square brackets. Using `d3["b"]` returns a data frame containing just one column (i.e., a subset of the original data frame), whereas `d3[["b"]]` extracts the column itself as a vector:
+
+```{r}
+df["b"]     
+df[["b"]]   
+```
+
+We can also access columns by their position using numerical indices:
+
+```{r}
+df[2]       
+df[[2]]     
+```
+
+In addition to list-style access, data frames support matrix-style subsetting, where we specify both a row and a column index. This allows for precise extraction of individual elements or row/column slices:
+
+```{r}
+df[1, 2]    
+df[ , 2]    
+df[1, ]    
+```
+
+This dual nature of data frames—as both lists and 2D tabular structures—is what makes them so useful in data analysis. They are flexible enough to accommodate different types of data across columns, while also offering familiar row/column indexing operations.
+
+::: practice
+
+## Practice
+
+a. Create an empty data frame with 3 variables, named a, b and c, and 10 observations.
+b. Add the number from 1 to 10 to the variable a, using the name of the variable.
+c. Add all the even number from 1 tp 20 to the variable b, using the position of the variable.
+d. Add all the odd number from 1 to 10 to the odd positions of variable c, leaving `NA` in the even positions. 
+
+:::: {.panel-tabset}
+## {{< var tab_title.question >}}
+
+```{webr-r}
+
+```
+
+## {{< var tab_title.solution >}}
+
+```{r}
+
+df_ex <- data.frame(a = rep(NA,10),
+                 b = rep(NA,10),
+                 c = rep(NA,10))
+
+df_ex$a <- 1:10
+df_ex[2] <- seq(2,20,2)
+df_ex[seq(1,10,2),3] <- seq(1,10,2)
+```
+::::
+
+:::
+
