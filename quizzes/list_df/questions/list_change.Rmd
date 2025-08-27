@@ -1,0 +1,45 @@
+```{r, echo = FALSE, include = FALSE}
+l <- list(name = "bob",
+          age = 25,
+          height = 180,
+          eyes = "blue")
+```
+
+Question
+========
+We continue to use the list `l`,  which of the following expressions will return change the color of the eyes from blue to green?
+
+```{r, echo=FALSE}
+l
+```
+
+
+Answerlist
+----------
+* `l$eyes <- "blue`
+* `l[[4]] <- "green"`
+* `l[4] <- "green"`
+* `l$4 <- "green`
+* `l$eyes <- green`
+* `l[4,] <- "green"`
+* `names(l)[4] <- "green"`
+
+Solution
+========
+
+Answerlist
+----------
+* TRUE
+* TRUE
+* TRUE
+* FALSE: there is no element named "4"
+* FALSE: green is not a character string, but an object itself
+* FALSE: l is a list, not a matrix
+* FALSE: "this will change the name of the element, not the element itself
+
+Meta-information
+================
+exname: Changing List Element
+extype: mchoice
+exsolution: 1110000
+exshuffle: 5

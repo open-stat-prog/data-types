@@ -1,5 +1,5 @@
 ---
-title: "Module Template"
+title: "Data Types"
 page-navigation: false
 format:
   html: 
@@ -49,7 +49,7 @@ After completing this module, you will be able to:
 
 3. Understand that data frames are list-based structures for storing tabular data.
 
-4. Understand that each column is a vector and may differ in type.
+4. Understand that each column in a data-frame is a vector and may differ in type.
 
 5. Use list-style and matrix-style indexing to access columns, rows, and individual elements.
 

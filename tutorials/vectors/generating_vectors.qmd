@@ -29,7 +29,7 @@ The colon operator `:` creates a sequence of integers between two endpoints. If 
 1.2:5.3
 ```
 
-For more control we can use also `seq()`. `seq()` allows you to specify the step size or the total number of elements in the sequence using `by` or `length.out`, respectively.
+For more control we can use also `seq()`. The function `seq()` allows you to specify the step size or the total number of elements in the sequence using `by` or `length.out`, respectively.
 
 ```{r}
 seq(0, 1, 0.25)

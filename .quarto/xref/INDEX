@@ -184,5 +184,20 @@
   },
   "quizzes/matrices/questions/create_matrix.Rmd": {
     "create_matrix.html": "c8253d63"
+  },
+  "quizzes/matrices/questions/sub_matrix.Rmd": {
+    "sub_matrix.html": "a4d75fad"
+  },
+  "quizzes/factors/questions/factors_level.Rmd": {
+    "factors_level.html": "a46f952a"
+  },
+  "quizzes/list_df/questions/list_name.Rmd": {
+    "list_name.html": "7873e529"
+  },
+  "quizzes/list_df/questions/list_change.Rmd": {
+    "list_change.html": "90c43e77"
+  },
+  "quizzes/list_df/questions/df_row.Rmd": {
+    "df_row.html": "69245338"
   }
 }

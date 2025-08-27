@@ -17,7 +17,8 @@ title: "Knowledge Quiz: Tutorial 2"
 
 exams2forms::exams2forms(
   file = list(
-    "create_matrix.Rmd"
+    "create_matrix.Rmd",
+    "sub_matrix.Rmd"
   ),
   edir = here::here("quizzes", "matrices", "questions")
 )

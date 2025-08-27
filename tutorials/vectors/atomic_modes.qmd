@@ -21,7 +21,7 @@ v1
 
 ### Logical
 
-Another fundamental type is the *logical* type, which represents truth values. Logical vectors can only contain the values TRUE or FALSE.
+Another fundamental type is the *logical* type, which represents truth values. Logical vectors can only contain the values `TRUE` or `FALSE`.
 
 ```{r}
 v2 <- vector("logical",3)

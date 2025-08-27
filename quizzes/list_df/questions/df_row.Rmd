@@ -1,0 +1,30 @@
+```{r prep, echo = FALSE}
+
+df <- data.frame(names = c("bob", "mike", "mark", "steve"),
+          age = c(25,23,24,26),
+          height = c(180,178,169,183),
+          eyes = c("green","green","blue","black")
+                 )
+
+```
+
+Question
+========
+
+Consider the data frame `df` below, how can we extract only the data about Bob?
+
+```{r, echo=FALSE}
+df
+
+```
+
+
+Solution
+========
+We have to select the first row of the data frame, and we can do this using `df[1,]`
+
+Meta-information
+================
+exname: DF Row
+extype: string
+exsolution: df[1,]

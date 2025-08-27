@@ -1,0 +1,25 @@
+```{r prep, echo = FALSE}
+
+fac <- factor(sample(1:3, 20, TRUE), labels = c("Yes","No","Maybe"))
+
+```
+
+Question
+========
+
+Consider the factors in `fac` below, how can we store the levels in the new vector `lev`?
+
+```{r, echo=FALSE}
+fac
+```
+
+
+Solution
+========
+We extract the names of the levels using the function `levels()`
+
+Meta-information
+================
+exname: DF Row
+extype: string
+exsolution: lev <- levels(fac)

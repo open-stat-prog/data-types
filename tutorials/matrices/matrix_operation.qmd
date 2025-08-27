@@ -1,5 +1,5 @@
 ---
-title: "Matrix operations"
+title: "Matrix Operations"
 ---
 
 ## Matrix Dimensions
