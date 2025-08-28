@@ -1,0 +1,159 @@
+---
+title: "Manipulating Lists"
+---
+
+## Accessing List Slots
+
+R provides several mechanisms for accessing the contents of a list, each serving a distinct purpose. The three main
+operators used for this task are the dollar sign (`$`), single brackets (`[]`), and double brackets (`[[]]`).
+
+The `$` operator accesses *a single list slot* by name and returns *the contents* of that list slot. 
+
+```{r}
+l1 <- list(name = "bob",
+           alive = TRUE,
+           age = 33,
+           relationshipStatus = 42+3i)
+
+l1$name
+class(l1$name)
+```
+
+The `[[]]` operator works like the `$` operator but also accepts numeric indices.
+
+```{r}
+l1[["age"]]
+l1[[2]]
+class(l1[[2]])
+```
+
+The `[]` operator is notably different: it extracts *any number of list slots* and returns the result *as a list*.
+Even if only one element is selected, the output remains a list. This behavior is useful when we want to retain the list
+structure for further processing.
+
+```{r}
+l1["name"]
+l1[2]
+class(l1[2])
+
+l1[c("name", "alive")]
+l1[1:2]
+class(l1[1:2])
+```
+
+If we want to select multiple list elements, the `[]` operator is our only option. You cannot use the `$` or `[[]]`
+operators to select multiple list slots.
+
+```{r, error = TRUE}
+l1[[1:2]]
+l1$c("name", "alive")
+```
+
+## Modifying List Elements
+
+Above, we used the three selection operators to extract list elements, but you shouldn't think about those operators as
+"subsetting operators". It's better to think about the selection operators as designating some part of a list for further
+processing. In the above examples, the further processing was simply printing the selected elements to the R console, but
+we can also use the selection operators to modify the designated list elements.
+
+```{r}
+## View the original list
+l1
+
+## Modify some list elements
+l1$age <- 57
+l1[[1]] <- "suzy"
+l1[c(2, 4)] <- c("foo", "bar")
+
+## View the modified list
+l1
+```
+
+Lists in R do not require a fixed length or predefined structure. New elements can be added at any point, either by
+position or by name. This flexibility makes lists well suited for incremental construction.
+
+```{r}
+## Create an empty list
+(l2 <- list())
+
+## Add new list slots
+l2$grass <- "green"
+l2$logical <- FALSE
+l2[[3]] <- 1:4
+
+l2
+```
+
+Importantly, the types of the objects you store in a list are maintained.
+
+```{r}
+(x <- 1:5)
+(y <- list())
+(z <- letters[1:10])
+
+(l3 <- list(a = x, b = y, c = z))
+
+class(x)
+class(y)
+class(z)
+
+class(l3$a)
+class(l3$b)
+class(l3$c)
+```
+
+Consequently, objects stored in a list behave just as they would outside of the list. For example, if a function is
+stored as an element of a list, we can call it directly:
+
+```{r}
+## Create a trivial function
+addOne <- function(x) { x + 1 }
+
+## Store our function object in the 'l3' list
+l3$myFunction <- addOne
+
+## Call both versions of our function
+addOne(2)
+l3$myFunction(2)
+```
+
+::: practice
+
+## Practice
+
+Use the list that you created in the last practice problem for this exercise.
+
+Using a single command, test if your eye color OR your hair color is also your favorite color.
+
+:::: {.panel-tabset}
+
+## {{< var tab_title.question >}}
+
+```{webr-r}
+
+```
+
+## {{< var tab_title.hint >}}
+
+Recall the basic logical operators:
+
+- `==`, `!=`: Equal, Not Equal
+- `>`, `<`, `>=`, `<=`: Greater Than, Less Than
+- `&`, `|`: Logical AND, Logical OR (not exclusive)
+
+## {{< var tab_title.solution >}}
+
+```{r, echo = FALSE, include = FALSE}
+myInfo <- list(name = "bob",
+               eyes = "blue",
+               hair = "black",
+               color = "green")
+```
+
+```{r}
+myInfo$eyes == myInfo$color | myInfo$hair == myInfo$color
+```
+
+::::
+
+:::

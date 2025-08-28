@@ -1,0 +1,71 @@
+---
+title: "Creating Lists"
+---
+
+## Generating Lists
+
+We construct lists using the `list()` function. Lists place essentially no restrictions on the nature of their contents:
+
+- A list slot can hold any valid R object (including other lists).
+- The contents of different list slots do not need to have the same type (nor do they need to be different types).
+- The contents of different list slots do not need to have the same---or otherwise conformable---sizes.
+
+```{r}
+(l1 <- list(1, 2, 3))
+(l2 <- list("bob", TRUE, 33, 42+3i))
+(l3 <- list(c(1, 2), c(3, 4)))
+```
+
+
+## Naming List Elements
+
+We can name the elements of a list by defining the list slots via key-value pairs.
+
+```{r}
+l4 <- list(name = "bob",
+           alive = TRUE,
+           age = 33,
+           relationshipStatus = 42+3i)
+l4
+```
+
+We can use the `names()` function to access and modify the names of a list's slots.
+
+```{r}
+names(l4)
+names(l1) <- c("first", "second", "third")
+l1
+```
+
+::: practice
+
+## Practice
+
+Create a list to describe yourself. Include the following named elements in your list:
+
+1. Your Name
+1. Your Eye Color
+1. Your Hair Color
+1. Your Favorite Color
+
+:::: {.panel-tabset}
+
+## {{< var tab_title.question >}}
+
+```{webr-r}
+
+```
+
+## {{< var tab_title.solution >}}
+
+```{r}
+myInfo <- list(name = "bob",
+               eyes = "blue",
+               hair = "black",
+               color = "green")
+myInfo
+```
+
+::::
+
+:::

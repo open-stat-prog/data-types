@@ -1,8 +1,8 @@
 website:
 
-  title: "OSP Module Template"
+  title: "OSP Data Types"
 
-  site-url: "https://www.openstatprog.com/module-template/"
+  site-url: "https://www.openstatprog.com/data-types/"
 
   page-navigation: true
 
@@ -47,13 +47,16 @@ website:
           - href: tutorials/matrices/matrix_selection.qmd
           - href: quizzes/matrices/index.qmd
             text: "Knowledge Quiz"
-      - section: tutorials/list_df/index.qmd
-        text: "Lists and Dataframes"
+      - section: tutorials/lists/index.qmd
+        text: "Lists"
         contents:
-          - href: tutorials/list_df/creating_list.qmd
-          - href: tutorials/list_df/lists_element.qmd
-          - href: tutorials/list_df/data_frame.qmd
-          - href: tutorials/list_df/df_selection.qmd
+          - href: tutorials/lists/creating_lists.qmd
+          - href: tutorials/lists/manipulating_lists.qmd
+      - section: tutorials/data_frames/index.qmd
+        text: "Data Frames"
+        contents:
+          - href: tutorials/data_frames/data_frame.qmd
+          - href: tutorials/data_frames/df_selection.qmd
           - href: quizzes/list_df/index.qmd
             text: "Knowledge Quiz"
       - section: tutorials/factors/index.qmd

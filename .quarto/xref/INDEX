@@ -199,5 +199,29 @@
   },
   "quizzes/list_df/questions/df_row.Rmd": {
     "df_row.html": "69245338"
+  },
+  "tutorials/data_frames/creating_list.qmd": {
+    "creating_list.html": "04fe9df9"
+  },
+  "tutorials/data_frames/data_frame.qmd": {
+    "data_frame.html": "2b6a9ddd"
+  },
+  "tutorials/data_frames/df_selection.qmd": {
+    "df_selection.html": "403d0faf"
+  },
+  "tutorials/data_frames/index.qmd": {
+    "index.html": "3dd77104"
+  },
+  "tutorials/data_frames/lists_element.qmd": {
+    "lists_element.html": "f6866e61"
+  },
+  "tutorials/lists/creating_lists.qmd": {
+    "creating_lists.html": "df1416ff"
+  },
+  "tutorials/lists/index.qmd": {
+    "index.html": "d02e33c8"
+  },
+  "tutorials/lists/manipulating_lists.qmd": {
+    "manipulating_lists.html": "a3e235e8"
   }
 }
