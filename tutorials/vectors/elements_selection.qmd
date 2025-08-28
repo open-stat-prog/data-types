@@ -1,0 +1,58 @@
+---
+title: "Vector Elements"
+---
+
+## Accessing and Assigning Vector Elements
+
+We can access or modify specific elements in a vector using square brackets `[]`. To retrieve the value at a specific position, we use the element’s index inside the brackets. Similarly, we can assign new values to individual elements by specifying their index.
+
+```{r}
+(y <- 1:5)
+y[3]
+
+y[1] <- 77
+y
+```
+
+
+To modify multiple elements at once, we provide a vector of indices inside the brackets. 
+
+```{r}
+y[c(2, 4)] <- -22
+y
+```
+
+
+::: {.callout-note}
+
+Note that when subsetting, all indices must be placed inside a single pair of square brackets. Using a comma inside `[]` is reserved for multi-dimensional structures like matrices or data frames—and will result in an error when used with vectors.
+
+:::
+
+::: practice
+
+## Practice
+
+a. Create a vector with the numbers from 1 to 5
+b. Substitute all the even numbers with 0
+
+:::: {.panel-tabset}
+## {{< var tab_title.question >}}
+
+```{webr-r}
+
+```
+
+## {{< var tab_title.solution >}}
+
+```{r}
+(y <- 1:5)
+
+y[c(2,4)] <- 0
+y
+```
+::::
+
+:::
+
+

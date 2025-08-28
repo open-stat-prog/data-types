@@ -1,0 +1,76 @@
+website:
+
+  title: "OSP Module Template"
+
+  site-url: "https://www.openstatprog.com/module-template/"
+
+  page-navigation: true
+
+  back-to-top-navigation: true
+
+  navbar:
+    title: false
+    background: primary
+    foreground: dark
+    left:
+      - href: "https://www.openstatprog.com"
+        text: "Open-Stat-Prog"
+      - href: index.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href: https://github.com/open-stat-prog/data-types
+          - text: Report a Bug
+            href: https://github.com/open-stat-prog/data-types/issues
+
+  sidebar:
+    style: "floating"
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: "Overview"
+      - section: tutorials/vectors/index.qmd
+        text: "Vectors"
+        contents:
+        - href: tutorials/vectors/atomic_modes.qmd
+        - href: tutorials/vectors/generating_vectors.qmd
+        - href: tutorials/vectors/vector_operations.qmd
+        - href: tutorials/vectors/elements_selection.qmd
+        - href: quizzes/vectors/index.qmd
+          text: "Knowledge Quiz"
+      - section: tutorials/matrices/index.qmd
+        text: "Matrices"
+        contents:
+          - href: tutorials/matrices/matrix_creation.qmd
+          - href: tutorials/matrices/matrix_operation.qmd
+          - href: tutorials/matrices/matrix_selection.qmd
+          - href: quizzes/matrices/index.qmd
+            text: "Knowledge Quiz"
+      - section: tutorials/list_df/index.qmd
+        text: "Lists and Dataframes"
+        contents:
+          - href: tutorials/list_df/creating_list.qmd
+          - href: tutorials/list_df/lists_element.qmd
+          - href: tutorials/list_df/data_frame.qmd
+          - href: tutorials/list_df/df_selection.qmd
+          - href: quizzes/list_df/index.qmd
+            text: "Knowledge Quiz"
+      - section: tutorials/factors/index.qmd
+        text: "Factors"
+        contents:
+          - href: tutorials/factors/gen_factors.qmd
+          - href: tutorials/factors/num_and_fac.qmd
+          - href: quizzes/factors/index.qmd
+            text: "Knowledge Quiz"
+      - href: conclusion.qmd
+
+  page-footer:
+    background: primary
+    foreground: dark
+    left: |
+      [![](/assets/images/UU_logo_2021_EN_BLACK.png){fig-alt="UU" width=200px}](https://uu.nl) 
+    right: 
+      - text: "&copy; 2025"
+      - href: "https://github.com/open-stat-prog"
+        text: Open-Stat-Prog

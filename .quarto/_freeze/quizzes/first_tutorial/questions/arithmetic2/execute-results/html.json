@@ -1,0 +1,15 @@
+{
+  "hash": "55dd580eceb12f1810afeba290a1d9d4",
+  "result": {
+    "engine": "knitr",
+    "markdown": "\n::: {.cell layout-align=\"center\"}\n\n:::\n\n\nQuestion\n========\nWhat is the value of $x$ in the following equation?\n\n$$\nx = \\frac{1 + 1}{4}\n$$\n\nRound your answer to two decimal places.\n\nSolution\n========\nAfter rounding, we get 0.50.\n\nMeta-information\n================\nexname: Arithmetic\nextype: num\nexsolution: 0.50\nextol: 0.01\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

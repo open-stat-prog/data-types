@@ -1,0 +1,43 @@
+---
+title: "Creating a List"
+---
+
+## How to generate a list
+
+We construct lists using the `list()` function. Each element of the list can be of a different type, and R stores them without coercion. We can even put vectors as element of a list. This is one of the defining characteristics of lists: they preserve the type and structure of their contents. 
+
+```{r}
+(l1 <- list(1, 2, 3))
+(l2 <- list("bob", TRUE, 33, 42+3i))
+```
+
+We can even put vectors as element of a list.
+
+```{r}
+(l3 <- list(c(1,2),c(3,4)))
+```
+
+## Naming List Elements
+
+While list elements are unnamed by default, it is often helpful to assign names to the elements, particularly when the list is intended to represent a structured record or object. Names can be provided directly when the list is created.
+
+```{r}
+(l4 <- list(name = "bob",
+            alive = TRUE,
+            age = 33,
+            relationshipStatus = 42+3i))
+
+```
+
+This named list behaves much like a simple record or dictionary, with named fields that can be accessed directly. Alternatively, names can be assigned or modified after list creation using the `names()` function.
+
+```{r}
+names(l1) <- c("first", "second", "third")
+l1
+```
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+---
+title: "Fators as a class"
+---
+
+## Factors Are Not Numeric Data
+Despite being stored as integers, factors are not considered numeric by R. They have their own class, `factor`, which distinguishes them from numeric or integer vectors:
+
+```{r}
+f1 <- factor(sample(1:3, 20, TRUE), labels = c("red", "yellow", "blue"))
+is.numeric(f1)   
+is.integer(f1)
+class(f1)
+```
+
+This distinction is critical, especially when performing operations that are only valid on numeric data. Since factors represent categories, not quantities, mathematical operations on factors are generally meaningless—and R will prevent them:
+
+```{r}
+f1 + 1     
+mean(f1)   
+```
+
+Trying to treat a factor as if it were numeric leads to errors, which is by design. This ensures that categorical data is not accidentally interpreted as numerical input, which could result in misleading analyses.
+

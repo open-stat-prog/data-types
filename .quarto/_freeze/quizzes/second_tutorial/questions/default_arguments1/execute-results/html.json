@@ -1,0 +1,15 @@
+{
+  "hash": "4c9876ad94ebf1b7e5b963de8dbcf05a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "Question\n========\nWhich section of an R package help file would you reference to learn the default values for a function's arguments.\n\nAnswerlist\n----------\n* Description\n* Usage\n* Arguments\n* Details\n* Value\n* See Also\n* Examples\n\nSolution\n========\nBoth the *Usage* and *Arguments* sections will show the default values for arguments that have default values defined.\n\nMeta-information\n================\nexname: Default Arguments Section\nextype: schoice\nexsolution: 0110000\nexshuffle: 5\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

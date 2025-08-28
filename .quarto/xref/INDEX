@@ -1,0 +1,203 @@
+{
+  "quizzes/first_tutorial/questions/arithmetic2.Rmd": {
+    "arithmetic2.html": "ba60039b"
+  },
+  "quizzes/first_tutorial/questions/logical.Rmd": {
+    "logical.html": "7380a806"
+  },
+  "quizzes/first_tutorial/questions/default_arguments2.Rmd": {
+    "default_arguments2.html": "9a6cb3a3"
+  },
+  "quizzes/first_tutorial/index.qmd": {
+    "index.html": "a7d24316"
+  },
+  "quizzes/second_tutorial/questions/bad_question.Rmd": {
+    "bad_question.html": "8a6f3f68"
+  },
+  "quizzes/second_tutorial/questions/default_arguments1.Rmd": {
+    "default_arguments1.html": "49d4b3f0"
+  },
+  "quizzes/second_tutorial/index.qmd": {
+    "index.html": "66f0c828"
+  },
+  "in_progress.qmd": {
+    "in_progress.html": "c8008d46"
+  },
+  "conclusion.qmd": {
+    "conclusion.html": "be3300aa"
+  },
+  "index.qmd": {
+    "index.html": "6a25ea79"
+  },
+  "tutorials/first_tutorial/topic3.qmd": {
+    "topic3.html": "b8caa036"
+  },
+  "tutorials/first_tutorial/topic2.qmd": {
+    "topic2.html": "4353fbbe"
+  },
+  "tutorials/first_tutorial/topic1.qmd": {
+    "topic1.html": "c1b59aa8"
+  },
+  "tutorials/first_tutorial/index.qmd": {
+    "index.html": "62290119"
+  },
+  "tutorials/second_tutorial/topic2.qmd": {
+    "topic2.html": "72d58571"
+  },
+  "tutorials/second_tutorial/topic1.qmd": {
+    "topic1.html": "6cd39110"
+  },
+  "tutorials/second_tutorial/index.qmd": {
+    "index.html": "cb0680d1"
+  },
+  "404.qmd": {
+    "404.html": "3e904150"
+  },
+  "tutorials/first_tutorial/elements_selection.qmd": {
+    "elements_selection.html": "52a104c6"
+  },
+  "tutorials/first_tutorial/vector_operations.qmd": {
+    "vector_operations.html": "4d67cf6f"
+  },
+  "tutorials/first_tutorial/atomic_modes.qmd": {
+    "atomic_modes.html": "cdb41975"
+  },
+  "tutorials/first_tutorial/generating_vectors.qmd": {
+    "generating_vectors.html": "bdf5cd4b"
+  },
+  "tutorials/first_tutorial/topic4.qmd": {
+    "topic4.html": "f5de24ec"
+  },
+  "quizzes/first_tutorial/questions/vec_moltiplication.Rmd": {
+    "vec_moltiplication.html": "51f9f3b9"
+  },
+  "quizzes/first_tutorial/questions/1_to_5.Rmd": {
+    "1_to_5.html": "978b42b1"
+  },
+  "tutorials/matrices/topic2.qmd": {
+    "topic2.html": "fd12310d"
+  },
+  "tutorials/matrices/topic1.qmd": {
+    "topic1.html": "9c8aac50"
+  },
+  "tutorials/matrices/index.qmd": {
+    "index.html": "927971ef"
+  },
+  "tutorials/vectors/elements_selection.qmd": {
+    "elements_selection.html": "171293cb"
+  },
+  "tutorials/vectors/vector_operations.qmd": {
+    "vector_operations.html": "09c91915"
+  },
+  "tutorials/vectors/index.qmd": {
+    "index.html": "c4a1dcf3"
+  },
+  "tutorials/vectors/atomic_modes.qmd": {
+    "atomic_modes.html": "e3fbf0e9"
+  },
+  "tutorials/vectors/generating_vectors.qmd": {
+    "generating_vectors.html": "fcf47964"
+  },
+  "quizzes/ vectors/questions/1_to_5.Rmd": {
+    "1_to_5.html": "f91921c1"
+  },
+  "quizzes/ vectors/questions/vec_moltiplication.Rmd": {
+    "vec_moltiplication.html": "02b9071f"
+  },
+  "quizzes/matrices/questions/bad_question.Rmd": {
+    "bad_question.html": "e841e43e"
+  },
+  "quizzes/matrices/questions/default_arguments1.Rmd": {
+    "default_arguments1.html": "2c5d3875"
+  },
+  "quizzes/matrices/index.qmd": {
+    "index.html": "3a87d5ef"
+  },
+  "quizzes/vectors/questions/1_to_5.Rmd": {
+    "1_to_5.html": "bd437237"
+  },
+  "quizzes/vectors/questions/vec_moltiplication.Rmd": {
+    "vec_moltiplication.html": "d875e9b1"
+  },
+  "quizzes/vectors/index.qmd": {
+    "index.html": "b3003807"
+  },
+  "tutorials/matrices/matrix_selection.qmd": {
+    "matrix_selection.html": "d3f78abb"
+  },
+  "tutorials/matrices/matrix_operation.qmd": {
+    "matrix_operation.html": "e11c8d1a"
+  },
+  "tutorials/matrices/matrix_creation.qmd": {
+    "matrix_creation.html": "fc93de6b"
+  },
+  "tutorials/list_df/creating_list.qmd": {
+    "creating_list.html": "3e35f9f0"
+  },
+  "tutorials/list_df/lists_elemnent.qmd": {
+    "lists_elemnent.html": "13ea0b35"
+  },
+  "tutorials/list_df/data_frame.qmd": {
+    "data_frame.html": "90a747bb"
+  },
+  "quizzes/list_df/questions/bad_question.Rmd": {
+    "bad_question.html": "47b01078"
+  },
+  "quizzes/list_df/questions/default_arguments1.Rmd": {
+    "default_arguments1.html": "f8870cfc"
+  },
+  "quizzes/list_df/index.qmd": {
+    "index.html": "0b5ac52c"
+  },
+  "tutorials/list_df/lists_element.qmd": {
+    "lists_element.html": "277239a9"
+  },
+  "tutorials/list_df/index.qmd": {
+    "index.html": "9bab7973"
+  },
+  "tutorials/list_df/df_selection.qmd": {
+    "df_selection.html": "3600f161"
+  },
+  "quizzes/factors/questions/bad_question.Rmd": {
+    "bad_question.html": "f7585dd6"
+  },
+  "quizzes/factors/questions/default_arguments1.Rmd": {
+    "default_arguments1.html": "027187d7"
+  },
+  "quizzes/factors/index.qmd": {
+    "index.html": "b4fad246"
+  },
+  "tutorials/factors/num_and_fac.qmd": {
+    "num_and_fac.html": "6498e426"
+  },
+  "tutorials/factors/gen_factors.qmd": {
+    "gen_factors.html": "83850a58"
+  },
+  "tutorials/factors/index.qmd": {
+    "index.html": "7bc96af3"
+  },
+  "quizzes/matrices/questions/1_to_5.Rmd": {
+    "1_to_5.html": "44f79bbd"
+  },
+  "quizzes/matrices/questions/vec_moltiplication.Rmd": {
+    "vec_moltiplication.html": "45272569"
+  },
+  "quizzes/matrices/questions/create_matrix.Rmd": {
+    "create_matrix.html": "c8253d63"
+  },
+  "quizzes/matrices/questions/sub_matrix.Rmd": {
+    "sub_matrix.html": "a4d75fad"
+  },
+  "quizzes/factors/questions/factors_level.Rmd": {
+    "factors_level.html": "a46f952a"
+  },
+  "quizzes/list_df/questions/list_name.Rmd": {
+    "list_name.html": "7873e529"
+  },
+  "quizzes/list_df/questions/list_change.Rmd": {
+    "list_change.html": "90c43e77"
+  },
+  "quizzes/list_df/questions/df_row.Rmd": {
+    "df_row.html": "69245338"
+  }
+}

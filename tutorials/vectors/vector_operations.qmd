@@ -1,0 +1,98 @@
+---
+title: "Vector Operations"
+---
+
+## Arithmetic with Vectors
+
+We can perform various arithmetic operations using vectors in R. The most important thing to keep in mind when doing vector arithmetic is the length of the vectors involved. We can check the length of a vector using the `length()` function.
+
+```{r}
+y <- 1:4
+length(y)
+```
+
+Arithmetic in R works element-wise when applied to vectors. That means each operation is performed between corresponding elements of the vectors:
+
+```{r}
+(x <- rep(2, 4))
+
+y + x
+y - x
+y / x
+y * x
+
+```
+
+If two vectors involved in an operation are of unequal lengths, R will recycle the shorter one to match the length of the longer. This happens silently, which can be useful but also potentially dangerous:
+
+```{r}
+z <- c(1, 2)
+y - z
+```
+
+
+Here, the shorter vector `z` is recycled to become `1, 2, 1, 2` so it can align with the four elements of `y`.
+
+::: {.callout-note}
+
+Note that if the lengths of the vectors are not multiples of each other, R will return a warning.
+
+:::
+
+We can also apply operations between a vector and a single number. In this case, the number is applied to each element of the vector automatically:
+
+```{r}
+y - 1
+y * 3
+y / 3
+```
+
+## Logical Tests with vectors
+
+Logical comparisons in R can be applied directly to vectors. These comparisons are performed element by element, returning a logical vector of the same length. For example, we can check which elements are equal to a specific value, or whether they satisfy compound conditions using logical operators.
+
+```{r}
+# check which elements of y are equal to 4
+y == 4
+# check which elements of y are equal to 4 or 2
+y == 4 | y == 2
+```
+
+Be cautious when comparing a vector to another vector of a different length. R performs comparisons position by position and will silently recycle the shorter vector if necessary.
+
+```{r}
+# compare the i-th element in the first vector with the i-th element 
+# in the second vector
+y == c(4, 2)
+```
+
+::: practice
+
+## Practice
+
+a. Create the object `myVec` by running this two lines of code below.
+b. Programmatically create a logical vector that indicates which elements of myVec are less than 3.
+
+:::: {.panel-tabset}
+## {{< var tab_title.question >}}
+
+```{webr-r}
+set.seed(235711)
+myVec <- sample(1:5)
+```
+
+## {{< var tab_title.solution >}}
+
+```{r}
+set.seed(235711)
+myVec <- sample(1:5)
+
+(y <- myVec < 3)
+```
+::::
+
+:::
+
+
+
+

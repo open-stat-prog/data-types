@@ -1,0 +1,42 @@
+Question
+========
+```{r, echo = FALSE, include = FALSE}
+l <- list(name = "bob",
+          age = 25,
+          height = 180,
+          hair = "blue")
+```
+
+In the list `l` below there is an error, the information for the eyes color is wrongly saved as `hair`, which of this options will change the name of the element?
+
+```{r, echo=FALSE}
+l
+```
+
+
+Answerlist
+----------
+* `names(l)[4] <- "eyes"`
+* `l$hair <- names("eyes")`
+* `l[[4]] <- "eyes"`
+* `l[4] <- "eyes"`
+* `names(l)$hair <- "eyes"`
+
+Solution
+========
+The correct way to change the name of the value is `names(l)[4] <- "eyes"`
+
+Answerlist
+----------
+* Correct
+* Wrong: `names("eyes")` is `NULL` since a character string doesn't have a name, so it will just erase the list element
+* Wrong: This will change the value itself and not the name
+* Wrong: This will change the value itself and not the name
+* Wrong: This will return an error since the `names()` element is a vector and not a list
+
+Meta-information
+================
+exname: Default Arguments Selection
+extype: schoice
+exsolution: 10000
+exshuffle: 5

@@ -1,0 +1,29 @@
+---
+title: "Matrix Elements"
+---
+
+## Accessing and Modifying Matrix Elements
+
+We can access and assign values within a matrix using square brackets, just like with vectors—but with one key difference: matrices require two indices, one for the row and one for the column.
+
+```{r}
+(m1 <- matrix(1:9,3,3))
+m1[1:2, 1:3]
+```
+
+This grabs the top two rows and all three columns. If we want specific entries, we can use more targeted indexing:
+
+```{r}
+(m2 <- m1[c(1, 3), 2])
+```
+
+This selects the second column from rows 1 and 3.
+
+Assignment works the same way—we simply specify a position and assign a new value:
+
+```{r}
+(m3 <- matrix(1,3,3))
+m3[1, 2] <- 33
+m3[2:3, c(1, 3)] <- 44
+m3
+```
