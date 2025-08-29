@@ -2,14 +2,32 @@
 title: "Atomic Modes"
 ---
 
-## Different types of vectors
+Vectors in R are essentially dimensionless sequences of homogeneously typed elements. These elements can have one of
+six types, called *atomic modes*.
 
-Vectors in R are essentially sequences of elements. These elements can be of six different types, called *atomic modes*. It's important to note that a vector must have all its elements of the same type, and trying to assign elements of different types to the same vector will result in coercion or an error.
+1. Numeric/Double
+1. Integer
+1. Complex
+1. Logical
+1. Character
+1. Raw
 
+The first three types represent different types of numeric data, while the last three types represent different types of
+non-numeric data. It's important to note that all the elements in a given vector must have the same type.
 
-### Numeric/double
+## Numeric/Double
 
-The first type is the *numeric* or *double* type, and represent the real numbers, the numbers that can have decimal place, like 6.01, 0.04 or -42.1. This is the default type for numbers in R, so if we store a number in an object without specifying otherwise, the type of that object will be numeric. 
+::: {.column-margin}
+
+:::: {.callout-note}
+R's numeric mode is equivalent to a double-precision floating point value.
+::::
+
+:::
+
+*Numeric* vectors store real numbers (e.g., 6.01, 0.04, -42.1, 1.0). The numeric mode is the default type for numbers in
+R, so if we store a number in an object without specifying otherwise, the type of that object will be numeric (even if
+the value is a whole number). 
 
 ```{r}
 v1 <- vector("numeric", 3)
@@ -19,50 +37,68 @@ v1 <- vector("double", 3)
 v1
 ```
 
-### Logical
+## Integer
 
-Another fundamental type is the *logical* type, which represents truth values. Logical vectors can only contain the values `TRUE` or `FALSE`.
+::: {.column-margin}
+
+:::: {.callout-note}
+R's integer mode is equivalent to a signed long integer.
+::::
+
+:::
+
+The *integer* type represents whole numbers (e.g., 1, 100, -5, 0). While integers and numeric (double) values may look
+similar, they are distinct types in R. Integers are used when exact whole-number representation is needed. They can also
+offer slight computational advantages in terms of memory usage and performance, especially when working with large datasets.
 
 ```{r}
-v2 <- vector("logical",3)
+v2 <- vector("integer", 3)
 v2
 ```
 
-### Character
+## Complex
 
-The character type is used to represent text. Character vectors contain strings, which are sequences of characters enclosed in quotation marks, like "apple", "data", or "42".
+The *complex* type represents complex numbers (e.g., $3.0 + 4.1i$, $-0.2 + 8.01i$, $3.1 - 27.0i$). In R, complex numbers
+are written with an `i` to indicate the imaginary unit, like `1+2i` or `0-3.5i`. 
 
 ```{r}
-v3 <- vector("character",3)
+v3 <- vector("complex",3)
 v3
 ```
 
-### Integer
+## Logical
 
-The *integer* type represents whole numbers without decimal places, such as 1, 100, or -5. While integers and numeric (double) values may look similar, they are distinct types in R. Integers are used when exact whole-number representation is needed. They can also offer slight computational advantages in terms of memory usage and performance, especially when working with large datasets.
+*Logical* vectors store boolean values (i.e., true, false). Logical vectors can only contain the values `TRUE` or `FALSE`.
 
 ```{r}
-v4 <- vector("integer",3)
+v4 <- vector("logical", 3)
 v4
 ```
 
-### Complex
+## Character
 
-The *complex* type is used to represent complex numbers, which have both a real and an imaginary part. In R, complex numbers are written with an i to indicate the imaginary unit, like 1+2i or 0-3.5i. 
+::: {.column-margin}
+
+:::: {.callout-note}
+R doesn't have separate string and character types: any string-like data is represented via character vectors.
+::::
+
+:::
+
+The *character* type is used to represent text. Character vectors contain strings, which are sequences of characters
+enclosed in quotation marks (e.g., "foo", "bar", "alice & bob", "42", "FALSE").
 
 ```{r}
-v5 <- vector("complex",3)
-v5
+v4 <- vector("character", 3)
+v4
 ```
 
-### Raw
+## Raw
 
-The *raw* type represents raw bytes of data, typically used for low-level operations.  This type is rarely used.
+The *raw* type represents raw bytes of data, typically used for low-level operations. This type is rarely used in typical
+data analyses.
 
 ```{r}
-v6 <- vector("raw",3)
+v6 <- vector("raw", 3)
 v6
 ```
-
-
-

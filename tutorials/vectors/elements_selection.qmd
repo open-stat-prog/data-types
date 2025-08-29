@@ -1,43 +1,82 @@
 ---
-title: "Vector Elements"
+title: "Manipulating Vectors"
 ---
 
-## Accessing and Assigning Vector Elements
+## Accessing Vector Elements
 
-We can access or modify specific elements in a vector using square brackets `[]`. To retrieve the value at a specific position, we use the element’s index inside the brackets. Similarly, we can assign new values to individual elements by specifying their index.
+We can access specific elements in a vector using the square bracket selection operator, `[]`. To select specific
+elements, provide an integer vector defining the positions of the desired elements.
 
 ```{r}
-(y <- 1:5)
+# Define some vector
+(y <- letters[1:10])
+
+# Select the third entry in y
 y[3]
 
-y[1] <- 77
-y
+# Select the second through fifth elements of y
+y[2:5]
+
+# Select the fourth, sixth, seventh, and eighth elements of y
+y[c(4, 6, 8, 7)]
+
+# Same as above but combining c() and : 
+y[c(4, 6:8)]
 ```
 
+When selecting vector elements, we must use a single vector to index the target elements.
 
-To modify multiple elements at once, we provide a vector of indices inside the brackets. 
+```{r, error = TRUE}
+y[2, 3]
+```
+
+Specifying multiple arguments inside `[]` is reserved for multi-dimensional structures like matrices or data frames and
+will trigger an error with vectors.
+
+## Modifying Vector Elements
+
+Above, we used the selection operator, `[]`, to extract vector elements, but you shouldn't think about that operator as
+a "subsetting operator". I prefer to think about the selection operator as designating some part of a vector for further
+processing. In the above examples, the further processing was simply printing the selected elements to the R console, but
+we can also use the selection operators to modify the designated vector elements.
+
+We can overwrite vector elements with new values by selecting the target elements using the `[]` operator and assigning
+new values with the ordinary assignment operator, `<-`.
 
 ```{r}
-y[c(2, 4)] <- -22
+# Replace the first elements of y with "bob"
+y[1] <- "bob"
+y
+
+# Replace the fourth and sixth elements of y with "foo" and "bar", respectively
+y[c(4, 6)] <- c("foo", "bar")
 y
 ```
 
+Overwriting vector elements uses ordinary recycling to harmonize the lengths of the selected set of elements and the
+length of the replacement vector.
 
-::: {.callout-note}
+```{r, warning = TRUE}
+y[8:10] <- "alice"
+y
 
-Note that when subsetting, all indices must be placed inside a single pair of square brackets. Using a comma inside `[]` is reserved for multi-dimensional structures like matrices or data frames—and will result in an error when used with vectors.
+y[1:3] <- c("hello", "world")
+y
 
-:::
+## Extra elements in the replacement vector are dropped with a warning
+y[1:4] <- c("It", "was", "the", "best", "of", "times")
+y
+```
 
 ::: practice
 
 ## Practice
 
-a. Create a vector with the numbers from 1 to 5
-b. Substitute all the even numbers with 0
+1. Create an integer vector called `myVec` that contains all the whole numbers from 1 to 11.
+1. Use a single command to replace all the even numbers in `myVec` with 0.
 
 :::: {.panel-tabset}
-## {{< var tab_title.question >}}
+## {{< var tab_title.editor >}}
 
 ```{webr-r}
 
@@ -46,13 +85,10 @@ b. Substitute all the even numbers with 0
 ## {{< var tab_title.solution >}}
 
 ```{r}
-(y <- 1:5)
-
-y[c(2,4)] <- 0
-y
+myVec <- 1:11
+myVec[seq(2, 10, 2)] <- 0
+myVec
 ```
 ::::
 
 :::
-
-

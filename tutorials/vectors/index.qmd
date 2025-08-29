@@ -2,6 +2,8 @@
 title: "Vectors"
 ---
 
-In R, vectors are the fundamental data structure at the heart of almost everything you do. A vector is simply an ordered collection of values, and all the elements in a vector must be of the same type—whether that’s numbers, characters, or logical values. 
+Vectors are the simplest data structure in R: scalars don't exist in R. A vector is simply an ordered collection of
+values with the same type (e.g., all numbers, all character strings, or all boolean values). 
 
-Whenever you create data, manipulate it, or perform calculations, you’re almost always working with vectors, whether you realize it or not. Even more complex objects like data frames and matrices are built on top of vectors. 
+Whenever you're working with R, you’re almost always using vectors, whether you realize it or not. Vectors are very
+simple objects, but the more complex objects you'll encounter (e.g., data frames, lists, factors) are built from vectors. 

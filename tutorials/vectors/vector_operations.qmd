@@ -2,16 +2,18 @@
 title: "Vector Operations"
 ---
 
-## Arithmetic with Vectors
-
-We can perform various arithmetic operations using vectors in R. The most important thing to keep in mind when doing vector arithmetic is the length of the vectors involved. We can check the length of a vector using the `length()` function.
+R vectors are dimensionless objects. Unlike the mathematical column vectors with which you may be familiar, R vectors
+don't have rows or columns, but they do have length. We can check the length of a vector using the `length()` function.
 
 ```{r}
 y <- 1:4
 length(y)
 ```
 
-Arithmetic in R works element-wise when applied to vectors. That means each operation is performed between corresponding elements of the vectors:
+## Arithmetic
+
+Arithmetic in R works element-wise when applied to vectors. That is, the requested operation is performed between
+matched elements of the vectors. In this way, R vectors behave much like arrays do in most other programming languages.
 
 ```{r}
 (x <- rep(2, 4))
@@ -20,60 +22,137 @@ y + x
 y - x
 y / x
 y * x
-
 ```
 
-If two vectors involved in an operation are of unequal lengths, R will recycle the shorter one to match the length of the longer. This happens silently, which can be useful but also potentially dangerous:
+### Recycling
 
-```{r}
-z <- c(1, 2)
-y - z
-```
-
-
-Here, the shorter vector `z` is recycled to become `1, 2, 1, 2` so it can align with the four elements of `y`.
-
-::: {.callout-note}
-
-Note that if the lengths of the vectors are not multiples of each other, R will return a warning.
-
-:::
-
-We can also apply operations between a vector and a single number. In this case, the number is applied to each element of the vector automatically:
-
-```{r}
-y - 1
-y * 3
-y / 3
-```
-
-## Logical Tests with vectors
-
-Logical comparisons in R can be applied directly to vectors. These comparisons are performed element by element, returning a logical vector of the same length. For example, we can check which elements are equal to a specific value, or whether they satisfy compound conditions using logical operators.
-
-```{r}
-# check which elements of y are equal to 4
-y == 4
-# check which elements of y are equal to 4 or 2
-y == 4 | y == 2
-```
-
-Be cautious when comparing a vector to another vector of a different length. R performs comparisons position by position and will silently recycle the shorter vector if necessary.
-
-```{r}
-# compare the i-th element in the first vector with the i-th element 
-# in the second vector
-y == c(4, 2)
-```
+If two vectors involved in an element-wise operation have different lengths, R will *recycle* the elements of the shorter
+vector until each element in the longer vector can be matched with an element from the shorter vector.
 
 ::: practice
 
 ## Practice
 
-a. Create the object `myVec` by running this two lines of code below.
-b. Programmatically create a logical vector that indicates which elements of myVec are less than 3.
+:::: {.panel-tabset}
+
+## {{< var tab_title.question >}}
+
+Can you see how R is applying recycling to calculate the elements of `w`?
+
+- Explain how the recycling algorithm works in this example.
+
+```{r}
+z <- c(1, 2)
+w <- y - z
+w
+```
+
+## {{< var tab_title.solution >}}
+
+In this example, `y` has four elements, but `z` has only two. So, R re-uses the two elements in `z` to define matches
+for all four elements in `y` and specify the four differences needed to define the elements of `w`.
+
+1. $w_1 = y_1 - z_1$
+1. $w_2 = y_2 - z_2$ $\leftarrow$ After calculating the second difference, we've run out of elements in `z`.
+1. $w_3 = y_3 - z_1$ $\leftarrow$ Beginning with the third difference, we start recycling the elements of `z`.
+1. $w_4 = y_4 - z_2$
+
+::::
+
+:::
+
+If the length of the longer vector is divisible by the length of the shorter vector, R will recycle silently (i.e.,
+without any messages or warnings). So, you need to vigilant and make sure you don't accidentally trigger recycling when
+you don't want it.
+
+In cases where the length of the shorter vector doesn't evenly divide the length of the longer vector, R will still use
+execute the requested operation and apply recycling, but it will also return a warning.
+
+```{r, warning = TRUE}
+a <- 1:4
+b <- 1:2
+c <- 1:5
+
+a + b # silent recycling
+a + c # recycling with warning
+```
+
+#### Why Recycling is a Useful Feature
+
+At this point, if you have any predilection toward strictly typed programming languages, all this recycling business
+might sound like insanity, but there's a method to the madness. Let's consider a few examples that demonstrate how 
+recycling can actually be very helpful in day-to-day programmatic data analysis.
+
+The following code looks like it should implement scalar multiplication, and outcome looks like the result of a scalar
+multiplication. But R doesn't have scalars, and vector arithmetic in R doesn't follow standard linear algebraic rules,
+so our intuitive reading of this expression can't be correct. 
+
+```{r}
+3 * y
+```
+
+In fact, the preceding code is actually doing element-wise multiplication of a length-one vector, `3`, and a length-four
+vector, `y`, and recycling the elements of the length-one vector to resolve the length difference. In this example, 
+recycling provides two benefits:
+
+1. We get to write code that reads like the mathematical representation of the operation we're trying to implement
+1. Our code produces the same result as the mathematical operation it appears to represent
+
+The following three expressions follow the same pattern as the last example but provide more compelling evidence for the
+real-world usefulness of recycling. These expressions don't represent valid operations under the conventional rules of
+linear algebra, and they wouldn't be valid commands in a highly structure programming language like C. Yet, the intended
+operations are intuitively obvious, and R will use recycling to execute the operations we expect.
+
+```{r}
+y - 1
+y + 3
+y / 3
+```
+
+## Logical Tests
+
+Logical comparisons between vectors test some logical relation between the vectors and return a logical vector that
+encodes the answer to whatever TRUE/FALSE question the logical relation tested. These comparisons follow the same rules
+as vector arithmetic:
+
+- Operators are applied element-wise
+- Recycling is used to resolve length differences
+
+```{r}
+# Check which elements of y are equal to 4
+y == 4
+
+# Check which elements of y are equal to 4 or 2
+y == 4 | y == 2
+```
+
+We need to be especially mindful of the vector operation rules when applying logical comparisons to vectors. When defining
+logical tests, intuition can easily fail us. For example, it would be natural to read the following code as implementing
+the same test as the previous expression, but the two results are clearly different. Why?
+
+```{r}
+y == c(4, 2)
+```
+
+As you've probably surmised, recycling is causing the discrepancy. We can clarify the differences between the two tests
+by extending the shorter vectors to manually implement recycling. 
+
+```{r}
+y == c(4, 4, 4, 4) | y == c(2, 2, 2, 2)
+y == c(4, 2, 4, 2)
+```
+
+Now, the two tests don't appear very similar, and their different outcomes aren't particularly surprising.
+
+::: practice
+
+## Practice
+
+1. Create the object `myVec` by running the two lines of code below.
+1. Programmatically create a logical vector that indicates which elements of `myVec` are (strictly) less than 3.
 
 :::: {.panel-tabset}
+
 ## {{< var tab_title.question >}}
 
 ```{webr-r}
@@ -87,12 +166,9 @@ myVec <- sample(1:5)
 set.seed(235711)
 myVec <- sample(1:5)
 
-(y <- myVec < 3)
+y <- myVec < 3
 ```
+
 ::::
 
 :::
-
-
-
-
