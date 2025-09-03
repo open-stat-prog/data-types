@@ -8,6 +8,10 @@ Because data frames are just lists, we can access a data frame's columns using t
 To access a single column by name, the most efficient method is typically the `$` operator.
 
 ```{r}
+d1 <- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),
+                 b = sample(c("foo", "bar"), 10, replace = TRUE),
+                 c = runif(10)
+                 )
 d1$b
 
 data(iris)

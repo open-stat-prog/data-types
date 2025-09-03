@@ -235,5 +235,11 @@
   },
   "tutorials/lists/manipulating.qmd": {
     "manipulating.html": "bc762878"
+  },
+  "tutorials/factors/creating.qmd": {
+    "creating.html": "3d289906"
+  },
+  "tutorials/factors/uniqueness.qmd": {
+    "uniqueness.html": "dbbf12ca"
   }
 }

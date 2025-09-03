@@ -1,0 +1,100 @@
+---
+title: "Creating Factors"
+---
+
+We create factors using the `factor()` function. This function takes a vector of values (typically numeric or
+character) where each unique value represents a group and converts this input vector into a factor.
+
+```{r}
+(x <- sample(1:3, 20, TRUE))
+(f1 <- factor(x))
+
+(y <- rep(c("foo", "bar"), 10))
+(f2 <- factor(y))
+```
+
+It may not seem like the `factor()` function did much in the examples above, but that's far from true. Regardless of
+what type of input data we use to create a factor, the `factor()` function will always induce three consistent features
+in the resulting factor object.
+
+- Factors have their own class: "factor".
+- Factors have a "levels" attibute that stores the names of the groups represnted by the factor.
+- Factors use integer vectors to represent the grouping implied by the input vector.
+   - Regardless of what type the input vector has, the data underlying the new factor will be an integer vector.
+
+```{r}
+# Factors have their own class
+class(x)
+class(f1)
+class(y)
+class(f2)
+
+# Factors have a levels attribute
+attributes(x)
+attributes(f1)
+attributes(y)
+attributes(f2)
+
+# Factors use integer vectors to map each observation to a group
+typeof(x)
+typeof(f1)
+typeof(y)
+typeof(f2)
+```
+
+### Factor Levels
+
+The levels name the categories represented by the factor. By default, the `factor()` function will use the unique values
+of the input vector to name the levels of the resulting factor.
+
+```{r}
+levels(f1)
+levels(f2)
+```
+
+We can assign our own level names through the `labels` argument.
+
+```{r}
+(z <- sample(10:11, 10, TRUE))
+
+(f3 <- factor(z, labels = c("Group 10", "Group 11")))
+levels(f3)
+
+table(z, f3)
+```
+
+We can also modify the levels of an existing factor.
+
+```{r}
+levels(f3) <- c("g10", "g11")
+levels(f3)
+
+table(z, f3)
+```
+
+::: practice 
+
+## Practice
+
+Create a length-20 factor with two levels = {"yes", "no"}.
+
+:::: {.panel-tabset}
+
+## {{< var tab_title.editor >}}
+
+```{webr-r}
+
+```
+
+## {{< var tab_title.solution >}}
+
+As usual, there are myriad acceptable solutions. Here are a couple possibilities.
+
+```{r}
+factor(sample(c("yes", "no"), 20, TRUE))
+factor(sample(1:2, 20, TRUE), labels = c("yes", "no"))
+```
+
+::::
+
+:::

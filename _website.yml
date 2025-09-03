@@ -62,8 +62,8 @@ website:
       - section: tutorials/factors/index.qmd
         text: "Factors"
         contents:
-          - href: tutorials/factors/gen_factors.qmd
-          - href: tutorials/factors/num_and_fac.qmd
+          - href: tutorials/factors/creating.qmd
+          - href: tutorials/factors/uniqueness.qmd
           - href: quizzes/factors/index.qmd
             text: "Knowledge Quiz"
       - href: conclusion.qmd
