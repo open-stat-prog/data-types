@@ -57,7 +57,7 @@ processing. In the above examples, the further processing was simply printing th
 we can also use the selection operators to modify the designated list elements.
 
 ```{r}
-## View the original list
+# View the original list
 l1
 
 ## Modify some list elements
@@ -65,7 +65,7 @@ l1$age <- 57
 l1[[1]] <- "suzy"
 l1[c(2, 4)] <- c("foo", "bar")
 
-## View the modified list
+# View the modified list
 l1
 ```
 
@@ -73,10 +73,10 @@ Lists in R do not require a fixed length or predefined structure. New elements c
 position or by name. This flexibility makes lists well suited for incremental construction.
 
 ```{r}
-## Create an empty list
+# Create an empty list
 (l2 <- list())
 
-## Add new list slots
+# Add new list slots
 l2$grass <- "green"
 l2$logical <- FALSE
 l2[[3]] <- 1:4
@@ -106,13 +106,13 @@ Consequently, objects stored in a list behave just as they would outside of the 
 stored as an element of a list, we can call it directly:
 
 ```{r}
-## Create a trivial function
+# Create a trivial function
 addOne <- function(x) { x + 1 }
 
-## Store our function object in the 'l3' list
+# Store our function object in the 'l3' list
 l3$myFunction <- addOne
 
-## Call both versions of our function
+# Call both versions of our function
 addOne(2)
 l3$myFunction(2)
 ```

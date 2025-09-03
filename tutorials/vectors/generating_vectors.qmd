@@ -80,13 +80,15 @@ you to specify the step size or the total number of elements in the resulting ve
 arguments, respectively.
 
 ```{r}
-# Create a numeric vector starting at 0, ending at 1, with elements increasing by steps of 0.25
+# Create a numeric vector starting at 0, ending at 1, with elements
+# increasing by steps of 0.25
 seq(from = 0, to = 1, by = 0.25)
 
 # The same as above but omitting the argument names
 seq(0, 1, 0.25)
 
-# Create a numeric vector of 10 evenly spaced values starting at -1 and ending at 1
+# Create a numeric vector of 10 evenly spaced values starting at -1 and
+# ending at 1
 seq(-1, 1, length.out = 10)
 ```
 

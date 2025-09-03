@@ -1,29 +1,39 @@
 ---
-title: "Matrix Elements"
+title: "Manipulating Matrices"
 ---
 
-## Accessing and Modifying Matrix Elements
+## Accessing Matrix Elements
 
-We can access and assign values within a matrix using square brackets, just like with vectors—but with one key difference: matrices require two indices, one for the row and one for the column.
+As with vectors, we can access and assign values within a matrix using the square brackets operator, `[]`, but with one
+key difference: matrices require two indices, one to define the row selection and one to define the column selection.
 
 ```{r}
-(m1 <- matrix(1:9,3,3))
+(m1 <- matrix(1:12, 3, 4))
+
+# Select the first two rows and the first three columns, then print the selected
+# elements as a matrix
 m1[1:2, 1:3]
+
+# Select the first and third rows and second and third column, then save the
+# selection as a new matrix called `m2`
+(m2 <- m1[c(1, 3), 2:3])
 ```
 
-This grabs the top two rows and all three columns. If we want specific entries, we can use more targeted indexing:
+## Modifying Matrix Elements
+
+Editing the value of matrix elements works the same way it did for vectors. We , use the `[]` operator to select the
+values we want to overwrite, and assign new values for the selected elements using the ordinary assignment operator,
+`<-`.
 
 ```{r}
-(m2 <- m1[c(1, 3), 2])
-```
+(m3 <- matrix(1, 3, 3))
 
-This selects the second column from rows 1 and 3.
-
-Assignment works the same way—we simply specify a position and assign a new value:
-
-```{r}
-(m3 <- matrix(1,3,3))
+# Replace the element in the first row and second column with 33
 m3[1, 2] <- 33
+m3
+
+# Replace all elements in the range covered by the second and third rows and the
+# first and third columns with 44 
 m3[2:3, c(1, 3)] <- 44
 m3
 ```

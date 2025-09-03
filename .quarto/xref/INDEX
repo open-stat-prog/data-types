@@ -223,5 +223,17 @@
   },
   "tutorials/lists/manipulating_lists.qmd": {
     "manipulating_lists.html": "a3e235e8"
+  },
+  "tutorials/data_frames/creating.qmd": {
+    "creating.html": "96bc1cec"
+  },
+  "tutorials/data_frames/manipulating.qmd": {
+    "manipulating.html": "32956c72"
+  },
+  "tutorials/lists/creating.qmd": {
+    "creating.html": "c5bad024"
+  },
+  "tutorials/lists/manipulating.qmd": {
+    "manipulating.html": "bc762878"
   }
 }

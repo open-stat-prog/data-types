@@ -1,45 +1,83 @@
 ---
-title: "Creating matrices"
+title: "Creating Matrices"
 ---
 
-## Working with Matrices in R
-
-At their core, matrices in R are just atomic vectors with a special attribute: dimensions. When you add a `dim` attribute to a vector, R interprets it as a matrix. This means all the rules of vectors still apply—matrices simply add a structured, two-dimensional layout on top.
-
-## Creating Matrices
-
-The most common way to create a matrix is with the `matrix()` function. We can specify the number of rows and columns, and optionally the data to fill the matrix:
+The most direct way to create a new matrix is the `matrix()` function.
 
 ```{r}
 (m1 <- matrix(data = 1, nrow = 3, ncol = 3))
+
 ```
 
-If we inspect the object, we’ll see it now has additional attributes, `dim`. The attribute `dim` is a two element vector, in which the first element shows the number of rows and the second element the number of column.
+If we inspect the object, we’ll see it now has an *attribute*, `dim`. The attribute `dim` is a two element vector, in
+which the first element shows the number of rows and the second element the number of columns.
 
 ```{r}
-y1 <- c(1,2,3)
+# Create a numeric vector for comparison
+y1 <- c(1, 2, 3)
 
+# Basic vectors don't have attributes
 attributes(y1)
+
+# Matrices must have at least a 'dim' attribute
 attributes(m1)
 ```
 
-By default, R fills matrices column-wise. That means the first column is filled top to bottom, then the second column, and so on:
+## The Matrix/Vector Relation
+
+I'm not being facetious when I say that a matrix is just a vector with a `dim` attribute. In fact, we can convert a
+vector to a matrix simply by adding a `dim` attribute to the vector.
 
 ```{r}
-(m2 <- matrix(1:9, 3, 3))
+# y1 is an ordinary numeric vector
+class(y1)
+is.vector(y1)
+is.matrix(y1)
+
+# m1 is a matrix (which is a special case of an 'array')
+class(m1)
+is.vector(m1)
+is.matrix(m1)
+
+# Add a 'dim' attribute to y1
+attr(y1, "dim") <- c(3, 1)
+
+# Now, y1 looks like a 3x1 matrix
+y1
+
+# Indeed, y1 is now a matrix, as far as R is concerned
+class(y1)
+attributes(y1)
+is.vector(y1)
+is.matrix(y1)
 ```
 
-If we want to fill the matrix row by row instead, we can use the `byrow = TRUE` argument:
+Similarly, we can convert a matrix to a vector by removing the `dim` attribute from the matrix.
 
 ```{r}
-(m3 <- matrix(1:9, 3, 3, byrow = TRUE))
+# Setting the 'dim' attribute of m1 to NULL effectively removes that attribute
+attr(m1, "dim") <- NULL
+
+# Now, m1 looks like a vector
+m1
+
+# And R agrees: m1 is now a vector, not a matrix
+class(m1)
+is.vector(m1)
+is.matrix(m1)
 ```
 
+## Element Ordering
 
+By default, R fills matrices column-wise (i.e., using *column-major order*): the first column is filled top to bottom,
+then the second column, and so on.
 
+```{r}
+matrix(1:9, 3, 3)
+```
 
+If we want to fill the matrix row-by-row instead (i.e., using *row-major order*), we can use the `byrow = TRUE` argument.
 
-
-
-
-
+```{r}
+matrix(1:9, 3, 3, byrow = TRUE)
+```
