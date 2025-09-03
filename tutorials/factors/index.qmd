@@ -2,6 +2,11 @@
 title: "Factors"
 ---
 
-In statistical analysis, it is often necessary to represent categorical data—data that falls into a fixed set of discrete groups or levels. These could be nominal categories like "male" and "female", "yes" and "no", or "low", "medium", and "high". In R, the standard way to store and manage such categorical variables is through factors.
+In statistical analysis, it is often necessary to represent categorical data—data that falls into a fixed set of
+discrete groups or levels. These could be nominal categories like "male" and "female", "yes" and "no", or "low",
+"medium", and "high". In R, factors represent categorical variables is through factors.
 
-A factor is a special kind of object that stores categorical data efficiently and in a structured way. Factors are particularly important in modeling functions, where categorical variables need to be encoded properly in order to be treated as groupings or levels, rather than as continuous quantities. Understanding how factors work is essential for handling grouping variables correctly in data analysis and statistical modeling.
+A factor is a special kind of object that stores categorical data efficiently and in a structured way. Factors are
+particularly important in modeling functions, where categorical variables need to be encoded properly in order to be
+treated as groupings or levels, rather than as continuous quantities. Understanding how factors work is essential for
+handling grouping variables correctly in data analysis and statistical modeling.
