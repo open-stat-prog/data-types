@@ -1,5 +1,5 @@
 ---
-title: "The Special Role of Factors"
+title: "Special Role of Factors"
 ---
 
 Factors often cause confusion for new (and not-so-new) data analysts. In particular, the `print()` method for factors
@@ -30,7 +30,7 @@ is.vector(f2)
 ```
 
 Similarly, even though factors are built from integer vectors, we can't do mathematical operations on vectors. Since
-factors represent discrete categories, not continous quantities, mathematical operations on factors are generally
+factors represent discrete categories, not continuous quantities, mathematical operations on factors are generally
 meaningless.
 
 ```{r}

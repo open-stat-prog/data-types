@@ -18,7 +18,7 @@ what type of input data we use to create a factor, the `factor()` function will 
 in the resulting factor object.
 
 - Factors have their own class: "factor".
-- Factors have a "levels" attibute that stores the names of the groups represnted by the factor.
+- Factors have a "levels" attribute that stores the names of the groups represented by the factor.
 - Factors use integer vectors to represent the grouping implied by the input vector.
    - Regardless of what type the input vector has, the data underlying the new factor will be an integer vector.
 

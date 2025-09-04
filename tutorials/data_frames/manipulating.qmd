@@ -57,7 +57,7 @@ d1[2:3, ]
 ```
 
 In most cases, matrix style subsetting behaves the same was as the `[]` list-style operator---you can select any number
-of elemenets, and the selection is returned as a data frame---but there is one expection. If you select a single column
+of elements, and the selection is returned as a data frame---but there is one exception If you select a single column
 using matrix-style subsetting, the selection will be converted to a vector.
 
 ```{r}
@@ -124,7 +124,7 @@ d1[c("a", "c")] <- list(c("yes", "no"), 7:8)
 d1
 ```
 
-As with matrices, R is oddly specific (in a slightly different way) about the kinds of size discrepencies it will
+As with matrices, R is oddly specific (in a slightly different way) about the kinds of size discrepancies it will
 automatically resolved when modifying data frames.
 
 - OK

@@ -6,7 +6,7 @@ In statistical data analysis, we often necessary to represent categorical variab
 groups or levels. Typical examples include nominal variables like {"male", "female"}, {"yes", "no"}, or political party
 affiliation. In R, we use *factors* to represent categorical variables in our data.
 
-An R factor is a special kind of object that encodes the a categorical variables grouping information through in a
+An R factor is a special kind of object that encodes a categorical variable's grouping information through in a
 consistent way that R functions know how to handle. Factors are particularly important for modeling and plotting
 functions. When we use a categorical variable as part of a statistical model or visualization, the variable needs
 special treatment to be treated as groupings or levels, rather than as continuous quantities. 

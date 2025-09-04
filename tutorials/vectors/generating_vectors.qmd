@@ -19,9 +19,9 @@ The *concatenation* function, `c()`, constructs a vector by joining its argument
 
 :::: {.callout-note}
 
-The outer parentheses in these examples are just a handy piece of syntatic sugar. They allow us to assign a value (e.g.,
-`c(1, 2, 3`) to an object (e.g., `y1`) and print that object in a single command. You don't need to use these extra
-parentheses if you don't want to print the value of object your creating.
+The outer parentheses in these examples are just a handy piece of syntactic sugar. They allow us to assign a value
+(e.g., `c(1, 2, 3`) to an object (e.g., `y1`) and print that object in a single command. You don't need to use these
+extra parentheses if you don't want to print the value of object your creating.
 
 ::::
 

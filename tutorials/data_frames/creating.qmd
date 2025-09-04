@@ -39,8 +39,8 @@ colnames(d1) <- c("alice", "bob", "suzy")
 d1
 ```
 
-One of the greatest strengths of data frames is their ability to store heterogenously typed columns. For example, in the
-following code, we create a data frame called `d3` that comprises three uniquely typed columns.
+One of the greatest strengths of data frames is their ability to store heterogeneously typed columns. For example, in
+the following code, we create a data frame called `d3` that comprises three uniquely typed columns.
 
 a. A logical vector containing 10 randomly sampled boolean values.
 a. A character vector containing 10 random selections from the set {"foo", "bar"}.
@@ -76,7 +76,7 @@ Create a data frame containing 7 observations of 3 variables.
 
 ## {{< var tab_title.solution >}}
 
-There are an infinite number of correct solutions to this problem (literarlly). The following is one possibility.
+There are an infinite number of correct solutions to this problem (literally). The following is one possibility.
 
 ```{r}
 df <- data.frame(text = rep("text", 7),
@@ -94,7 +94,7 @@ df
 
 Although data frames look like two-dimensional matrices, they are actually lists of equal-length vectors. Each column in
 a data frame corresponds to a slot in the underlying list, and each of these list slots hold some soft of vector that
-contains the data from the corrosponding column. So, all data frames are lists.
+contains the data from the corresponding column. So, all data frames are lists.
 
 ```{r}
 d1 <- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),
@@ -137,7 +137,7 @@ is.data.frame(l3)
 ```
 
 As you have probably surmised, data frames are not matrices. Although data frames and matrix share many superficial
-similarities, they're almost entirely unrealated types of objects.
+similarities, they're almost entirely unrelated types of objects.
 
 ```{r}
 is.matrix(d1)
@@ -158,7 +158,7 @@ If you wanted to analyze a data frame like a matrix, you could *type cast* the d
 as.matrix(d2) %*% t(as.matrix(d3))
 ```
 
-You should be carefuly about any type conversions. If you're data frame contains mixed column types, R will coerce every
+You should be carefully about any type conversions. If you're data frame contains mixed column types, R will coerce every
 column into some compatible type.
 
 ```{r}

@@ -22,12 +22,15 @@ data types in R:
 
 ## Next Steps 
 
-With this knowledge in place, you're ready to shift focus from what R works with to how you work in R. In the next
-module, we’ll explore workflows—covering scripts, working directories, R projects, paths, and coding style—to help you
-build reproducible, organized, and efficient R projects from the ground up.
+Now that you have a good introduction to the fundamental elements of the R statistical programming language, you're
+ready to start thinking about how to best organize your data analysis projects. In the next module, we’ll explore
+different aspects of effective R workflows--—scripts, working directories, R projects, file paths, and coding style—--to
+help you create reproducible, organized, and efficient data analysis projects.
 
 ```{r}
 #| echo: false
 #| results: asis
-next_module_button("https://www.openstatprog.com/workflow/")
+
+# next_module_button("https://www.openstatprog.com/workflow/")
+next_module_button("in_progress.html")
 ```

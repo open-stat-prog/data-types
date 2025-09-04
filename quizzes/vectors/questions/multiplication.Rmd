@@ -21,7 +21,7 @@ $$
 
 - Format you answer as `element1, element2, element3, ...`
 - Separate each element with a comma and a space.
-- Misformatted answer won't be recognized as correct
+- Incorrectly formatted answers won't be recognized as correct
 
 Solution
 ========

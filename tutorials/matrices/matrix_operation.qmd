@@ -22,7 +22,7 @@ To get the dimensions of the matrix, we use `dim()`.
 dim(m1)
 ```
 
-## Arithmetric
+## Arithmetic
 
 As with vectors, default arithmetic with R matrices works *element-wise*. R performs the requested operation on each
 pair of corresponding entries in the two matrices. 
@@ -87,7 +87,7 @@ m2[3, 1:2] <- c(88, 99)
 m2
 ```
 
-Sometimes, R won't apply recycling to accomodate our sloppiness, though. For example, we can't do any arithmetic with
+Sometimes, R won't apply recycling to accommodate our sloppiness, though. For example, we can't do any arithmetic with
 matrices that have different dimensions.
 
 ```{r, error = TRUE}
