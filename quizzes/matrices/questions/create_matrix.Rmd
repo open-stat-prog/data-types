@@ -1,6 +1,6 @@
 Question
 ========
-Which of the following expression generates this matrix?
+Which of the following expressions will generate the following matrix?
 
 $$
 \begin{bmatrix}
@@ -11,16 +11,13 @@ $$
 
 Answerlist
 ----------
-* `matrix(1:6,2,3,byrow=TRUE)`
+* `matrix(1:6, 2, 3, byrow = TRUE)`
 * `matrix(1:6)`
-* `matrix(1:6,2,3)`
-* `matrix(1:6,3,2)`
-* `matrix(1:6,3,2,byeow=TRUE)`
-* `matrix(6,2,3)`
-* `matrix(6,3,2)`
-
-
-
+* `matrix(1:6, 2, 3)`
+* `matrix(1:6, 3, 2)`
+* `matrix(1:6, 3, 2, byrow = TRUE)`
+* `matrix(6, 2, 3)`
+* `matrix(6, 3, 2)`
 
 Solution
 ========

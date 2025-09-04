@@ -1,0 +1,48 @@
+```{r, echo = FALSE, include = FALSE}
+l1 <- list(name = "bob",
+           age = 25,
+           height = 180,
+           eyes = "blue")
+```
+
+Question
+========
+Consider the following list, `l1`.
+
+```{r, echo = FALSE}
+l1
+```
+
+Which of the following expressions will change the value of the `eyes` slot in `l1` from "blue" to "green"?
+
+Answerlist
+----------
+* `l1$eyes <- "green"`
+* `l1[[4]] <- "green"`
+* `l1[4] <- "green"`
+* `l1$eyes <- "blue"`
+* `l1$4 <- "green"`
+* `l1$eyes <- green`
+* `l1[4, ] <- "green"`
+* `names(l1)[4] <- "green"`
+
+Solution
+========
+
+Answerlist
+----------
+* Correct
+* Correct
+* Correct
+* Wrong: This command doesn't actually change anything.
+* Wrong: There is no slot named "4" in l1.
+* Wrong: We're replacing the value of `l4$eyes` with the contents of the object `green`, not the character vector `"green"`.
+* Wrong: l1 is a list, so we should not use matrix-style selection.
+* Wrong: This command will change the name of the fourth slot, not the contents of that slot.
+
+Meta-information
+================
+exname: change_list_slot
+extype: mchoice
+exsolution: 11100000
+exshuffle: 5

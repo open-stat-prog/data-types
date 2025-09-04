@@ -241,5 +241,47 @@
   },
   "tutorials/factors/uniqueness.qmd": {
     "uniqueness.html": "dbbf12ca"
+  },
+  "quizzes/data_frames/index.qmd": {
+    "index.html": "090f503a"
+  },
+  "quizzes/data_frames/questions/df_row.Rmd": {
+    "df_row.html": "3d262f08"
+  },
+  "quizzes/data_frames/questions/list_change.Rmd": {
+    "list_change.html": "b86d37cc"
+  },
+  "quizzes/data_frames/questions/list_name.Rmd": {
+    "list_name.html": "320fa1a5"
+  },
+  "quizzes/lists/index.qmd": {
+    "index.html": "ccdea3a4"
+  },
+  "quizzes/lists/questions/df_row.Rmd": {
+    "df_row.html": "178a3869"
+  },
+  "quizzes/lists/questions/list_change.Rmd": {
+    "list_change.html": "f26212cb"
+  },
+  "quizzes/lists/questions/list_name.Rmd": {
+    "list_name.html": "03050409"
+  },
+  "quizzes/vectors/questions/generation.Rmd": {
+    "generation.html": "f195244f"
+  },
+  "quizzes/vectors/questions/multiplication.Rmd": {
+    "multiplication.html": "d641c002"
+  },
+  "quizzes/data_frames/questions/return_column_as_df.Rmd": {
+    "return_column_as_df.html": "31dd9951"
+  },
+  "quizzes/data_frames/questions/return_column_as_vector.Rmd": {
+    "return_column_as_vector.html": "355e7c72"
+  },
+  "quizzes/data_frames/questions/select_row.Rmd": {
+    "select_row.html": "73a1846c"
+  },
+  "quizzes/factors/questions/factor_levels.Rmd": {
+    "factor_levels.html": "8069778e"
   }
 }

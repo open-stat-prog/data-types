@@ -1,5 +1,5 @@
 ---
-title: "Knowledge Quiz: Vectors"
+title: "Knowledge Quiz: Data Frames"
 ---
 
 ::: {.column-margin}
@@ -11,15 +11,15 @@ title: "Knowledge Quiz: Vectors"
 
 :::
 
-```{r vectors_quiz}
+```{r df_quiz}
 #| echo: FALSE
 #| results: "asis"
 
 exams2forms::exams2forms(
   file = list(
-    "generation.Rmd",
-    "multiplication.Rmd"
+    "return_column_as_vector.Rmd",
+    "return_column_as_df.Rmd"
   ),
-  edir = here::here("quizzes", "vectors", "questions")
+  edir = here::here("quizzes", "data_frames", "questions")
 )
 ```

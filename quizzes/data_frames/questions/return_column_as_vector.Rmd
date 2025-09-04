@@ -1,0 +1,59 @@
+```{r, echo = FALSE, include = FALSE}
+
+df <- data.frame(
+  name = c("bob", "mike", "mark", "steve"),
+  age = c(25, 23, 24, 26),
+  height = c(180, 178, 169, 183),
+  eyes = c("green", "green", "blue", "brown")
+)
+
+```
+
+Question
+========
+
+Consider the following data frame, `df`.
+
+```{r, echo = FALSE}
+df
+```
+
+How can we extract the `name` column and return the selection as a *character vector*?
+
+Answerlist
+-----------
+* `df$name`
+* `df[["name"]]`
+* `df[[1]]`
+* `df[ , 1]`
+* `df[ , "name"]`
+* `df[1]`
+* `df["name"]`
+* `df[1, ]`
+* `df["name", ]`
+* `df[[2]]`
+* `df[1:2]`
+
+Solution
+========
+
+Answerlist
+-----------
+* Correct
+* Correct
+* Correct
+* Correct
+* Correct
+* Wrong: This command will return the `name` column as a one-column data frame.
+* Wrong: This command will return the `name` column as a one-column data frame.
+* Wrong: This command will return the first row of `df` as a $1 \times 4$ data frame.
+* Wrong: This command will try to return a row called "name" and fail because there is no such row in `df`.
+* Wrong: This command will return the `age` column as a numeric vector.
+* Wrong: This command will return the `name` and `age` columns as a $4 \times 2$ data frame.
+
+Meta-information
+================
+exname: return_df_column_as_vector
+extype: mchoice
+exsolution: 11111000000
+exshuffle: 5

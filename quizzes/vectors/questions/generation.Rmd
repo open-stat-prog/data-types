@@ -1,0 +1,39 @@
+Question
+========
+Which of the following expressions generates the integer vector `r 1:5`?
+
+Answerlist
+----------
+* `1:5`
+* `seq(1, 5)`
+* `seq(1, 5, 1)`
+* `rep(1:5, 1)`
+* `seq(0, 4, 1) + 1`
+* `seq(1, 5, 5)`
+* `rep(1, 5)`
+* `rep(1, 5, 1)`
+* `rep(1, 5, 5)`
+* `seq(0, 4, 1) - 1`
+
+Solution
+========
+
+Answerlist
+----------
+* Correct.
+* Correct.
+* Correct.
+* Correct.
+* Correct.
+* Wrong. This command will return a length-one vector containing only 1.
+* Wrong. This command will return a sequence of five 1s.
+* Wrong. This command will return a length-one vector containing only 1.
+* Wrong. This command will return a length-25 vector that repeats the integers from 1 to 5 five times.
+* Wrong. This command will return a length-five vector containing the integers from -1 to 3.
+
+Meta-information
+================
+exname: vector_generation
+extype: mchoice
+exsolution: 1111100000
+exshuffle: 5
