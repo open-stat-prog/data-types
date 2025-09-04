@@ -3,8 +3,9 @@ title: "Conclusion"
 format:
   html: 
     toc: false
-    link-external-icon: false
-    link-external-newwindow: false
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: ^(?:http:|https:)\/\/www\.openstatprog\.com
 ---
 
 ```{r include = FALSE}
@@ -20,6 +21,22 @@ data types in R:
 - Data frames
 - Factors
 
+## Additional Reading
+
+For more information on the topics we've covered in this module, the following chapters from Hadley Wickham's *R for
+Data Science* are excellent resources.
+
+- [Vectors](https://r4ds.had.co.nz/vectors.html) in the [First Edition](https://r4ds.had.co.nz/index.html).
+- [Factors](https://r4ds.hadley.nz/factors.html) in the [Second Edition](https://r4ds.hadley.nz/index.html).
+
+### Advanced Reading
+
+For a much more technical deep-dive into the topics we've covered in this module, check out the following two chapters
+from Hadley Wickham's [Advanced R](https://adv-r.hadley.nz/index.html).
+
+- [Vectors](https://adv-r.hadley.nz/vectors-chap.html)
+- [Subsetting](https://adv-r.hadley.nz/subsetting.html)
+
 ## Next Steps 
 
 Now that you have a good introduction to the fundamental elements of the R statistical programming language, you're
@@ -31,6 +48,6 @@ help you create reproducible, organized, and efficient data analysis projects.
 #| echo: false
 #| results: asis
 
-# next_module_button("https://www.openstatprog.com/workflow/")
+# next_module_button("https://www.openstatprog.com/workflow/index.html")
 next_module_button("in_progress.html")
 ```

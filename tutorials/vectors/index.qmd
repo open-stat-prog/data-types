@@ -6,4 +6,5 @@ Vectors are the simplest data structure in R: scalars don't exist in R. A vector
 values with the same type (e.g., all numbers, all character strings, or all boolean values). 
 
 Whenever you're working with R, you’re almost always using vectors, whether you realize it or not. Vectors are very
-simple objects, but the more complex objects you'll encounter (e.g., data frames, lists, factors) are built from vectors. 
+simple objects, but the more complex objects you'll encounter (e.g., data frames, lists, factors) are built from
+vectors. 
