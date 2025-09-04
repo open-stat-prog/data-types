@@ -1,0 +1,34 @@
+```{r, echo = FALSE, results = "hide", cache = FALSE}
+library(exams)
+
+## Generate some data
+a <- sample(1:5, 3)
+b <- sample(1:5, 3)
+
+solution <- paste(a * b, collapse = ", ")
+```
+
+Question
+========
+What is the value of `a * b`, given the following vectors? 
+
+$$
+\begin{align*}
+a &= `r a`\\
+b &= `r b`
+\end{align*}
+$$
+
+- Format you answer as `element1, element2, element3, ...`
+- Separate each element with a comma and a space.
+- Incorrectly formatted answers won't be recognized as correct
+
+Solution
+========
+The `a * b` implements element-wise multiplication, so the result is `r solution`.
+
+Meta-information
+================
+exname: vector_multiplication
+extype: string
+exsolution: `r solution`

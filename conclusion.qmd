@@ -3,27 +3,51 @@ title: "Conclusion"
 format:
   html: 
     toc: false
-    link-external-icon: false
-    link-external-newwindow: false
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: ^(?:http:|https:)\/\/www\.openstatprog\.com
 ---
 
 ```{r include = FALSE}
 source(here::here("R", "buttons.R"))
 ```
 
-By completing these four tutorials, you've built a solid foundation in R's core data types —vectors, matrices, lists, data frames, and factors. These structures are more than just tools; they are the building blocks of everything you'll do in R, from simple data manipulation to complex modeling and function development.
+By completing these tutorials, you've built a solid foundation in understanding five of the most ubiquitous and useful
+data types in R:
 
-You should now have the confidence to recognize and work with each structure effectively, make informed choices about how to represent your data, and apply consistent techniques for accessing and transforming information. These core skills are essential not only for writing clear and reliable R code, but also for understanding how R uses the data in different ways.
+- Vectors
+- Matrices
+- Lists
+- Data frames
+- Factors
 
+## Additional Reading
+
+For more information on the topics we've covered in this module, the following chapters from Hadley Wickham's *R for
+Data Science* are excellent resources.
+
+- [Vectors](https://r4ds.had.co.nz/vectors.html) in the [First Edition](https://r4ds.had.co.nz/index.html).
+- [Factors](https://r4ds.hadley.nz/factors.html) in the [Second Edition](https://r4ds.hadley.nz/index.html).
+
+### Advanced Reading
+
+For a much more technical deep-dive into the topics we've covered in this module, check out the following two chapters
+from Hadley Wickham's [Advanced R](https://adv-r.hadley.nz/index.html).
+
+- [Vectors](https://adv-r.hadley.nz/vectors-chap.html)
+- [Subsetting](https://adv-r.hadley.nz/subsetting.html)
 
 ## Next Steps 
 
-With this knowledge in place, you're ready to shift focus from what R works with to how you work in R. In the next module, we’ll explore workflows—covering scripts, working directories, R projects, paths, and coding style—to help you build reproducible, organized, and efficient R projects from the ground up.
-
-- Here, we're linking to the *Workflow* module. (Wrong link)
+Now that you have a good introduction to the fundamental elements of the R statistical programming language, you're
+ready to start thinking about how to best organize your data analysis projects. In the next module, we’ll explore
+different aspects of effective R workflows--—scripts, working directories, R projects, file paths, and coding style—--to
+help you create reproducible, organized, and efficient data analysis projects.
 
 ```{r}
 #| echo: false
 #| results: asis
-next_module_button("https://www.openstatprog.com/first-steps/")
+
+# next_module_button("https://www.openstatprog.com/workflow/index.html")
+next_module_button("in_progress.html")
 ```

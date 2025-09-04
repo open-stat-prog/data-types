@@ -1,5 +1,5 @@
 ---
-title: "Knowledge Quiz: Tutorial 2"
+title: "Knowledge Quiz: Matrices"
 ---
 
 ::: {.column-margin}
@@ -11,7 +11,7 @@ title: "Knowledge Quiz: Tutorial 2"
 
 :::
 
-```{r quiz2}
+```{r matrices_quiz}
 #| echo: FALSE
 #| results: "asis"
 

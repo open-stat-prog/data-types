@@ -2,26 +2,33 @@
 title: "Matrix Operations"
 ---
 
-## Matrix Dimensions
+```{r, echo = FALSE, include = FALSE}
+set.seed(235711)
+```
 
-Also when working with matrices, it's important to always take into consideration the number of elements in a matrix. However, we must also pay attention to how these elements are distributed — that is, the dimensions of the matrix. Just like with vectors, the `length()` function returns the total number of elements in a matrix.
+## Size
+
+The `length()` function works with matrices, but the results may not be that interesting. When applied to matrices,
+`length()` returns the number of cells in the matrix.
 
 ```{r}
-m1 <- matrix(2,3,3)
+(m1 <- matrix(1:9, 3, 3))
 length(m1)
 ```
 
-To get the actual dimensions of the matrix, the row and column structure, we use `dim()`:
+To get the dimensions of the matrix, we use `dim()`.
 
 ```{r}
 dim(m1)
 ```
 
-# Matrix Aritmetric
+## Arithmetic
 
-Arithmetic with matrices works exactly the same way as with vectors—by default, it's *element-wise*. That means R performs the operation on each pair of corresponding entries in the two matrices. 
+As with vectors, default arithmetic with R matrices works *element-wise*. R performs the requested operation on each
+pair of corresponding entries in the two matrices. 
+
 ```{r}
-m2 <- matrix(1:9,3,3)
+(m2 <- matrix(sample(-5:5, 9, TRUE), 3, 3))
 
 m1 + m2
 m2 - m1
@@ -29,32 +36,115 @@ m1 / m2
 m1 * m2
 ```
 
+## Matrix Algebra
 
-::: {.callout-note}
+If you're familiar with matrix algebra and/or have some affinity for programming languages that overload their
+operators, the matrix arithmetic described above may seem very strange. Rather than overloading the standard operators,
+R defines special functions for matrix algebraic operations. For example:
 
-This isn’t matrix multiplication in the linear algebra sense — it’s just entry-by-entry math. (For actual matrix multiplication, we’d use `%*%`)
-
-:::
-
-Just like vectors, matrices obey R’s recycling rules. If you attempt to perform arithmetic between matrices or vectors of different lengths, R will try to make the lengths match by reusing (or recycling) the shorter one. This can be handy, but it can also produce unexpected results if you’re not careful.
+- `%*%`: Multiplication
+- `t()`: Transposition
+- `solve()`: Inversion
 
 ```{r}
-m2
-m3<- c(1,3)
-m2 + m3
+# Multiply m1 and m2 using true matrix multiplication
+m1 %*% m2
 
+# Transpose m1
+t(m1)
+
+# Invert m2
+solve(m2)
+```
+
+## Recycling
+
+Matrices usually obey R’s recycling rules. If you attempt to perform arithmetic between a matrix and a vector that has
+fewer elements than the matrix, R will try to make the lengths match by recycling the elements from the vector.
+
+```{r, warning = TRUE}
+v1 <- 1:3
+v2 <- 1:2
+
+# Recycling the elements of 'v1' without a warning
+m1 + v1
+m1 * v1
+
+# Recycling the elements of 'v2' with a warning
+m1 + v2
+m1 * v2
+
+# Use recycling to fill a new matrix
+matrix(42, 2, 2)
+matrix(1:4, 4, 4)
+matrix(1:3, 4, 4)
+
+# Use recycling to match replacement values to all selected elements
+m2[1:2, 3] <- -99
+m2
+
+m2[3, 1:2] <- c(88, 99)
+m2
+```
+
+Sometimes, R won't apply recycling to accommodate our sloppiness, though. For example, we can't do any arithmetic with
+matrices that have different dimensions.
+
+```{r, error = TRUE}
+(m3 <- matrix(c(1, 3), 2, 1))
+m1 + m3
+m1 * m3
+```
+
+We also can't do arithmetic between a matrix and vector that contains *more* elements than the matrix.
+
+```{r, error = TRUE}
+v3 <- 1:18
+m1 + v3
+m1 * v3
+```
+
+When it comes to overwriting matrix elements, R is especially picky about what size of vector it will use to overwrite a
+selection of matrix elements.
+
+- OK
+   - Replacement length = Selection length
+   - Replacement length cleanly divides selection length
+- Not OK
+   - Replacement length > Selection length
+      - Still true when replacement length is a multiple of selection length
+   - Replacement length *does not* cleanly divide the selection length
+
+```{r, error = TRUE}
+# Works: Replace 4 elements with length-4 vector
+m1[1:2, 2:3] <- 1:4
+m1
+
+# Works: Replace 4 elements with length-2 vector
+m1[1:2, 2:3] <- 1:2
+m1
+
+# Works: Replace 4 elements with length-1 vector
+m1[1:2, 2:3] <- 42
+m1
+
+# Fails: Replace 4 elements with length-3 vector
+m1[1:2, 2:3] <- 1:3
+
+# Fails: Replace 4 elements with length-8 vector
+m1[1:2, 2:3] <- 1:3
 ```
 
 ::: practice
 
 ## Practice
 
-a. Create a 5x3 numeric matrix called 'myMat' wherein each column is equal to the vector 1:5.
-b. Multiply each entry in 'myMat' by pi (i.e., the numerical constant).
-
+1. Create a 5x3 numeric matrix called 'myMat' wherein each column is equal to the vector 1:5.
+1. Multiply each entry in 'myMat' by pi (i.e., the mathematical constant).
 
 :::: {.panel-tabset}
-## {{< var tab_title.question >}}
+
+## {{< var tab_title.editor >}}
 
 ```{webr-r}
 
@@ -67,12 +157,11 @@ HINT: The built-in R object `pi` contains the value of pi.
 ## {{< var tab_title.solution >}}
 
 ```{r}
-(myMat <- matrix(1:5,5,3))
+(myMat <- matrix(1:5, 5, 3))
 
-myMat*pi
+myMat * pi
 ```
+
 ::::
 
 :::
-
-

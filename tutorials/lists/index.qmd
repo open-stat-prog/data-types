@@ -1,0 +1,8 @@
+---
+title: "Lists"
+---
+
+Lists are one of R's most versatile and ubiquitous data structures. Like vectors, lists are one-dimensional objects.
+Unlike vectors, however, lists can comprise arbitrary mixes of data objects with any combination of types. This
+flexibility makes lists particularly useful for storing and organizing heterogeneous data such as the results returned
+from statistical modeling functions.

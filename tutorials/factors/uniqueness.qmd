@@ -1,0 +1,44 @@
+---
+title: "Special Role of Factors"
+---
+
+Factors often cause confusion for new (and not-so-new) data analysts. In particular, the `print()` method for factors
+shows the level names when printing factors. So, factors with textual level names (e.g., {"male", "female"}) look much
+like character vectors when printed, and factors with numeric level names (e.g., {"0", "1"}) look like numeric vectors.
+However, factors are not character vectors, numeric vectors, nor any other type of atomic vector: they have their own 
+class, `factor`, which tells R functions to treat factors as encoded categorical variables.
+
+```{r}
+f1 <- factor(sample(0:1, 10, TRUE))
+f2 <- factor(sample(c("foo", "bar"), 10, TRUE))
+
+f1 # looks a lot like an integer vector
+f2 # looks like a character vector
+
+# Not numeric or character
+is.numeric(f1)
+is.integer(f1)
+is.character(f1)
+
+is.numeric(f2)
+is.integer(f2)
+is.character(f2)
+
+# Not any type of vector, at all, actually
+is.vector(f1)
+is.vector(f2)
+```
+
+Similarly, even though factors are built from integer vectors, we can't do mathematical operations on vectors. Since
+factors represent discrete categories, not continuous quantities, mathematical operations on factors are generally
+meaningless.
+
+```{r}
+f1 + 1
+mean(f1)
+```
+
+In the examples above, the requested operations return missing values, `NA`, because we're asking R to do a nonsensical
+calculation. So, the result cannot be meaningfully defined. By design, treating a factor as if it were numeric produces
+errors and/or null results. This conservative behavior ensures that categorical data are not accidentally interpreted as
+numeric values, which will usually produce misleading results.

@@ -10,14 +10,16 @@ format:
 source(here::here("R", "buttons.R"))
 ```
 
-Welcome to the module about data types. These structures form the foundation of nearly all data manipulation and analysis workflows in R. Understanding how they work, how they differ, and how to interact with them is essential for writing effective and reliable R code.
+In this module, we'll cover five of the most ubiquitous and useful data types in R. These structures form the foundation
+of nearly all data manipulation and data analysis workflows in R. Hence, understanding how these data types work, how
+they relate/differ, and their relative use-cases is essential for writing effective and reliable R code. Each tutorial
+focusses on a specific data type:
 
 1. [Vectors](/tutorials/vectors/index.qmd)
-2. [Matrices](/tutorials/matrices/index.qmd)
-3. [Lists and Data Frames](/tutorials/list_df/index.qmd)
-4. [Factors](/tutorials/factors/index.qmd)
-
-Each tutorial centers on a specific object type, combining conceptual explanations with hands-on examples to demonstrate how R stores, accesses, and processes data, featuring interactive lessons with embedded practice problems and concluding with a knowledge quiz.
+1. [Matrices](/tutorials/matrices/index.qmd)
+1. [Lists](/tutorials/lists/index.qmd)
+1. [Data Frames](/tutorials/data_frames/index.qmd)
+1. [Factors](/tutorials/factors/index.qmd)
 
 ## Learning Goals
 
@@ -25,43 +27,47 @@ After completing this module, you will be able to:
 
 ### Vectors
 
-1. Understand what atomic vectors are and recognize their six types (logical, integer, double, character, complex, raw).
-
-2. Practice performing element-wise arithmetic and logical operations.
-
-3. Learn how to access, modify, and subset elements in a vector using indexing.
+1. Describe the characteristics of atomic vectors, and explain their fundamental role in the R data system.
+1. Describe the six atomic vector modes (logical, integer, double, character, complex, raw).
+1. Generate new atomic vectors using various functions.
+1. Performing element-wise arithmetic and logical operations on atomic vectors.
+1. Select and modify elements in a vector.
 
 ### Matrices
 
-1. Understand the relationship between matrices and vectors, and the role of the `dim` attribute.
+1. Describe the characteristics of an R matrix.
+1. Explain the relationship between matrices and vectors.
+1. Create new matrices in R.
+1. Perform element-wise operations on matrices.
+1. Explain how recycling works with matrix operations.
+1. Select and modify the elements of a matrix.
 
-2. Explore how to inspect the structure and dimensions of matrices.
+### Lists
 
-3. Perform element-wise operations on matrices and understand the behavior of recycling in this context.
+1. Describe the characteristics of an R list.
+1. Describe important use-cases for lists, and explain why lists are the best choice in these situations.
+1. Create new lists in R.
+1. Access and modify list elements using different methods and explain the difference between the available selection
+   operators.
 
-4. Use matrix-style indexing to access and assign values in matrices.
+### Data Frames
 
-## Lists and Data Frames
+1. Describe the characteristics of data frames.
+1. Explain important use-cases for data frames, and explain why data frames are the best choice in these situations.
+1. Explain how data frames and lists are related.
+1. Explain the differences between data frames and matrices.
+1. Create new data frames in R.
+1. Use list-style and matrix-style indexing to access and modify the elements of a data frame.
+1. Explain the different effects of the available selection operators.
+1. Explain how recycling works with data frames.
 
-1. Understand that lists can hold heterogeneous elements, including other lists and functions.
+### Factors
 
-2. Access and modify list elements using different metods and understand the difference between them.
-
-3. Understand that data frames are list-based structures for storing tabular data.
-
-4. Understand that each column in a data-frame is a vector and may differ in type.
-
-5. Use list-style and matrix-style indexing to access columns, rows, and individual elements.
-
-6. Recognize the differences between data frames and matrices, particularly in terms of structure and permitted operations.
-
-## Factors
-
-1. Understand the purpose of factors for representing categorical data in R.
-
-2. Understand how factors are stored internally and how to inspect their attributes.
-
-3. Learn the distinction between factors and numeric types, and why arithmetic operations on factors are invalid.
+1. Describe the characteristics of an R factor.
+1. Explain how factors differ from atomic vectors.
+1. Generate new factors in R.
+1. Access and modify factor levels.
+1. Describe important use-cases for Factors, and explain why factors are the best choice in these situations.
 
 Click the button below to get started with the first tutorial.
 

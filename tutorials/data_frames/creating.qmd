@@ -1,0 +1,171 @@
+---
+title: "Creating Data Frames"
+---
+
+We create data frames using the `data.frame()` function. This function takes vectors as arguments, and each vector
+becomes a column in the resulting data frame. 
+
+In the following code, we create a data frame called `d1` that contains 10 rows and 3 columns.
+
+1. The first column is the integer sequence from 1 to 10
+1. The second column alternates between -1 and 1
+1. The third column contains the sequence $\{0.1, 0.2, \ldots, 1.0\}$.
+
+```{r}
+(d1 <- data.frame(1:10, c(-1, 1), seq(0.1, 1, 0.1)))
+```
+
+Since we did not name the arguments to `data.frame()` when creating `d1`, R generated default (ugly) column names by
+parsing the argument values. 
+
+```{r}
+colnames(d1)
+```
+
+We can assign our own column names by naming the arguments to `data.frame()`.
+
+```{r}
+# Generate a version of d1 with better column names
+(d2 <- data.frame(x = 1:10, y = c(-1, 1), z = seq(0.1, 1, 0.1)))
+```
+
+We can also assign column names to an existing data frame using the `names()` or `colnames()` functions.
+
+```{r}
+names(d1) <- c("foo", "bar", "baz")
+d1
+
+colnames(d1) <- c("alice", "bob", "suzy")
+d1
+```
+
+One of the greatest strengths of data frames is their ability to store heterogeneously typed columns. For example, in
+the following code, we create a data frame called `d3` that comprises three uniquely typed columns.
+
+a. A logical vector containing 10 randomly sampled boolean values.
+a. A character vector containing 10 random selections from the set {"foo", "bar"}.
+a. A numeric vector containing 10 values randomly sampled from the interval [0, 1].
+
+```{r}
+(d3 <- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),
+                  b = sample(c("foo", "bar"), 10, replace = TRUE),
+                  c = runif(10)))
+```
+
+If we want to quickly generate an empty data frame, we can supply a matrix as the sole argument to `data.frame()`.
+
+```{r}
+(d4 <- data.frame(matrix(NA, 10, 3)))
+```
+
+::: practice
+
+## Practice
+
+Create a data frame containing 7 observations of 3 variables.
+
+- Use a different type for each of the variables.
+
+:::: {.panel-tabset}
+
+## {{< var tab_title.editor >}}
+
+```{webr-r}
+
+```
+
+## {{< var tab_title.solution >}}
+
+There are an infinite number of correct solutions to this problem (literally). The following is one possibility.
+
+```{r}
+df <- data.frame(text = rep("text", 7),
+                 integer = sample(1:10, 7, replace = TRUE),
+                 complex = complex(7, 1:5, 1:3)
+                 )
+df
+```
+
+::::
+
+:::
+
+## Structure of Data Frames
+
+Although data frames look like two-dimensional matrices, they are actually lists of equal-length vectors. Each column in
+a data frame corresponds to a slot in the underlying list, and each of these list slots hold some soft of vector that
+contains the data from the corresponding column. So, all data frames are lists.
+
+```{r}
+d1 <- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),
+                 b = sample(c("foo", "bar"), 10, replace = TRUE),
+                 c = runif(10)
+                 )
+d2 <- data.frame(a = 1:10, b = c(-1, 1), c = seq(0.1, 1, 0.1))
+d3 <- data.frame(x = -5:4, y = c(1, 10), z = seq(1, 1.5, length.out = 10))
+
+# d1, d2, and d3 are all data frame.
+is.data.frame(d1)
+is.data.frame(d2)
+is.data.frame(d3)
+
+# But they're also lists
+is.list(d1)
+is.list(d2)
+is.list(d3)
+```
+
+All data frames are lists, but not all lists need be data frames.
+
+```{r}
+l1 <- list()
+l2 <- list(a = sample(c(TRUE, FALSE), 10, replace = TRUE),
+           b = sample(c("foo", "bar"), 10, replace = TRUE),
+           c = runif(10)
+           )
+l3 <- list(d2, d3)
+
+# l1, l2, and l3 are all lists
+is.list(l1)
+is.list(l2)
+is.list(l3)
+
+# But they're not data frames
+is.data.frame(l1)
+is.data.frame(l2)
+is.data.frame(l3)
+```
+
+As you have probably surmised, data frames are not matrices. Although data frames and matrix share many superficial
+similarities, they're almost entirely unrelated types of objects.
+
+```{r}
+is.matrix(d1)
+is.matrix(d2)
+is.matrix(d3)
+```
+
+Consequently, you cannot apply matrix operations (such as matrix multiplication) to a data frame.
+
+```{r error = TRUE}
+d2 %*% t(d3)
+```
+
+If you wanted to analyze a data frame like a matrix, you could *type cast* the data frame into a matrix using the
+`as.matrix()` function.
+
+```{r}
+as.matrix(d2) %*% t(as.matrix(d3))
+```
+
+You should be carefully about any type conversions. If you're data frame contains mixed column types, R will coerce every
+column into some compatible type.
+
+```{r}
+(m1 <- as.matrix(d1))
+typeof(m1)
+
+(d4 <- data.frame(x = rep(c(TRUE, FALSE), 3), y = runif(6)))
+(m4 <- as.matrix(d4))
+typeof(m4)
+```

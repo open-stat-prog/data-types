@@ -2,8 +2,8 @@
 title: "Matrices"
 ---
 
-In R, matrices are a fundamental data structure used to represent two-dimensional collections of values. Just like vectors, all elements in a matrix must be of the same type—numeric, character, logical, or otherwise. You can think of a matrix as an extension of a vector, where data is organized into rows and columns.
-
-At their core, matrices are essentially vectors with a dimension attribute that tells R to interpret them in a grid-like structure. So, while they look like tables, they’re still built on the foundation of vectors.
-
-Whenever you're working with tabular numeric data, performing linear algebra operations, or doing more advanced data analysis, you're likely using matrices—whether explicitly or behind the scenes.
+In R, matrices are a fundamental data structure used to represent two-dimensional collections of homogeneously typed
+values. Just like vectors, all elements in a matrix must have the same type: one of the [six atomic
+modes](/tutorials/vectors/atomic_modes.qmd). You can think of R matrices as generalizations of R vectors. Matrices are
+just vectors with a dimension attribute that tells R to interpret matrices as two-dimensional objects with rows and
+columns.

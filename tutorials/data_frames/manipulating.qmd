@@ -1,0 +1,235 @@
+---
+title: "Manipulating Data Frames"
+---
+
+## Accessing Data Frame Elements
+
+Because data frames are just lists, we can access a data frame's columns using the same methods we would use for lists.
+To access a single column by name, the most efficient method is typically the `$` operator.
+
+```{r}
+d1 <- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),
+                 b = sample(c("foo", "bar"), 10, replace = TRUE),
+                 c = runif(10)
+                 )
+d1$b
+
+data(iris)
+iris$Petal.Length
+```
+
+We can also use the single, `[]`, or double, `[[]]`, square bracket operators. As with lists, these operators differ in
+two respects how many columns they can select and how they format resulting selection.
+
+- `[]`: Can select multiple elements and always returns a data frame.
+- `[[]]`: Can select only one element and returns the column contents as a vector (or whatever type of object the column
+contained).
+
+```{r}
+# Return a one-column data frame comprising the 'b' column from d1
+d1["b"]
+
+# The same as above, but using the column index instead of the column name
+d1[2]
+
+# Return a two-column data frame comprising the 'a' and 'b' columns from d1
+d1[c("a", "b")]
+
+# The same as above, but using the column indices instead of the column names
+d1[1:2]
+
+# Return the 'b' column from d1 as a character vector
+d1[["b"]]
+
+# The same as above, but using the column index instead of the column name
+d1[[2]]
+```
+
+### Matrix-Style Selection
+
+Data frames also support matrix-style subsetting, where we define the selection by specifying both the row and column
+indices.
+
+```{r}
+d1[1:2, 2:3]
+d1[ , 1:2]
+d1[2:3, ]
+```
+
+In most cases, matrix style subsetting behaves the same was as the `[]` list-style operator---you can select any number
+of elements, and the selection is returned as a data frame---but there is one exception If you select a single column
+using matrix-style subsetting, the selection will be converted to a vector.
+
+```{r}
+d1[ , 1]
+```
+
+## Modifying Data Frame Elements
+
+Naturally, we can overwrite the columns of a data frame using the same procedures that we use to modify list slots. When
+modifying one column at a time, we directly apply the intuitive operations.
+
+```{r}
+# View the original data frame
+d1
+
+## Modify some list elements
+d1$a <- LETTERS[1:10]
+d1[[2]] <- rnorm(10)
+d1["c"] <- rep(c(TRUE, FALSE), each = 5)
+
+# View the modified data frame
+d1
+```
+
+When modifying multiple columns with the `[]`, operator, it's best to supply the replacement values as a data frame or
+list with the same size as the selected columns.
+
+```{r}
+# Replace the first two columns of d1 with an equivalently sized data frame
+# extracted from the 'iris' dataset
+d1[1:2] <- iris[1:10, 1:2]
+d1
+
+# Replace the 'a' and 'c' columns in d1 with an equivalently sized list
+d1[c("a", "c")] <- list(rnorm(10), runif(10))
+d1
+```
+
+### Matrix-Style Selection
+
+If we only want to replace part of a column, we can use matrix-style selection to choose the target cells.
+
+```{r}
+d1[1:5, 2] <- 41:45
+d1
+
+d1[3:6, c("a", "c")] <- list(-99, 888)
+d1
+```
+
+### Recycling
+
+When the replacement size doesn't match the selection size, R will use recycling to resolve the discrepancy, but it's
+not always easy to predict how the replacement will behave.
+
+```{r}
+# Replace the first two columns of d1 by recycling the vector `1:5`
+d1[1:2] <- 1:5
+d1
+
+# Replace the 'a' and 'c' columns in d1 with a list containing vectors that
+# will need to be recycled
+d1[c("a", "c")] <- list(c("yes", "no"), 7:8)
+d1
+```
+
+As with matrices, R is oddly specific (in a slightly different way) about the kinds of size discrepancies it will
+automatically resolved when modifying data frames.
+
+- OK
+   - Replacement length > Selection length
+   - Replacement length cleanly divides the selection length
+   - Replacement length exceeds selection length
+   - Replacement list contains more slots than columns selected
+   - Replacement data frame contains more slots than columns selected
+- Not OK
+   - Replacement length does not cleanly divide selection length
+
+```{r, error = TRUE}
+# Works: Replace the first two columns of d1 by using the first 20 elements
+# from the `100:500`
+d1[1:2] <- 100:500
+d1
+
+# Works: Replace the 'a' and 'c' columns in d1 with a list containing vectors
+# that are too long
+d1[c("a", "c")] <- list(rnorm(100), runif(100))
+d1
+
+# Works: Replace the 'a' and 'c' columns in d1 with a the first two slots in a
+# length-3 list
+d1[c("a", "c")] <- list(1, 2, 3)
+d1
+
+# Works: Replace the 'a' and 'c' columns in d1 with a the first two columns
+# from a three-column data frame
+d1[c("a", "c")] <- data.frame("foo", "bar", "baz")
+d1
+
+# Fails: Replace the first two columns of d1 by using non-conformable vector 1:3
+d1[1:2] <- 1:3
+
+# Fails: Replace the 'a' and 'c' columns in d1 with a list containing
+# non-conformable vectors
+d1[c("a", "c")] <- list(letters[4], 1:8)
+```
+
+## Adding Columns
+
+As with lists, we can add new columns to an existing data frame using the `$` or `[[]]` operators.
+
+```{r}
+# Create an empty list
+(d2 <- data.frame(a = 1:10, b = "bob"))
+
+## Various ways of adding new single columns
+d2$c <- letters[1:10]
+d2[["d"]] <- runif(10)
+d2[[5]] <- rnorm(10)
+d2["alice"] <- TRUE
+d2
+```
+
+We can add multiple columns using the `[]` operator.
+
+```{r}
+d2[7:8] <- rnorm(20)
+d2[c("foo", "bar")] <- list(TRUE, FALSE)
+d2
+```
+
+::: practice
+
+## Practice
+
+Run the following code to create an empty data frame containing 10 observations of the 3 variables: a, b, c. Then
+populate the data frame as described below.
+
+1. Fill column `a` with the integer sequence from -9 to 0.
+   - Use the column name to assign the new values.
+1. Fill column `b` with the even integers between 1 and 20 (inclusive).
+   - Use the numeric column index to assign the new values.
+1. Replace the odd rows in column `c` with the odd integers between 11 and 20 (inclusive).
+   - Do not overwrite the missing values in the even rows. 
+
+:::: {.panel-tabset}
+
+## {{< var tab_title.editor >}}
+
+```{webr-r}
+df <- data.frame(a = rep(NA, 10),
+                 b = rep(NA, 10),
+                 c = rep(NA, 10)
+                 )
+```
+
+## {{< var tab_title.solution >}}
+
+```{r}
+df <- data.frame(a = rep(NA, 10),
+                 b = rep(NA, 10),
+                 c = rep(NA, 10)
+                 )
+df
+
+df$a <- -9:0
+df[2] <- seq(2,20,2)
+df[seq(1, 9, 2), "c"] <- seq(11, 19, 2)
+df
+```
+
+::::
+
+:::
+

@@ -1,0 +1,59 @@
+```{r, echo = FALSE, include = FALSE}
+
+df <- data.frame(
+  name = c("bob", "mike", "mark", "steve"),
+  age = c(25, 23, 24, 26),
+  height = c(180, 178, 169, 183),
+  eyes = c("green", "green", "blue", "brown")
+)
+
+```
+
+Question
+========
+
+Consider the following data frame, `df`.
+
+```{r, echo = FALSE}
+df
+```
+
+How can we extract the `height` column and return the selection as a *data frame*?
+
+Answerlist
+-----------
+* `df[3]`
+* `df["height"]`
+* `df$height`
+* `df[["height"]]`
+* `df[[3]]`
+* `df[ , 3]`
+* `df[ , "height"]`
+* `df[3, ]`
+* `df["height", ]`
+* `df[[2]]`
+* `df[2:3]`
+
+Solution
+========
+
+Answerlist
+-----------
+* Correct
+* Correct
+* Wrong: This command will return the `height` column as a numeric vector.
+* Wrong: This command will return the `height` column as a numeric vector.
+* Wrong: This command will return the `height` column as a numeric vector.
+* Wrong: This command will return the `height` column as a numeric vector.
+* Wrong: This command will return the `height` column as a numeric vector.
+* Wrong: This command will return the third row of `df` as a $1 \times 4$ data frame.
+* Wrong: This command will try to return a row called "height" and fail because there is no such row in `df`.
+* Wrong: This command will return the `age` column as a numeric vector.
+* Wrong: This command will return the `age` and `height` columns as a $4 \times 2$ data frame.
+
+Meta-information
+================
+exname: return_df_column_as_df
+extype: mchoice
+exsolution: 11000000000
+exshuffle: 5

@@ -1,9 +1,0 @@
----
-title: "Lists and data frames"
----
-
-In R, lists are one of the most versatile and fundamental data structures. A list is a one-dimensional collection capable of holding elements of varying types and structures. Unlike atomic vectors, which require all elements to be of the same type (e.g., all numeric or all logical), lists impose no such restriction. Each element in a list can be a completely different kind of object—numbers, characters, logical values, functions, other lists, or even more complex structures such as data frames or model outputs. This flexibility makes lists particularly useful for storing and organizing heterogeneous data.
-
-Similarly, data frames are essential data structures in R, especially for representing tabular data. A data frame is a two-dimensional collection where each column can contain a different type of data—numeric, character, logical, or factors—while each column must have the same number of observations. This structure closely mirrors the layout of datasets in spreadsheets or database tables, making data frames a natural choice for storing and manipulating real-world data. 
-
-Interestingly, data frames are actually implemented as special types of lists. Each column in a data frame is an element of a list, and all elements (columns) must be vectors of equal length. This means that under the hood, a data frame is a list where each element (i.e., column) is named and holds a vector, but with additional constraints and attributes that allow it to behave like a 2 dimensional table.

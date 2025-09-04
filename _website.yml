@@ -1,8 +1,8 @@
 website:
 
-  title: "OSP Module Template"
+  title: "OSP Data Types"
 
-  site-url: "https://www.openstatprog.com/module-template/"
+  site-url: "https://www.openstatprog.com/data-types/"
 
   page-navigation: true
 
@@ -43,24 +43,29 @@ website:
         text: "Matrices"
         contents:
           - href: tutorials/matrices/matrix_creation.qmd
-          - href: tutorials/matrices/matrix_operation.qmd
           - href: tutorials/matrices/matrix_selection.qmd
+          - href: tutorials/matrices/matrix_operation.qmd
           - href: quizzes/matrices/index.qmd
             text: "Knowledge Quiz"
-      - section: tutorials/list_df/index.qmd
-        text: "Lists and Dataframes"
+      - section: tutorials/lists/index.qmd
+        text: "Lists"
         contents:
-          - href: tutorials/list_df/creating_list.qmd
-          - href: tutorials/list_df/lists_element.qmd
-          - href: tutorials/list_df/data_frame.qmd
-          - href: tutorials/list_df/df_selection.qmd
-          - href: quizzes/list_df/index.qmd
+          - href: tutorials/lists/creating.qmd
+          - href: tutorials/lists/manipulating.qmd
+          - href: quizzes/lists/index.qmd
+            text: "Knowledge Quiz"
+      - section: tutorials/data_frames/index.qmd
+        text: "Data Frames"
+        contents:
+          - href: tutorials/data_frames/creating.qmd
+          - href: tutorials/data_frames/manipulating.qmd
+          - href: quizzes/data_frames/index.qmd
             text: "Knowledge Quiz"
       - section: tutorials/factors/index.qmd
         text: "Factors"
         contents:
-          - href: tutorials/factors/gen_factors.qmd
-          - href: tutorials/factors/num_and_fac.qmd
+          - href: tutorials/factors/creating.qmd
+          - href: tutorials/factors/uniqueness.qmd
           - href: quizzes/factors/index.qmd
             text: "Knowledge Quiz"
       - href: conclusion.qmd

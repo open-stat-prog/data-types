@@ -1,0 +1,13 @@
+---
+title: "Data frames"
+---
+
+Data frames are one of the most useful data structures in R, at least when it comes to real-world data analysis. A data
+frame is a two-dimensional, tabular object wherein the columns must be the same length, but they can contain different
+types of data. This structure closely mirrors the layout of rectangular, spreadsheet-style datasets, so data frames are
+the natural choice for storing and manipulating real-world datasets in most data analytic projects. 
+
+Interestingly, data frames are actually implemented as a special case of lists. Each column in a data frame is an
+element of a list, but all of these list elements must be vector-like objects (not necessarily atomic vectors, though)
+with equal length. In other words, a data frame is just a list where each slot contains a vector representing one column
+in the data frame, but with additional constraints and attributes that allow it to behave like a 2 dimensional table.

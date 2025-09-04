@@ -1,34 +1,34 @@
 Question
 ========
-Which of the following expressions allow you go from matrix $a$  to matrix $b$ with only one line of code?
+Which of the following expressions will convert matrix $a$ into matrix $b$?
 
-$$a = \begin{bmatrix}
+$$
+\begin{align*}
+a &= \begin{bmatrix}
 1 & 2 \\
 3 & 4 \\
 5 & 6 \\
-\end{bmatrix}$$
-
-
-$$b = \begin{bmatrix}
+\end{bmatrix}
+\\
+b &= \begin{bmatrix}
 1 & 2 \\
 3 & 5 \\
 4 & 6 \\
-\end{bmatrix}$$
-
+\end{bmatrix}
+\end{align*}
+$$
 
 Answerlist
 ----------
-* `a[c(2,3),c(1,2)] <- c(3,4,5,6)`
-* `a[c(2,3),c(1,2)] <- 3:6`
-* `a[c(2,3),] <- c(3,4,5,6)`
-* `a[c(2,3),c(1,2)] <- matrix(3:6,2,2)`
-* `a[c(3,5)] <- c(4,5)`
-* `a[c(2,3),c(1,2)] <- c(4,5)`
-* `a[c(2,3),c(1,2)] <- 4:5`
-* `a[2,3] <- c(4,5)`
-* `a[c(2,3),c(1,2)] <- matrix(3:6,2,2,byrow=TRUE)`
-* `a[c(3,5),] <- c(4,5)`
-
+* `a[c(2, 3), c(1, 2)] <- c(3, 4, 5, 6)`
+* `a[c(2, 3), c(1, 2)] <- 3:6`
+* `a[c(2, 3), ] <- c(3, 4, 5, 6)`
+* `a[c(2, 3), c(1, 2)] <- matrix(3:6, 2, 2)`
+* `a[c(2, 3), c(1, 2)] <- c(4, 5)`
+* `a[c(2, 3), c(1, 2)] <- 4:5`
+* `a[2, 3] <- c(4, 5)`
+* `a[c(2, 3), c(1, 2)] <- matrix(3:6, 2, 2, byrow = TRUE)`
+* `a[c(3, 5), ] <- c(4, 5)`
 
 Solution
 ========
@@ -39,16 +39,15 @@ Answerlist
 * Correct.
 * Correct.
 * Correct.
-* Correct.
-* Wrong. This command will return $$\begin{bmatrix} 1 & 2 \\ 4 & 4 \\ 5 & 5 \\ \end{bmatrix}$$
-* Wrong. This command will return $$\begin{bmatrix} 1 & 2 \\ 4 & 4 \\ 5 & 5 \\ \end{bmatrix}$$
-* Wrong. This command will return an error
-* Wrong. This command will return $$\begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \\ \end{bmatrix}$$
-* Wrong. This command will return an error
+* Wrong. This command will produce $$\begin{bmatrix} 1 & 2 \\ 4 & 4 \\ 5 & 5 \\ \end{bmatrix}$$
+* Wrong. This command will produce $$\begin{bmatrix} 1 & 2 \\ 4 & 4 \\ 5 & 5 \\ \end{bmatrix}$$
+* Wrong. This command will produce an error since we're trying to overwrite columns that don't exist.
+* Wrong. This command will produce $$\begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \\ \end{bmatrix}$$
+* Wrong. This command will produce an error since we're trying to overwrite rows that don't exist.
 
 Meta-information
 ================
 exname: sub_matrix
 extype: mchoice
-exsolution: 1111100000
+exsolution: 111100000
 exshuffle: 5
