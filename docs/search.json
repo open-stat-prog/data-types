@@ -1,0 +1,865 @@
+[
+  {
+    "objectID": "tutorials/vectors/vector_operations.html",
+    "href": "tutorials/vectors/vector_operations.html",
+    "title": "Vector Operations",
+    "section": "",
+    "text": "R vectors are dimensionless objects. Unlike the mathematical column vectors with which you may be familiar, R vectors don’t have rows or columns, but they do have length. We can check the length of a vector using the length() function.\ny &lt;- 1:4\nlength(y)\n\n[1] 4",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Vector Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/vector_operations.html#arithmetic",
+    "href": "tutorials/vectors/vector_operations.html#arithmetic",
+    "title": "Vector Operations",
+    "section": "Arithmetic",
+    "text": "Arithmetic\nArithmetic in R works element-wise when applied to vectors. That is, the requested operation is performed between matched elements of the vectors. In this way, R vectors behave much like arrays do in most other programming languages.\n\n(x &lt;- rep(2, 4))\n\n[1] 2 2 2 2\n\ny + x\n\n[1] 3 4 5 6\n\ny - x\n\n[1] -1  0  1  2\n\ny / x\n\n[1] 0.5 1.0 1.5 2.0\n\ny * x\n\n[1] 2 4 6 8\n\n\n\nRecycling\nIf two vectors involved in an element-wise operation have different lengths, R will recycle the elements of the shorter vector until each element in the longer vector can be matched with an element from the shorter vector.\n\n\n\n\n\n\nPractice\n\n\n\n\n Question Solution\n\n\nCan you see how R is applying recycling to calculate the elements of w?\n\nExplain how the recycling algorithm works in this example.\n\n\nz &lt;- c(1, 2)\nw &lt;- y - z\nw\n\n[1] 0 0 2 2\n\n\n\n\nIn this example, y has four elements, but z has only two. So, R re-uses the two elements in z to define matches for all four elements in y and specify the four differences needed to define the elements of w.\n\n\\(w_1 = y_1 - z_1\\)\n\\(w_2 = y_2 - z_2\\) \\(\\leftarrow\\) After calculating the second difference, we’ve run out of elements in z.\n\\(w_3 = y_3 - z_1\\) \\(\\leftarrow\\) Beginning with the third difference, we start recycling the elements of z.\n\\(w_4 = y_4 - z_2\\)\n\n\n\n\n\n\nIf the length of the longer vector is divisible by the length of the shorter vector, R will recycle silently (i.e., without any messages or warnings). So, you need to vigilant and make sure you don’t accidentally trigger recycling when you don’t want it.\nIn cases where the length of the shorter vector doesn’t evenly divide the length of the longer vector, R will still use execute the requested operation and apply recycling, but it will also return a warning.\n\na &lt;- 1:4\nb &lt;- 1:2\nc &lt;- 1:5\n\na + b # silent recycling\n\n[1] 2 4 4 6\n\na + c # recycling with warning\n\nWarning in a + c: longer object length is not a multiple of shorter object\nlength\n\n\n[1] 2 4 6 8 6\n\n\n\nWhy Recycling is a Useful Feature\nAt this point, if you have any predilection toward strictly typed programming languages, all this recycling business might sound like insanity, but there’s a method to the madness. Let’s consider a few examples that demonstrate how recycling can actually be very helpful in day-to-day programmatic data analysis.\nThe following code looks like it should implement scalar multiplication, and outcome looks like the result of a scalar multiplication. But R doesn’t have scalars, and vector arithmetic in R doesn’t follow standard linear algebraic rules, so our intuitive reading of this expression can’t be correct.\n\n3 * y\n\n[1]  3  6  9 12\n\n\nIn fact, the preceding code is actually doing element-wise multiplication of a length-one vector, 3, and a length-four vector, y, and recycling the elements of the length-one vector to resolve the length difference. In this example, recycling provides two benefits:\n\nWe get to write code that reads like the mathematical representation of the operation we’re trying to implement\nOur code produces the same result as the mathematical operation it appears to represent\n\nThe following three expressions follow the same pattern as the last example but provide more compelling evidence for the real-world usefulness of recycling. These expressions don’t represent valid operations under the conventional rules of linear algebra, and they wouldn’t be valid commands in a highly structure programming language like C. Yet, the intended operations are intuitively obvious, and R will use recycling to execute the operations we expect.\n\ny - 1\n\n[1] 0 1 2 3\n\ny + 3\n\n[1] 4 5 6 7\n\ny / 3\n\n[1] 0.3333333 0.6666667 1.0000000 1.3333333",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Vector Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/vector_operations.html#logical-tests",
+    "href": "tutorials/vectors/vector_operations.html#logical-tests",
+    "title": "Vector Operations",
+    "section": "Logical Tests",
+    "text": "Logical Tests\nLogical comparisons between vectors test some logical relation between the vectors and return a logical vector that encodes the answer to whatever TRUE/FALSE question the logical relation tested. These comparisons follow the same rules as vector arithmetic:\n\nOperators are applied element-wise\nRecycling is used to resolve length differences\n\n\n# Check which elements of y are equal to 4\ny == 4\n\n[1] FALSE FALSE FALSE  TRUE\n\n# Check which elements of y are equal to 4 or 2\ny == 4 | y == 2\n\n[1] FALSE  TRUE FALSE  TRUE\n\n\nWe need to be especially mindful of the vector operation rules when applying logical comparisons to vectors. When defining logical tests, intuition can easily fail us. For example, it would be natural to read the following code as implementing the same test as the previous expression, but the two results are clearly different. Why?\n\ny == c(4, 2)\n\n[1] FALSE  TRUE FALSE FALSE\n\n\nAs you’ve probably surmised, recycling is causing the discrepancy. We can clarify the differences between the two tests by extending the shorter vectors to manually implement recycling.\n\ny == c(4, 4, 4, 4) | y == c(2, 2, 2, 2)\n\n[1] FALSE  TRUE FALSE  TRUE\n\ny == c(4, 2, 4, 2)\n\n[1] FALSE  TRUE FALSE FALSE\n\n\nNow, the two tests don’t appear very similar, and their different outcomes aren’t particularly surprising.\n\n\n\n\n\n\nPractice\n\n\n\n\nCreate the object myVec by running the two lines of code below.\nProgrammatically create a logical vector that indicates which elements of myVec are (strictly) less than 3.\n\n\n Question Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nset.seed(235711)\nmyVec &lt;- sample(1:5)\n\ny &lt;- myVec &lt; 3",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Vector Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/generating_vectors.html",
+    "href": "tutorials/vectors/generating_vectors.html",
+    "title": "Generating Vectors",
+    "section": "",
+    "text": "There are many different ways to generate vectors in R. Some involve combining explicitly specified elements, while others use algorithmic rules to generate value that follow some pattern. Below, we’ll cover some of the most common ways to generate vectors.",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Generating Vectors"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/generating_vectors.html#concatenation",
+    "href": "tutorials/vectors/generating_vectors.html#concatenation",
+    "title": "Generating Vectors",
+    "section": "Concatenation",
+    "text": "Concatenation\nThe concatenation function, c(), constructs a vector by joining its arguments into a single vector.\n\n(y1 &lt;- c(1, 2, 3))\n\n[1] 1 2 3\n\n(y2 &lt;- c(TRUE, FALSE, TRUE, TRUE))\n\n[1]  TRUE FALSE  TRUE  TRUE\n\n(y3 &lt;- c(\"bob\", \"suzy\", \"danny\"))\n\n[1] \"bob\"   \"suzy\"  \"danny\"\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe outer parentheses in these examples are just a handy piece of syntactic sugar. They allow us to assign a value (e.g., c(1, 2, 3) to an object (e.g., y1) and print that object in a single command. You don’t need to use these extra parentheses if you don’t want to print the value of object your creating.",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Generating Vectors"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/generating_vectors.html#generating-sequences",
+    "href": "tutorials/vectors/generating_vectors.html#generating-sequences",
+    "title": "Generating Vectors",
+    "section": "Generating Sequences",
+    "text": "Generating Sequences\nThe colon operator, :, creates a sequence of regularly spaced values between two endpoints. Each element in the resulting vector is separated from it’s neighbors by \\(\\pm\\) 1.\n\n1:5\n\n[1] 1 2 3 4 5\n\n-3:2\n\n[1] -3 -2 -1  0  1  2\n\n1:-2\n\n[1]  1  0 -1 -2\n\n\nThis : operator is primarily intended for creating sequences of whole numbers, but it will also work with decimal-valued arguments, though the results might not be what you’d expect. Notice where the sequence begins and ends in the following example.\n\n\n\n\n\n\nPractice\n\n\n\n\n Question Solution\n\n\nWithout running the code, see if you can generalize what you know about the : operator to answer the following questions.\n\nWhat vector will the following code produce?\nWhat rule is : using to generate this vector?\n\n\n1.2:5.3\n\n\n\nThe resulting vector looks like this:\n\n\n[1] 1.2 2.2 3.2 4.2 5.2\n\n\nThis vector is generated by assigning 1.2 as the first element and then adding 1 to define the next element. Each subsequent element is defined by adding one to the last element until the resulting value exceeds the upper bound we requested (i.e., 5.3). So, the last element in the vector is 5.2, since that’s the largest value that can be generated in unit steps from 1.2 without exceeding 5.3.\n\n\n\n\n\nTo generate regular sequences with non-unit steps between the elements, we can use seq(). The seq() function allows you to specify the step size or the total number of elements in the resulting vector with the by or length.out arguments, respectively.\n\n# Create a numeric vector starting at 0, ending at 1, with elements\n# increasing by steps of 0.25\nseq(from = 0, to = 1, by = 0.25)\n\n[1] 0.00 0.25 0.50 0.75 1.00\n\n# The same as above but omitting the argument names\nseq(0, 1, 0.25)\n\n[1] 0.00 0.25 0.50 0.75 1.00\n\n# Create a numeric vector of 10 evenly spaced values starting at -1 and\n# ending at 1\nseq(-1, 1, length.out = 10)\n\n [1] -1.0000000 -0.7777778 -0.5555556 -0.3333333 -0.1111111  0.1111111\n [7]  0.3333333  0.5555556  0.7777778  1.0000000",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Generating Vectors"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/generating_vectors.html#repeating-values",
+    "href": "tutorials/vectors/generating_vectors.html#repeating-values",
+    "title": "Generating Vectors",
+    "section": "Repeating Values",
+    "text": "Repeating Values\nThe rep() function creates vectors by repeating it’s first argument as many times as requested.\n\nrep(33, 4)\n\n[1] 33 33 33 33\n\nrep(1:3, 3)\n\n[1] 1 2 3 1 2 3 1 2 3\n\n\nUse the each argument to repeat each element of the first argument each number of times.\n\nrep(y3, each = 2)\n\n[1] \"bob\"   \"bob\"   \"suzy\"  \"suzy\"  \"danny\" \"danny\"\n\n\n\n\n\n\n\n\nPractice\n\n\n\nCreate a numeric vector containing the five even integers from 4 to 12 (inclusive).\n\n Interactive Editor Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nWe can use the seq() function to create a sequence from 4 to 12. Using a step size of 2 includes only even values.\n\nseq(4, 12, by = 2)\n\n[1]  4  6  8 10 12",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Generating Vectors"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/atomic_modes.html",
+    "href": "tutorials/vectors/atomic_modes.html",
+    "title": "Atomic Modes",
+    "section": "",
+    "text": "Vectors in R are essentially dimensionless sequences of homogeneously typed elements. These elements can have one of six types, called atomic modes.\nThe first three types represent different types of numeric data, while the last three types represent different types of non-numeric data. It’s important to note that all the elements in a given vector must have the same type.",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Atomic Modes"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/atomic_modes.html#numericdouble",
+    "href": "tutorials/vectors/atomic_modes.html#numericdouble",
+    "title": "Atomic Modes",
+    "section": "Numeric/Double",
+    "text": "Numeric/Double\n\n\n\n\n\n\n\n\nNote\n\n\n\nR’s numeric mode is equivalent to a double-precision floating point value.\n\n\nNumeric vectors store real numbers (e.g., 6.01, 0.04, -42.1, 1.0). The numeric mode is the default type for numbers in R, so if we store a number in an object without specifying otherwise, the type of that object will be numeric (even if the value is a whole number).\n\nv1 &lt;- vector(\"numeric\", 3)\nv1\n\n[1] 0 0 0\n\nv1 &lt;- vector(\"double\", 3)\nv1\n\n[1] 0 0 0",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Atomic Modes"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/atomic_modes.html#integer",
+    "href": "tutorials/vectors/atomic_modes.html#integer",
+    "title": "Atomic Modes",
+    "section": "Integer",
+    "text": "Integer\n\n\n\n\n\n\n\n\nNote\n\n\n\nR’s integer mode is equivalent to a signed long integer.\n\n\nThe integer type represents whole numbers (e.g., 1, 100, -5, 0). While integers and numeric (double) values may look similar, they are distinct types in R. Integers are used when exact whole-number representation is needed. They can also offer slight computational advantages in terms of memory usage and performance, especially when working with large datasets.\n\nv2 &lt;- vector(\"integer\", 3)\nv2\n\n[1] 0 0 0",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Atomic Modes"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/atomic_modes.html#complex",
+    "href": "tutorials/vectors/atomic_modes.html#complex",
+    "title": "Atomic Modes",
+    "section": "Complex",
+    "text": "Complex\nThe complex type represents complex numbers (e.g., \\(3.0 + 4.1i\\), \\(-0.2 + 8.01i\\), \\(3.1 - 27.0i\\)). In R, complex numbers are written with an i to indicate the imaginary unit, like 1+2i or 0-3.5i.\n\nv3 &lt;- vector(\"complex\",3)\nv3\n\n[1] 0+0i 0+0i 0+0i",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Atomic Modes"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/atomic_modes.html#logical",
+    "href": "tutorials/vectors/atomic_modes.html#logical",
+    "title": "Atomic Modes",
+    "section": "Logical",
+    "text": "Logical\nLogical vectors store boolean values (i.e., true, false). Logical vectors can only contain the values TRUE or FALSE.\n\nv4 &lt;- vector(\"logical\", 3)\nv4\n\n[1] FALSE FALSE FALSE",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Atomic Modes"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/atomic_modes.html#character",
+    "href": "tutorials/vectors/atomic_modes.html#character",
+    "title": "Atomic Modes",
+    "section": "Character",
+    "text": "Character\n\n\n\n\n\n\n\n\nNote\n\n\n\nR doesn’t have separate string and character types: any string-like data is represented via character vectors.\n\n\nThe character type is used to represent text. Character vectors contain strings, which are sequences of characters enclosed in quotation marks (e.g., “foo”, “bar”, “alice & bob”, “42”, “FALSE”).\n\nv4 &lt;- vector(\"character\", 3)\nv4\n\n[1] \"\" \"\" \"\"",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Atomic Modes"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/atomic_modes.html#raw",
+    "href": "tutorials/vectors/atomic_modes.html#raw",
+    "title": "Atomic Modes",
+    "section": "Raw",
+    "text": "Raw\nThe raw type represents raw bytes of data, typically used for low-level operations. This type is rarely used in typical data analyses.\n\nv6 &lt;- vector(\"raw\", 3)\nv6\n\n[1] 00 00 00",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Atomic Modes"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_operation.html",
+    "href": "tutorials/matrices/matrix_operation.html",
+    "title": "Matrix Operations",
+    "section": "",
+    "text": "The length() function works with matrices, but the results may not be that interesting. When applied to matrices, length() returns the number of cells in the matrix.\n\n(m1 &lt;- matrix(1:9, 3, 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\nlength(m1)\n\n[1] 9\n\n\nTo get the dimensions of the matrix, we use dim().\n\ndim(m1)\n\n[1] 3 3",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Matrix Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_operation.html#size",
+    "href": "tutorials/matrices/matrix_operation.html#size",
+    "title": "Matrix Operations",
+    "section": "",
+    "text": "The length() function works with matrices, but the results may not be that interesting. When applied to matrices, length() returns the number of cells in the matrix.\n\n(m1 &lt;- matrix(1:9, 3, 3))\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\nlength(m1)\n\n[1] 9\n\n\nTo get the dimensions of the matrix, we use dim().\n\ndim(m1)\n\n[1] 3 3",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Matrix Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_operation.html#arithmetic",
+    "href": "tutorials/matrices/matrix_operation.html#arithmetic",
+    "title": "Matrix Operations",
+    "section": "Arithmetic",
+    "text": "Arithmetic\nAs with vectors, default arithmetic with R matrices works element-wise. R performs the requested operation on each pair of corresponding entries in the two matrices.\n\n(m2 &lt;- matrix(sample(-5:5, 9, TRUE), 3, 3))\n\n     [,1] [,2] [,3]\n[1,]    4    5    4\n[2,]   -1    3   -4\n[3,]    1   -2   -4\n\nm1 + m2\n\n     [,1] [,2] [,3]\n[1,]    5    9   11\n[2,]    1    8    4\n[3,]    4    4    5\n\nm2 - m1\n\n     [,1] [,2] [,3]\n[1,]    3    1   -3\n[2,]   -3   -2  -12\n[3,]   -2   -8  -13\n\nm1 / m2\n\n      [,1]      [,2]  [,3]\n[1,]  0.25  0.800000  1.75\n[2,] -2.00  1.666667 -2.00\n[3,]  3.00 -3.000000 -2.25\n\nm1 * m2\n\n     [,1] [,2] [,3]\n[1,]    4   20   28\n[2,]   -2   15  -32\n[3,]    3  -12  -36",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Matrix Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_operation.html#matrix-algebra",
+    "href": "tutorials/matrices/matrix_operation.html#matrix-algebra",
+    "title": "Matrix Operations",
+    "section": "Matrix Algebra",
+    "text": "Matrix Algebra\nIf you’re familiar with matrix algebra and/or have some affinity for programming languages that overload their operators, the matrix arithmetic described above may seem very strange. Rather than overloading the standard operators, R defines special functions for matrix algebraic operations. For example:\n\n%*%: Multiplication\nt(): Transposition\nsolve(): Inversion\n\n\n# Multiply m1 and m2 using true matrix multiplication\nm1 %*% m2\n\n     [,1] [,2] [,3]\n[1,]    7    3  -40\n[2,]   11    9  -44\n[3,]   15   15  -48\n\n# Transpose m1\nt(m1)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n# Invert m2\nsolve(m2)\n\n            [,1]        [,2]        [,3]\n[1,] 0.161290323 -0.09677419  0.25806452\n[2,] 0.064516129  0.16129032 -0.09677419\n[3,] 0.008064516 -0.10483871 -0.13709677",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Matrix Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_operation.html#recycling",
+    "href": "tutorials/matrices/matrix_operation.html#recycling",
+    "title": "Matrix Operations",
+    "section": "Recycling",
+    "text": "Recycling\nMatrices usually obey R’s recycling rules. If you attempt to perform arithmetic between a matrix and a vector that has fewer elements than the matrix, R will try to make the lengths match by recycling the elements from the vector.\n\nv1 &lt;- 1:3\nv2 &lt;- 1:2\n\n# Recycling the elements of 'v1' without a warning\nm1 + v1\n\n     [,1] [,2] [,3]\n[1,]    2    5    8\n[2,]    4    7   10\n[3,]    6    9   12\n\nm1 * v1\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    4   10   16\n[3,]    9   18   27\n\n# Recycling the elements of 'v2' with a warning\nm1 + v2\n\nWarning in m1 + v2: longer object length is not a multiple of shorter object\nlength\n\n\n     [,1] [,2] [,3]\n[1,]    2    6    8\n[2,]    4    6   10\n[3,]    4    8   10\n\nm1 * v2\n\nWarning in m1 * v2: longer object length is not a multiple of shorter object\nlength\n\n\n     [,1] [,2] [,3]\n[1,]    1    8    7\n[2,]    4    5   16\n[3,]    3   12    9\n\n# Use recycling to fill a new matrix\nmatrix(42, 2, 2)\n\n     [,1] [,2]\n[1,]   42   42\n[2,]   42   42\n\nmatrix(1:4, 4, 4)\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    1    1    1\n[2,]    2    2    2    2\n[3,]    3    3    3    3\n[4,]    4    4    4    4\n\nmatrix(1:3, 4, 4)\n\nWarning in matrix(1:3, 4, 4): data length [3] is not a sub-multiple or multiple\nof the number of rows [4]\n\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    2    3    1\n[2,]    2    3    1    2\n[3,]    3    1    2    3\n[4,]    1    2    3    1\n\n# Use recycling to match replacement values to all selected elements\nm2[1:2, 3] &lt;- -99\nm2\n\n     [,1] [,2] [,3]\n[1,]    4    5  -99\n[2,]   -1    3  -99\n[3,]    1   -2   -4\n\nm2[3, 1:2] &lt;- c(88, 99)\nm2\n\n     [,1] [,2] [,3]\n[1,]    4    5  -99\n[2,]   -1    3  -99\n[3,]   88   99   -4\n\n\nSometimes, R won’t apply recycling to accommodate our sloppiness, though. For example, we can’t do any arithmetic with matrices that have different dimensions.\n\n(m3 &lt;- matrix(c(1, 3), 2, 1))\n\n     [,1]\n[1,]    1\n[2,]    3\n\nm1 + m3\n\nError in m1 + m3: non-conformable arrays\n\nm1 * m3\n\nError in m1 * m3: non-conformable arrays\n\n\nWe also can’t do arithmetic between a matrix and vector that contains more elements than the matrix.\n\nv3 &lt;- 1:18\nm1 + v3\n\nError: dims [product 9] do not match the length of object [18]\n\nm1 * v3\n\nError: dims [product 9] do not match the length of object [18]\n\n\nWhen it comes to overwriting matrix elements, R is especially picky about what size of vector it will use to overwrite a selection of matrix elements.\n\nOK\n\nReplacement length = Selection length\nReplacement length cleanly divides selection length\n\nNot OK\n\nReplacement length &gt; Selection length\n\nStill true when replacement length is a multiple of selection length\n\nReplacement length does not cleanly divide the selection length\n\n\n\n# Works: Replace 4 elements with length-4 vector\nm1[1:2, 2:3] &lt;- 1:4\nm1\n\n     [,1] [,2] [,3]\n[1,]    1    1    3\n[2,]    2    2    4\n[3,]    3    6    9\n\n# Works: Replace 4 elements with length-2 vector\nm1[1:2, 2:3] &lt;- 1:2\nm1\n\n     [,1] [,2] [,3]\n[1,]    1    1    1\n[2,]    2    2    2\n[3,]    3    6    9\n\n# Works: Replace 4 elements with length-1 vector\nm1[1:2, 2:3] &lt;- 42\nm1\n\n     [,1] [,2] [,3]\n[1,]    1   42   42\n[2,]    2   42   42\n[3,]    3    6    9\n\n# Fails: Replace 4 elements with length-3 vector\nm1[1:2, 2:3] &lt;- 1:3\n\nError in m1[1:2, 2:3] &lt;- 1:3: number of items to replace is not a multiple of replacement length\n\n# Fails: Replace 4 elements with length-8 vector\nm1[1:2, 2:3] &lt;- 1:3\n\nError in m1[1:2, 2:3] &lt;- 1:3: number of items to replace is not a multiple of replacement length\n\n\n\n\n\n\n\n\nPractice\n\n\n\n\nCreate a 5x3 numeric matrix called ‘myMat’ wherein each column is equal to the vector 1:5.\nMultiply each entry in ‘myMat’ by pi (i.e., the mathematical constant).\n\n\n Interactive Editor Hint Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nHINT: The built-in R object pi contains the value of pi.\n\n\n\n(myMat &lt;- matrix(1:5, 5, 3))\n\n     [,1] [,2] [,3]\n[1,]    1    1    1\n[2,]    2    2    2\n[3,]    3    3    3\n[4,]    4    4    4\n[5,]    5    5    5\n\nmyMat * pi\n\n          [,1]      [,2]      [,3]\n[1,]  3.141593  3.141593  3.141593\n[2,]  6.283185  6.283185  6.283185\n[3,]  9.424778  9.424778  9.424778\n[4,] 12.566371 12.566371 12.566371\n[5,] 15.707963 15.707963 15.707963",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Matrix Operations"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/index.html",
+    "href": "tutorials/matrices/index.html",
+    "title": "Matrices",
+    "section": "",
+    "text": "In R, matrices are a fundamental data structure used to represent two-dimensional collections of homogeneously typed values. Just like vectors, all elements in a matrix must have the same type: one of the six atomic modes. You can think of R matrices as generalizations of R vectors. Matrices are just vectors with a dimension attribute that tells R to interpret matrices as two-dimensional objects with rows and columns.\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices"
+    ]
+  },
+  {
+    "objectID": "tutorials/lists/index.html",
+    "href": "tutorials/lists/index.html",
+    "title": "Lists",
+    "section": "",
+    "text": "Lists are one of R’s most versatile and ubiquitous data structures. Like vectors, lists are one-dimensional objects. Unlike vectors, however, lists can comprise arbitrary mixes of data objects with any combination of types. This flexibility makes lists particularly useful for storing and organizing heterogeneous data such as the results returned from statistical modeling functions.\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists"
+    ]
+  },
+  {
+    "objectID": "tutorials/factors/uniqueness.html",
+    "href": "tutorials/factors/uniqueness.html",
+    "title": "Special Role of Factors",
+    "section": "",
+    "text": "Factors often cause confusion for new (and not-so-new) data analysts. In particular, the print() method for factors shows the level names when printing factors. So, factors with textual level names (e.g., {“male”, “female”}) look much like character vectors when printed, and factors with numeric level names (e.g., {“0”, “1”}) look like numeric vectors. However, factors are not character vectors, numeric vectors, nor any other type of atomic vector: they have their own class, factor, which tells R functions to treat factors as encoded categorical variables.\n\nf1 &lt;- factor(sample(0:1, 10, TRUE))\nf2 &lt;- factor(sample(c(\"foo\", \"bar\"), 10, TRUE))\n\nf1 # looks a lot like an integer vector\n\n [1] 1 1 1 1 0 0 0 1 1 0\nLevels: 0 1\n\nf2 # looks like a character vector\n\n [1] foo foo foo bar foo foo foo foo foo foo\nLevels: bar foo\n\n# Not numeric or character\nis.numeric(f1)\n\n[1] FALSE\n\nis.integer(f1)\n\n[1] FALSE\n\nis.character(f1)\n\n[1] FALSE\n\nis.numeric(f2)\n\n[1] FALSE\n\nis.integer(f2)\n\n[1] FALSE\n\nis.character(f2)\n\n[1] FALSE\n\n# Not any type of vector, at all, actually\nis.vector(f1)\n\n[1] FALSE\n\nis.vector(f2)\n\n[1] FALSE\n\n\nSimilarly, even though factors are built from integer vectors, we can’t do mathematical operations on vectors. Since factors represent discrete categories, not continuous quantities, mathematical operations on factors are generally meaningless.\n\nf1 + 1\n\n [1] NA NA NA NA NA NA NA NA NA NA\n\nmean(f1)\n\n[1] NA\n\n\nIn the examples above, the requested operations return missing values, NA, because we’re asking R to do a nonsensical calculation. So, the result cannot be meaningfully defined. By design, treating a factor as if it were numeric produces errors and/or null results. This conservative behavior ensures that categorical data are not accidentally interpreted as numeric values, which will usually produce misleading results.\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Factors",
+      "Special Role of Factors"
+    ]
+  },
+  {
+    "objectID": "tutorials/factors/creating.html",
+    "href": "tutorials/factors/creating.html",
+    "title": "Creating Factors",
+    "section": "",
+    "text": "We create factors using the factor() function. This function takes a vector of values (typically numeric or character) where each unique value represents a group and converts this input vector into a factor.\n\n(x &lt;- sample(1:3, 20, TRUE))\n\n [1] 1 3 2 1 3 1 3 3 2 2 2 3 3 3 2 1 3 3 1 2\n\n(f1 &lt;- factor(x))\n\n [1] 1 3 2 1 3 1 3 3 2 2 2 3 3 3 2 1 3 3 1 2\nLevels: 1 2 3\n\n(y &lt;- rep(c(\"foo\", \"bar\"), 10))\n\n [1] \"foo\" \"bar\" \"foo\" \"bar\" \"foo\" \"bar\" \"foo\" \"bar\" \"foo\" \"bar\" \"foo\" \"bar\"\n[13] \"foo\" \"bar\" \"foo\" \"bar\" \"foo\" \"bar\" \"foo\" \"bar\"\n\n(f2 &lt;- factor(y))\n\n [1] foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo\n[20] bar\nLevels: bar foo\n\n\nIt may not seem like the factor() function did much in the examples above, but that’s far from true. Regardless of what type of input data we use to create a factor, the factor() function will always induce three consistent features in the resulting factor object.\n\nFactors have their own class: “factor”.\nFactors have a “levels” attribute that stores the names of the groups represented by the factor.\nFactors use integer vectors to represent the grouping implied by the input vector.\n\nRegardless of what type the input vector has, the data underlying the new factor will be an integer vector.\n\n\n\n# Factors have their own class\nclass(x)\n\n[1] \"integer\"\n\nclass(f1)\n\n[1] \"factor\"\n\nclass(y)\n\n[1] \"character\"\n\nclass(f2)\n\n[1] \"factor\"\n\n# Factors have a levels attribute\nattributes(x)\n\nNULL\n\nattributes(f1)\n\n$levels\n[1] \"1\" \"2\" \"3\"\n\n$class\n[1] \"factor\"\n\nattributes(y)\n\nNULL\n\nattributes(f2)\n\n$levels\n[1] \"bar\" \"foo\"\n\n$class\n[1] \"factor\"\n\n# Factors use integer vectors to map each observation to a group\ntypeof(x)\n\n[1] \"integer\"\n\ntypeof(f1)\n\n[1] \"integer\"\n\ntypeof(y)\n\n[1] \"character\"\n\ntypeof(f2)\n\n[1] \"integer\"\n\n\n\nFactor Levels\nThe levels name the categories represented by the factor. By default, the factor() function will use the unique values of the input vector to name the levels of the resulting factor.\n\nlevels(f1)\n\n[1] \"1\" \"2\" \"3\"\n\nlevels(f2)\n\n[1] \"bar\" \"foo\"\n\n\nWe can assign our own level names through the labels argument.\n\n(z &lt;- sample(10:11, 10, TRUE))\n\n [1] 11 11 11 11 10 10 10 11 11 10\n\n(f3 &lt;- factor(z, labels = c(\"Group 10\", \"Group 11\")))\n\n [1] Group 11 Group 11 Group 11 Group 11 Group 10 Group 10 Group 10 Group 11\n [9] Group 11 Group 10\nLevels: Group 10 Group 11\n\nlevels(f3)\n\n[1] \"Group 10\" \"Group 11\"\n\ntable(z, f3)\n\n    f3\nz    Group 10 Group 11\n  10        4        0\n  11        0        6\n\n\nWe can also modify the levels of an existing factor.\n\nlevels(f3) &lt;- c(\"g10\", \"g11\")\nlevels(f3)\n\n[1] \"g10\" \"g11\"\n\ntable(z, f3)\n\n    f3\nz    g10 g11\n  10   4   0\n  11   0   6\n\n\n\n\n\n\n\n\nPractice\n\n\n\nCreate a length-20 factor with two levels = {“yes”, “no”}.\n\n Interactive Editor Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nAs usual, there are myriad acceptable solutions. Here are a couple possibilities.\n\nfactor(sample(c(\"yes\", \"no\"), 20, TRUE))\n\n [1] no  no  no  no  yes yes yes yes no  yes yes no  no  no  yes yes yes no  yes\n[20] yes\nLevels: no yes\n\nfactor(sample(1:2, 20, TRUE), labels = c(\"yes\", \"no\"))\n\n [1] yes no  yes yes yes no  no  no  yes yes no  no  yes no  yes yes no  no  yes\n[20] no \nLevels: yes no\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Factors",
+      "Creating Factors"
+    ]
+  },
+  {
+    "objectID": "tutorials/data_frames/index.html",
+    "href": "tutorials/data_frames/index.html",
+    "title": "Data frames",
+    "section": "",
+    "text": "Data frames are one of the most useful data structures in R, at least when it comes to real-world data analysis. A data frame is a two-dimensional, tabular object wherein the columns must be the same length, but they can contain different types of data. This structure closely mirrors the layout of rectangular, spreadsheet-style datasets, so data frames are the natural choice for storing and manipulating real-world datasets in most data analytic projects.\nInterestingly, data frames are actually implemented as a special case of lists. Each column in a data frame is an element of a list, but all of these list elements must be vector-like objects (not necessarily atomic vectors, though) with equal length. In other words, a data frame is just a list where each slot contains a vector representing one column in the data frame, but with additional constraints and attributes that allow it to behave like a 2 dimensional table.\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames"
+    ]
+  },
+  {
+    "objectID": "quizzes/vectors/questions/multiplication.html",
+    "href": "quizzes/vectors/questions/multiplication.html",
+    "title": "Question",
+    "section": "",
+    "text": "Question\nWhat is the value of a * b, given the following vectors?\n\\[\n\\begin{align*}\na &= 5, 3, 4\\\\\nb &= 2, 1, 3\n\\end{align*}\n\\]\n\nFormat you answer as element1, element2, element3, ...\nSeparate each element with a comma and a space.\nIncorrectly formatted answers won’t be recognized as correct\n\n\n\nSolution\nThe a * b implements element-wise multiplication, so the result is 10, 3, 12.\n\n\nMeta-information\nexname: vector_multiplication extype: string exsolution: 10, 3, 12\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "quizzes/vectors/index.html",
+    "href": "quizzes/vectors/index.html",
+    "title": "Knowledge Quiz: Vectors",
+    "section": "",
+    "text": "Note\n\n\n\n\nClick the check-mark button to check your answer.\nClick the question-mark button to see an explanation of the solution.\n\n\n\n\n\n\nWhich of the following expressions generates the integer vector 1, 2, 3, 4, 5?\n\nrep(1:5, 1)seq(1, 5, 5)seq(1, 5)seq(0, 4, 1) + 11:5\n\n\n\n\nCorrect.\nWrong. This command will return a length-one vector containing only 1.\nCorrect.\nCorrect.\nCorrect.\n\n\n\n\n\nWhat is the value of a * b, given the following vectors?\n\\[\n\\begin{align*}\na &= 5, 2, 1\\\\\nb &= 1, 2, 3\n\\end{align*}\n\\]\n\nFormat you answer as element1, element2, element3, ...\nSeparate each element with a comma and a space.\nIncorrectly formatted answers won’t be recognized as correct\n\n\n\n\nThe a * b implements element-wise multiplication, so the result is 5, 4, 3.\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Knowledge Quiz"
+    ]
+  },
+  {
+    "objectID": "quizzes/matrices/questions/create_matrix.html",
+    "href": "quizzes/matrices/questions/create_matrix.html",
+    "title": "Question",
+    "section": "",
+    "text": "Which of the following expressions will generate the following matrix?\n\\[\n\\begin{bmatrix}\n1 & 2 & 3 \\\\\n4 & 5 & 6 \\\\\n\\end{bmatrix}\n\\]\n\n\n\nmatrix(1:6, 2, 3, byrow = TRUE)\nmatrix(1:6)\nmatrix(1:6, 2, 3)\nmatrix(1:6, 3, 2)\nmatrix(1:6, 3, 2, byrow = TRUE)\nmatrix(6, 2, 3)\nmatrix(6, 3, 2)"
+  },
+  {
+    "objectID": "quizzes/matrices/questions/create_matrix.html#answerlist",
+    "href": "quizzes/matrices/questions/create_matrix.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "matrix(1:6, 2, 3, byrow = TRUE)\nmatrix(1:6)\nmatrix(1:6, 2, 3)\nmatrix(1:6, 3, 2)\nmatrix(1:6, 3, 2, byrow = TRUE)\nmatrix(6, 2, 3)\nmatrix(6, 3, 2)"
+  },
+  {
+    "objectID": "quizzes/matrices/questions/create_matrix.html#answerlist-1",
+    "href": "quizzes/matrices/questions/create_matrix.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect.\nWrong. This command will return \\[\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\\\ 4 \\\\ 5 \\\\ 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will return \\[\\begin{bmatrix} 1 & 3 & 5 \\\\ 2 & 4 & 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will return \\[\\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will return \\[\\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will return \\[\\begin{bmatrix} 6 & 6 & 6 \\\\ 6 & 6 & 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will return \\[\\begin{bmatrix} 6 & 6 \\\\ 6 & 6 \\\\ 6 & 6 \\\\ \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "quizzes/lists/questions/list_name.html",
+    "href": "quizzes/lists/questions/list_name.html",
+    "title": "Question",
+    "section": "",
+    "text": "In the list l below there is an error, the information for the eyes color is wrongly saved as hair, which of this options will change the name of the element?\n\n\n$name\n[1] \"bob\"\n\n$age\n[1] 25\n\n$height\n[1] 180\n\n$hair\n[1] \"blue\"\n\n\n\n\n\nnames(l)[4] &lt;- \"eyes\"\nl$hair &lt;- names(\"eyes\")\nl[[4]] &lt;- \"eyes\"\nl[4] &lt;- \"eyes\"\nnames(l)$hair &lt;- \"eyes\""
+  },
+  {
+    "objectID": "quizzes/lists/questions/list_name.html#answerlist",
+    "href": "quizzes/lists/questions/list_name.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "names(l)[4] &lt;- \"eyes\"\nl$hair &lt;- names(\"eyes\")\nl[[4]] &lt;- \"eyes\"\nl[4] &lt;- \"eyes\"\nnames(l)$hair &lt;- \"eyes\""
+  },
+  {
+    "objectID": "quizzes/lists/questions/list_name.html#answerlist-1",
+    "href": "quizzes/lists/questions/list_name.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect\nWrong: names(\"eyes\") is NULL since a character string doesn’t have a name, so it will just erase the list element\nWrong: This will change the value itself and not the name\nWrong: This will change the value itself and not the name\nWrong: This will return an error since the names() element is a vector and not a list"
+  },
+  {
+    "objectID": "quizzes/lists/index.html",
+    "href": "quizzes/lists/index.html",
+    "title": "Knowledge Quiz: Lists",
+    "section": "",
+    "text": "Note\n\n\n\n\nClick the check-mark button to check your answer.\nClick the question-mark button to see an explanation of the solution.\n\n\n\n\n\n\nConsider the following list, l1.\n\n\n$name\n[1] \"bob\"\n\n$age\n[1] 25\n\n$height\n[1] 180\n\n$eyes\n[1] \"blue\"\n\n\nWhich of the following expressions will change the value of the eyes slot in l1 from “blue” to “green”?\n\nl1$eyes &lt;- \"green\"l1[4, ] &lt;- \"green\"l1[4] &lt;- \"green\"l1[[4]] &lt;- \"green\"l1$4 &lt;- \"green\"\n\n\n\n\nCorrect\nWrong: l1 is a list, so we should not use matrix-style selection.\nCorrect\nCorrect\nWrong: There is no slot named “4” in l1.\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists",
+      "Knowledge Quiz"
+    ]
+  },
+  {
+    "objectID": "quizzes/factors/index.html",
+    "href": "quizzes/factors/index.html",
+    "title": "Knowledge Quiz: Factors",
+    "section": "",
+    "text": "Note\n\n\n\n\nClick the check-mark button to check your answer.\nClick the question-mark button to see an explanation of the solution.\n\n\n\n\n\n\nConsider the factor f1 generated by the following code.\nv1 &lt;- sample(1:3, 10, TRUE)\nf1 &lt;- factor(v1, levels = 1:3, labels = 3:1)\nWhat will the expression levels(f1) return?\n\nThe character vector: \"3\", \"2\", \"1\"The character vector: \"1\", \"2\", \"3\"The numeric vector: 3, 2, 1The numeric vector: 1, 2, 3The numeric vector: 3A length-10 numeric vector containing some combination of the values: 1, 2, 3.A length-10 character vector containing some combination of the values: \"1\", \"2\", \"3\".A length-10 factor containing some combination of the values: 1, 2, 3.\n\n\n\n\nCorrect\nWrong: This vector is ordered incorrectly.\nWrong: Factor level names are always character values.\nWrong: Factor level names are always character values (these numbers are also ordered incorrectly).\nWrong: This is the number of levels, nlevels(f1).\nWrong: f1 has ten elements, but it has only three levels.\nWrong: f1 has ten elements, but it has only three levels.\nWrong: f1 has ten elements, but it has only three levels.\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Factors",
+      "Knowledge Quiz"
+    ]
+  },
+  {
+    "objectID": "quizzes/data_frames/questions/return_column_as_vector.html",
+    "href": "quizzes/data_frames/questions/return_column_as_vector.html",
+    "title": "Question",
+    "section": "",
+    "text": "Consider the following data frame, df.\n\n\n   name age height  eyes\n1   bob  25    180 green\n2  mike  23    178 green\n3  mark  24    169  blue\n4 steve  26    183 brown\n\n\nHow can we extract the name column and return the selection as a character vector?\n\n\n\ndf$name\ndf[[\"name\"]]\ndf[[1]]\ndf[ , 1]\ndf[ , \"name\"]\ndf[1]\ndf[\"name\"]\ndf[1, ]\ndf[\"name\", ]\ndf[[2]]\ndf[1:2]"
+  },
+  {
+    "objectID": "quizzes/data_frames/questions/return_column_as_vector.html#answerlist",
+    "href": "quizzes/data_frames/questions/return_column_as_vector.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "df$name\ndf[[\"name\"]]\ndf[[1]]\ndf[ , 1]\ndf[ , \"name\"]\ndf[1]\ndf[\"name\"]\ndf[1, ]\ndf[\"name\", ]\ndf[[2]]\ndf[1:2]"
+  },
+  {
+    "objectID": "quizzes/data_frames/questions/return_column_as_vector.html#answerlist-1",
+    "href": "quizzes/data_frames/questions/return_column_as_vector.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect\nCorrect\nCorrect\nCorrect\nCorrect\nWrong: This command will return the name column as a one-column data frame.\nWrong: This command will return the name column as a one-column data frame.\nWrong: This command will return the first row of df as a \\(1 \\times 4\\) data frame.\nWrong: This command will try to return a row called “name” and fail because there is no such row in df.\nWrong: This command will return the age column as a numeric vector.\nWrong: This command will return the name and age columns as a \\(4 \\times 2\\) data frame."
+  },
+  {
+    "objectID": "quizzes/data_frames/index.html",
+    "href": "quizzes/data_frames/index.html",
+    "title": "Knowledge Quiz: Data Frames",
+    "section": "",
+    "text": "Note\n\n\n\n\nClick the check-mark button to check your answer.\nClick the question-mark button to see an explanation of the solution.\n\n\n\n\n\n\nConsider the following data frame, df.\n\n\n   name age height  eyes\n1   bob  25    180 green\n2  mike  23    178 green\n3  mark  24    169  blue\n4 steve  26    183 brown\n\n\nHow can we extract the name column and return the selection as a character vector?\n\ndf[1:2]df[[\"name\"]]df[[1]]df[1]df[1, ]\n\n\n\n\nWrong: This command will return the name and age columns as a \\(4 \\times 2\\) data frame.\nCorrect\nCorrect\nWrong: This command will return the name column as a one-column data frame.\nWrong: This command will return the first row of df as a \\(1 \\times 4\\) data frame.\n\n\n\n\n\nConsider the following data frame, df.\n\n\n   name age height  eyes\n1   bob  25    180 green\n2  mike  23    178 green\n3  mark  24    169  blue\n4 steve  26    183 brown\n\n\nHow can we extract the height column and return the selection as a data frame?\n\ndf[[3]]df[ , \"height\"]df[\"height\"]df[[2]]df[ , 3]\n\n\n\n\nWrong: This command will return the height column as a numeric vector.\nWrong: This command will return the height column as a numeric vector.\nCorrect\nWrong: This command will return the age column as a numeric vector.\nWrong: This command will return the height column as a numeric vector.\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames",
+      "Knowledge Quiz"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data Types",
+    "section": "",
+    "text": "In this module, we’ll cover five of the most ubiquitous and useful data types in R. These structures form the foundation of nearly all data manipulation and data analysis workflows in R. Hence, understanding how these data types work, how they relate/differ, and their relative use-cases is essential for writing effective and reliable R code. Each tutorial focusses on a specific data type:",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#learning-goals",
+    "href": "index.html#learning-goals",
+    "title": "Data Types",
+    "section": "Learning Goals",
+    "text": "Learning Goals\nAfter completing this module, you will be able to:\n\nVectors\n\nDescribe the characteristics of atomic vectors, and explain their fundamental role in the R data system.\nDescribe the six atomic vector modes (logical, integer, double, character, complex, raw).\nGenerate new atomic vectors using various functions.\nPerforming element-wise arithmetic and logical operations on atomic vectors.\nSelect and modify elements in a vector.\n\n\n\nMatrices\n\nDescribe the characteristics of an R matrix.\nExplain the relationship between matrices and vectors.\nCreate new matrices in R.\nPerform element-wise operations on matrices.\nExplain how recycling works with matrix operations.\nSelect and modify the elements of a matrix.\n\n\n\nLists\n\nDescribe the characteristics of an R list.\nDescribe important use-cases for lists, and explain why lists are the best choice in these situations.\nCreate new lists in R.\nAccess and modify list elements using different methods and explain the difference between the available selection operators.\n\n\n\nData Frames\n\nDescribe the characteristics of data frames.\nExplain important use-cases for data frames, and explain why data frames are the best choice in these situations.\nExplain how data frames and lists are related.\nExplain the differences between data frames and matrices.\nCreate new data frames in R.\nUse list-style and matrix-style indexing to access and modify the elements of a data frame.\nExplain the different effects of the available selection operators.\nExplain how recycling works with data frames.\n\n\n\nFactors\n\nDescribe the characteristics of an R factor.\nExplain how factors differ from atomic vectors.\nGenerate new factors in R.\nAccess and modify factor levels.\nDescribe important use-cases for Factors, and explain why factors are the best choice in these situations.\n\nClick the button below to get started with the first tutorial.\n\n\n Begin Tutorial",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "conclusion.html",
+    "href": "conclusion.html",
+    "title": "Conclusion",
+    "section": "",
+    "text": "By completing these tutorials, you’ve built a solid foundation in understanding five of the most ubiquitous and useful data types in R:",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Conclusion"
+    ]
+  },
+  {
+    "objectID": "conclusion.html#additional-reading",
+    "href": "conclusion.html#additional-reading",
+    "title": "Conclusion",
+    "section": "Additional Reading",
+    "text": "Additional Reading\nFor more information on the topics we’ve covered in this module, the following chapters from Hadley Wickham’s R for Data Science are excellent resources.\n\nVectors in the First Edition.\nFactors in the Second Edition.\n\n\nAdvanced Reading\nFor a much more technical deep-dive into the topics we’ve covered in this module, check out the following two chapters from Hadley Wickham’s Advanced R.\n\nVectors\nSubsetting",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Conclusion"
+    ]
+  },
+  {
+    "objectID": "conclusion.html#next-steps",
+    "href": "conclusion.html#next-steps",
+    "title": "Conclusion",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow that you have a good introduction to the fundamental elements of the R statistical programming language, you’re ready to start thinking about how to best organize your data analysis projects. In the next module, we’ll explore different aspects of effective R workflows–—scripts, working directories, R projects, file paths, and coding style—–to help you create reproducible, organized, and efficient data analysis projects.\n\n\n Next Module",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Conclusion"
+    ]
+  },
+  {
+    "objectID": "in_progress.html",
+    "href": "in_progress.html",
+    "title": "In Progress",
+    "section": "",
+    "text": "Sorry, we’re still building the page you’ve requested.\nIt’s almost done…really.\nWe’re just working through a few minor issues…\n\n\n\nImage Source"
+  },
+  {
+    "objectID": "quizzes/data_frames/questions/return_column_as_df.html",
+    "href": "quizzes/data_frames/questions/return_column_as_df.html",
+    "title": "Question",
+    "section": "",
+    "text": "Consider the following data frame, df.\n\n\n   name age height  eyes\n1   bob  25    180 green\n2  mike  23    178 green\n3  mark  24    169  blue\n4 steve  26    183 brown\n\n\nHow can we extract the height column and return the selection as a data frame?\n\n\n\ndf[3]\ndf[\"height\"]\ndf$height\ndf[[\"height\"]]\ndf[[3]]\ndf[ , 3]\ndf[ , \"height\"]\ndf[3, ]\ndf[\"height\", ]\ndf[[2]]\ndf[2:3]"
+  },
+  {
+    "objectID": "quizzes/data_frames/questions/return_column_as_df.html#answerlist",
+    "href": "quizzes/data_frames/questions/return_column_as_df.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "df[3]\ndf[\"height\"]\ndf$height\ndf[[\"height\"]]\ndf[[3]]\ndf[ , 3]\ndf[ , \"height\"]\ndf[3, ]\ndf[\"height\", ]\ndf[[2]]\ndf[2:3]"
+  },
+  {
+    "objectID": "quizzes/data_frames/questions/return_column_as_df.html#answerlist-1",
+    "href": "quizzes/data_frames/questions/return_column_as_df.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect\nCorrect\nWrong: This command will return the height column as a numeric vector.\nWrong: This command will return the height column as a numeric vector.\nWrong: This command will return the height column as a numeric vector.\nWrong: This command will return the height column as a numeric vector.\nWrong: This command will return the height column as a numeric vector.\nWrong: This command will return the third row of df as a \\(1 \\times 4\\) data frame.\nWrong: This command will try to return a row called “height” and fail because there is no such row in df.\nWrong: This command will return the age column as a numeric vector.\nWrong: This command will return the age and height columns as a \\(4 \\times 2\\) data frame."
+  },
+  {
+    "objectID": "quizzes/data_frames/questions/select_row.html",
+    "href": "quizzes/data_frames/questions/select_row.html",
+    "title": "Question",
+    "section": "",
+    "text": "Question\nConsider the data frame df below, how can we extract only the data about Bob?\n\n\n  names age height  eyes\n1   bob  25    180 green\n2  mike  23    178 green\n3  mark  24    169  blue\n4 steve  26    183 black\n\n\n\n\nSolution\nWe have to select the first row of the data frame, and we can do this using df[1,]\n\n\nMeta-information\nexname: DF Row extype: string exsolution: df[1,]\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "quizzes/factors/questions/factor_levels.html",
+    "href": "quizzes/factors/questions/factor_levels.html",
+    "title": "Question",
+    "section": "",
+    "text": "Consider the factor f1 generated by the following code.\nv1 &lt;- sample(1:3, 10, TRUE)\nf1 &lt;- factor(v1, levels = 1:3, labels = 3:1)\nWhat will the expression levels(f1) return?\n\n\n\nThe character vector: \"3\", \"2\", \"1\"\nThe character vector: \"1\", \"2\", \"3\"\nThe numeric vector: 3, 2, 1\nThe numeric vector: 1, 2, 3\nThe numeric vector: 3\nA length-10 numeric vector containing some combination of the values: 1, 2, 3.\nA length-10 character vector containing some combination of the values: \"1\", \"2\", \"3\".\nA length-10 factor containing some combination of the values: 1, 2, 3."
+  },
+  {
+    "objectID": "quizzes/factors/questions/factor_levels.html#answerlist",
+    "href": "quizzes/factors/questions/factor_levels.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "The character vector: \"3\", \"2\", \"1\"\nThe character vector: \"1\", \"2\", \"3\"\nThe numeric vector: 3, 2, 1\nThe numeric vector: 1, 2, 3\nThe numeric vector: 3\nA length-10 numeric vector containing some combination of the values: 1, 2, 3.\nA length-10 character vector containing some combination of the values: \"1\", \"2\", \"3\".\nA length-10 factor containing some combination of the values: 1, 2, 3."
+  },
+  {
+    "objectID": "quizzes/factors/questions/factor_levels.html#answerlist-1",
+    "href": "quizzes/factors/questions/factor_levels.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect\nWrong: This vector is ordered incorrectly.\nWrong: Factor level names are always character values.\nWrong: Factor level names are always character values (these numbers are also ordered incorrectly).\nWrong: This is the number of levels, nlevels(f1).\nWrong: f1 has ten elements, but it has only three levels.\nWrong: f1 has ten elements, but it has only three levels.\nWrong: f1 has ten elements, but it has only three levels."
+  },
+  {
+    "objectID": "quizzes/lists/questions/list_change.html",
+    "href": "quizzes/lists/questions/list_change.html",
+    "title": "Question",
+    "section": "",
+    "text": "Consider the following list, l1.\n\n\n$name\n[1] \"bob\"\n\n$age\n[1] 25\n\n$height\n[1] 180\n\n$eyes\n[1] \"blue\"\n\n\nWhich of the following expressions will change the value of the eyes slot in l1 from “blue” to “green”?\n\n\n\nl1$eyes &lt;- \"green\"\nl1[[4]] &lt;- \"green\"\nl1[4] &lt;- \"green\"\nl1$eyes &lt;- \"blue\"\nl1$4 &lt;- \"green\"\nl1$eyes &lt;- green\nl1[4, ] &lt;- \"green\"\nnames(l1)[4] &lt;- \"green\""
+  },
+  {
+    "objectID": "quizzes/lists/questions/list_change.html#answerlist",
+    "href": "quizzes/lists/questions/list_change.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "l1$eyes &lt;- \"green\"\nl1[[4]] &lt;- \"green\"\nl1[4] &lt;- \"green\"\nl1$eyes &lt;- \"blue\"\nl1$4 &lt;- \"green\"\nl1$eyes &lt;- green\nl1[4, ] &lt;- \"green\"\nnames(l1)[4] &lt;- \"green\""
+  },
+  {
+    "objectID": "quizzes/lists/questions/list_change.html#answerlist-1",
+    "href": "quizzes/lists/questions/list_change.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect\nCorrect\nCorrect\nWrong: This command doesn’t actually change anything.\nWrong: There is no slot named “4” in l1.\nWrong: We’re replacing the value of l4$eyes with the contents of the object green, not the character vector \"green\".\nWrong: l1 is a list, so we should not use matrix-style selection.\nWrong: This command will change the name of the fourth slot, not the contents of that slot."
+  },
+  {
+    "objectID": "quizzes/matrices/index.html",
+    "href": "quizzes/matrices/index.html",
+    "title": "Knowledge Quiz: Matrices",
+    "section": "",
+    "text": "Note\n\n\n\n\nClick the check-mark button to check your answer.\nClick the question-mark button to see an explanation of the solution.\n\n\n\n\n\n\nWhich of the following expressions will generate the following matrix?\n\\[\n\\begin{bmatrix}\n1 & 2 & 3 \\\\\n4 & 5 & 6 \\\\\n\\end{bmatrix}\n\\]\n\nmatrix(1:6, 3, 2, byrow = TRUE)matrix(1:6, 3, 2)matrix(1:6, 2, 3, byrow = TRUE)matrix(1:6)matrix(6, 2, 3)\n\n\n\n\nWrong. This command will return \\[\\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will return \\[\\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\\\ \\end{bmatrix}\\]\nCorrect.\nWrong. This command will return \\[\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\\\ 4 \\\\ 5 \\\\ 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will return \\[\\begin{bmatrix} 6 & 6 & 6 \\\\ 6 & 6 & 6 \\\\ \\end{bmatrix}\\]\n\n\n\n\n\nWhich of the following expressions will convert matrix \\(a\\) into matrix \\(b\\)?\n\\[\n\\begin{align*}\na &= \\begin{bmatrix}\n1 & 2 \\\\\n3 & 4 \\\\\n5 & 6 \\\\\n\\end{bmatrix}\n\\\\\nb &= \\begin{bmatrix}\n1 & 2 \\\\\n3 & 5 \\\\\n4 & 6 \\\\\n\\end{bmatrix}\n\\end{align*}\n\\]\n\na[c(2, 3), c(1, 2)] &lt;- matrix(3:6, 2, 2, byrow = TRUE)a[2, 3] &lt;- c(4, 5)a[c(2, 3), c(1, 2)] &lt;- matrix(3:6, 2, 2)a[c(2, 3), c(1, 2)] &lt;- c(3, 4, 5, 6)a[c(2, 3), c(1, 2)] &lt;- c(4, 5)\n\n\n\n\nWrong. This command will produce \\[\\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will produce an error since we’re trying to overwrite columns that don’t exist.\nCorrect.\nCorrect.\nWrong. This command will produce \\[\\begin{bmatrix} 1 & 2 \\\\ 4 & 4 \\\\ 5 & 5 \\\\ \\end{bmatrix}\\]\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Knowledge Quiz"
+    ]
+  },
+  {
+    "objectID": "quizzes/matrices/questions/sub_matrix.html",
+    "href": "quizzes/matrices/questions/sub_matrix.html",
+    "title": "Question",
+    "section": "",
+    "text": "Which of the following expressions will convert matrix \\(a\\) into matrix \\(b\\)?\n\\[\n\\begin{align*}\na &= \\begin{bmatrix}\n1 & 2 \\\\\n3 & 4 \\\\\n5 & 6 \\\\\n\\end{bmatrix}\n\\\\\nb &= \\begin{bmatrix}\n1 & 2 \\\\\n3 & 5 \\\\\n4 & 6 \\\\\n\\end{bmatrix}\n\\end{align*}\n\\]\n\n\n\na[c(2, 3), c(1, 2)] &lt;- c(3, 4, 5, 6)\na[c(2, 3), c(1, 2)] &lt;- 3:6\na[c(2, 3), ] &lt;- c(3, 4, 5, 6)\na[c(2, 3), c(1, 2)] &lt;- matrix(3:6, 2, 2)\na[c(2, 3), c(1, 2)] &lt;- c(4, 5)\na[c(2, 3), c(1, 2)] &lt;- 4:5\na[2, 3] &lt;- c(4, 5)\na[c(2, 3), c(1, 2)] &lt;- matrix(3:6, 2, 2, byrow = TRUE)\na[c(3, 5), ] &lt;- c(4, 5)"
+  },
+  {
+    "objectID": "quizzes/matrices/questions/sub_matrix.html#answerlist",
+    "href": "quizzes/matrices/questions/sub_matrix.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "a[c(2, 3), c(1, 2)] &lt;- c(3, 4, 5, 6)\na[c(2, 3), c(1, 2)] &lt;- 3:6\na[c(2, 3), ] &lt;- c(3, 4, 5, 6)\na[c(2, 3), c(1, 2)] &lt;- matrix(3:6, 2, 2)\na[c(2, 3), c(1, 2)] &lt;- c(4, 5)\na[c(2, 3), c(1, 2)] &lt;- 4:5\na[2, 3] &lt;- c(4, 5)\na[c(2, 3), c(1, 2)] &lt;- matrix(3:6, 2, 2, byrow = TRUE)\na[c(3, 5), ] &lt;- c(4, 5)"
+  },
+  {
+    "objectID": "quizzes/matrices/questions/sub_matrix.html#answerlist-1",
+    "href": "quizzes/matrices/questions/sub_matrix.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect.\nCorrect.\nCorrect.\nCorrect.\nWrong. This command will produce \\[\\begin{bmatrix} 1 & 2 \\\\ 4 & 4 \\\\ 5 & 5 \\\\ \\end{bmatrix}\\]\nWrong. This command will produce \\[\\begin{bmatrix} 1 & 2 \\\\ 4 & 4 \\\\ 5 & 5 \\\\ \\end{bmatrix}\\]\nWrong. This command will produce an error since we’re trying to overwrite columns that don’t exist.\nWrong. This command will produce \\[\\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\\\ \\end{bmatrix}\\]\nWrong. This command will produce an error since we’re trying to overwrite rows that don’t exist."
+  },
+  {
+    "objectID": "quizzes/vectors/questions/generation.html",
+    "href": "quizzes/vectors/questions/generation.html",
+    "title": "Question",
+    "section": "",
+    "text": "Which of the following expressions generates the integer vector 1, 2, 3, 4, 5?\n\n\n\n1:5\nseq(1, 5)\nseq(1, 5, 1)\nrep(1:5, 1)\nseq(0, 4, 1) + 1\nseq(1, 5, 5)\nrep(1, 5)\nrep(1, 5, 1)\nrep(1, 5, 5)\nseq(0, 4, 1) - 1"
+  },
+  {
+    "objectID": "quizzes/vectors/questions/generation.html#answerlist",
+    "href": "quizzes/vectors/questions/generation.html#answerlist",
+    "title": "Question",
+    "section": "",
+    "text": "1:5\nseq(1, 5)\nseq(1, 5, 1)\nrep(1:5, 1)\nseq(0, 4, 1) + 1\nseq(1, 5, 5)\nrep(1, 5)\nrep(1, 5, 1)\nrep(1, 5, 5)\nseq(0, 4, 1) - 1"
+  },
+  {
+    "objectID": "quizzes/vectors/questions/generation.html#answerlist-1",
+    "href": "quizzes/vectors/questions/generation.html#answerlist-1",
+    "title": "Question",
+    "section": "Answerlist",
+    "text": "Answerlist\n\nCorrect.\nCorrect.\nCorrect.\nCorrect.\nCorrect.\nWrong. This command will return a length-one vector containing only 1.\nWrong. This command will return a sequence of five 1s.\nWrong. This command will return a length-one vector containing only 1.\nWrong. This command will return a length-25 vector that repeats the integers from 1 to 5 five times.\nWrong. This command will return a length-five vector containing the integers from -1 to 3."
+  },
+  {
+    "objectID": "tutorials/data_frames/creating.html",
+    "href": "tutorials/data_frames/creating.html",
+    "title": "Creating Data Frames",
+    "section": "",
+    "text": "We create data frames using the data.frame() function. This function takes vectors as arguments, and each vector becomes a column in the resulting data frame.\nIn the following code, we create a data frame called d1 that contains 10 rows and 3 columns.\n(d1 &lt;- data.frame(1:10, c(-1, 1), seq(0.1, 1, 0.1)))\n\n   X1.10 c..1..1. seq.0.1..1..0.1.\n1      1       -1              0.1\n2      2        1              0.2\n3      3       -1              0.3\n4      4        1              0.4\n5      5       -1              0.5\n6      6        1              0.6\n7      7       -1              0.7\n8      8        1              0.8\n9      9       -1              0.9\n10    10        1              1.0\nSince we did not name the arguments to data.frame() when creating d1, R generated default (ugly) column names by parsing the argument values.\ncolnames(d1)\n\n[1] \"X1.10\"            \"c..1..1.\"         \"seq.0.1..1..0.1.\"\nWe can assign our own column names by naming the arguments to data.frame().\n# Generate a version of d1 with better column names\n(d2 &lt;- data.frame(x = 1:10, y = c(-1, 1), z = seq(0.1, 1, 0.1)))\n\n    x  y   z\n1   1 -1 0.1\n2   2  1 0.2\n3   3 -1 0.3\n4   4  1 0.4\n5   5 -1 0.5\n6   6  1 0.6\n7   7 -1 0.7\n8   8  1 0.8\n9   9 -1 0.9\n10 10  1 1.0\nWe can also assign column names to an existing data frame using the names() or colnames() functions.\nnames(d1) &lt;- c(\"foo\", \"bar\", \"baz\")\nd1\n\n   foo bar baz\n1    1  -1 0.1\n2    2   1 0.2\n3    3  -1 0.3\n4    4   1 0.4\n5    5  -1 0.5\n6    6   1 0.6\n7    7  -1 0.7\n8    8   1 0.8\n9    9  -1 0.9\n10  10   1 1.0\n\ncolnames(d1) &lt;- c(\"alice\", \"bob\", \"suzy\")\nd1\n\n   alice bob suzy\n1      1  -1  0.1\n2      2   1  0.2\n3      3  -1  0.3\n4      4   1  0.4\n5      5  -1  0.5\n6      6   1  0.6\n7      7  -1  0.7\n8      8   1  0.8\n9      9  -1  0.9\n10    10   1  1.0\nOne of the greatest strengths of data frames is their ability to store heterogeneously typed columns. For example, in the following code, we create a data frame called d3 that comprises three uniquely typed columns.\n(d3 &lt;- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),\n                  b = sample(c(\"foo\", \"bar\"), 10, replace = TRUE),\n                  c = runif(10)))\n\n       a   b          c\n1  FALSE foo 0.09898253\n2   TRUE bar 0.36168087\n3  FALSE foo 0.20896820\n4   TRUE foo 0.24526171\n5   TRUE foo 0.96918501\n6  FALSE foo 0.84193358\n7  FALSE foo 0.12520002\n8   TRUE bar 0.98115814\n9  FALSE foo 0.05207236\n10 FALSE bar 0.35570100\nIf we want to quickly generate an empty data frame, we can supply a matrix as the sole argument to data.frame().\n(d4 &lt;- data.frame(matrix(NA, 10, 3)))\n\n   X1 X2 X3\n1  NA NA NA\n2  NA NA NA\n3  NA NA NA\n4  NA NA NA\n5  NA NA NA\n6  NA NA NA\n7  NA NA NA\n8  NA NA NA\n9  NA NA NA\n10 NA NA NA",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames",
+      "Creating Data Frames"
+    ]
+  },
+  {
+    "objectID": "tutorials/data_frames/creating.html#structure-of-data-frames",
+    "href": "tutorials/data_frames/creating.html#structure-of-data-frames",
+    "title": "Creating Data Frames",
+    "section": "Structure of Data Frames",
+    "text": "Structure of Data Frames\nAlthough data frames look like two-dimensional matrices, they are actually lists of equal-length vectors. Each column in a data frame corresponds to a slot in the underlying list, and each of these list slots hold some soft of vector that contains the data from the corresponding column. So, all data frames are lists.\n\nd1 &lt;- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),\n                 b = sample(c(\"foo\", \"bar\"), 10, replace = TRUE),\n                 c = runif(10)\n                 )\nd2 &lt;- data.frame(a = 1:10, b = c(-1, 1), c = seq(0.1, 1, 0.1))\nd3 &lt;- data.frame(x = -5:4, y = c(1, 10), z = seq(1, 1.5, length.out = 10))\n\n# d1, d2, and d3 are all data frame.\nis.data.frame(d1)\n\n[1] TRUE\n\nis.data.frame(d2)\n\n[1] TRUE\n\nis.data.frame(d3)\n\n[1] TRUE\n\n# But they're also lists\nis.list(d1)\n\n[1] TRUE\n\nis.list(d2)\n\n[1] TRUE\n\nis.list(d3)\n\n[1] TRUE\n\n\nAll data frames are lists, but not all lists need be data frames.\n\nl1 &lt;- list()\nl2 &lt;- list(a = sample(c(TRUE, FALSE), 10, replace = TRUE),\n           b = sample(c(\"foo\", \"bar\"), 10, replace = TRUE),\n           c = runif(10)\n           )\nl3 &lt;- list(d2, d3)\n\n# l1, l2, and l3 are all lists\nis.list(l1)\n\n[1] TRUE\n\nis.list(l2)\n\n[1] TRUE\n\nis.list(l3)\n\n[1] TRUE\n\n# But they're not data frames\nis.data.frame(l1)\n\n[1] FALSE\n\nis.data.frame(l2)\n\n[1] FALSE\n\nis.data.frame(l3)\n\n[1] FALSE\n\n\nAs you have probably surmised, data frames are not matrices. Although data frames and matrix share many superficial similarities, they’re almost entirely unrelated types of objects.\n\nis.matrix(d1)\n\n[1] FALSE\n\nis.matrix(d2)\n\n[1] FALSE\n\nis.matrix(d3)\n\n[1] FALSE\n\n\nConsequently, you cannot apply matrix operations (such as matrix multiplication) to a data frame.\n\nd2 %*% t(d3)\n\nError in d2 %*% t(d3): requires numeric/complex matrix/vector arguments\n\n\nIf you wanted to analyze a data frame like a matrix, you could type cast the data frame into a matrix using the as.matrix() function.\n\nas.matrix(d2) %*% t(as.matrix(d3))\n\n       [,1]       [,2]       [,3]       [,4]       [,5]      [,6]       [,7]\n [1,]  -5.9 -13.894444  -3.888889 -11.883333 -1.8777778 -9.872222  0.1333333\n [2,]  -8.8   2.211111  -4.777778   6.233333 -0.7555556 10.255556  3.2666667\n [3,] -15.7 -21.683333  -9.666667 -15.650000 -3.6333333 -9.616667  2.4000000\n [4,] -18.6  -5.577778 -10.555556   2.466667 -2.5111111 10.511111  5.5333333\n [5,] -25.5 -29.472222 -15.444444 -19.416667 -5.3888889 -9.361111  4.6666667\n [6,] -28.4 -13.366667 -16.333333  -1.300000 -4.2666667 10.766667  7.8000000\n [7,] -35.3 -37.261111 -21.222222 -23.183333 -7.1444444 -9.105556  6.9333333\n [8,] -38.2 -21.155556 -22.111111  -5.066667 -6.0222222 11.022222 10.0666667\n [9,] -45.1 -45.050000 -27.000000 -26.950000 -8.9000000 -8.850000  9.2000000\n[10,] -48.0 -28.944444 -27.888889  -8.833333 -7.7777778 11.277778 12.3333333\n            [,8]      [,9] [,10]\n [1,] -7.8611111  2.144444 -5.85\n [2,] 14.2777778  7.288889 18.30\n [3,] -3.5833333  8.433333  2.45\n [4,] 18.5555556 13.577778 26.60\n [5,]  0.6944444 14.722222 10.75\n [6,] 22.8333333 19.866667 34.90\n [7,]  4.9722222 21.011111 19.05\n [8,] 27.1111111 26.155556 43.20\n [9,]  9.2500000 27.300000 27.35\n[10,] 31.3888889 32.444444 51.50\n\n\nYou should be carefully about any type conversions. If you’re data frame contains mixed column types, R will coerce every column into some compatible type.\n\n(m1 &lt;- as.matrix(d1))\n\n      a       b     c           \n [1,] \"FALSE\" \"bar\" \"0.13183423\"\n [2,] \"FALSE\" \"bar\" \"0.05030883\"\n [3,] \"FALSE\" \"bar\" \"0.50325438\"\n [4,] \"FALSE\" \"bar\" \"0.35182148\"\n [5,] \"FALSE\" \"bar\" \"0.43251110\"\n [6,] \"TRUE\"  \"bar\" \"0.47063528\"\n [7,] \"FALSE\" \"foo\" \"0.62802475\"\n [8,] \"TRUE\"  \"bar\" \"0.73321050\"\n [9,] \"TRUE\"  \"foo\" \"0.07805386\"\n[10,] \"FALSE\" \"foo\" \"0.27256752\"\n\ntypeof(m1)\n\n[1] \"character\"\n\n(d4 &lt;- data.frame(x = rep(c(TRUE, FALSE), 3), y = runif(6)))\n\n      x         y\n1  TRUE 0.3753425\n2 FALSE 0.8523554\n3  TRUE 0.3087074\n4 FALSE 0.9611211\n5  TRUE 0.2122324\n6 FALSE 0.2282841\n\n(m4 &lt;- as.matrix(d4))\n\n     x         y\n[1,] 1 0.3753425\n[2,] 0 0.8523554\n[3,] 1 0.3087074\n[4,] 0 0.9611211\n[5,] 1 0.2122324\n[6,] 0 0.2282841\n\ntypeof(m4)\n\n[1] \"double\"",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames",
+      "Creating Data Frames"
+    ]
+  },
+  {
+    "objectID": "tutorials/data_frames/manipulating.html",
+    "href": "tutorials/data_frames/manipulating.html",
+    "title": "Manipulating Data Frames",
+    "section": "",
+    "text": "Because data frames are just lists, we can access a data frame’s columns using the same methods we would use for lists. To access a single column by name, the most efficient method is typically the $ operator.\n\nd1 &lt;- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),\n                 b = sample(c(\"foo\", \"bar\"), 10, replace = TRUE),\n                 c = runif(10)\n                 )\nd1$b\n\n [1] \"bar\" \"bar\" \"foo\" \"bar\" \"bar\" \"foo\" \"foo\" \"bar\" \"foo\" \"foo\"\n\ndata(iris)\niris$Petal.Length\n\n  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4\n [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2\n [37] 1.3 1.4 1.3 1.5 1.3 1.3 1.3 1.6 1.9 1.4 1.6 1.4 1.5 1.4 4.7 4.5 4.9 4.0\n [55] 4.6 4.5 4.7 3.3 4.6 3.9 3.5 4.2 4.0 4.7 3.6 4.4 4.5 4.1 4.5 3.9 4.8 4.0\n [73] 4.9 4.7 4.3 4.4 4.8 5.0 4.5 3.5 3.8 3.7 3.9 5.1 4.5 4.5 4.7 4.4 4.1 4.0\n [91] 4.4 4.6 4.0 3.3 4.2 4.2 4.2 4.3 3.0 4.1 6.0 5.1 5.9 5.6 5.8 6.6 4.5 6.3\n[109] 5.8 6.1 5.1 5.3 5.5 5.0 5.1 5.3 5.5 6.7 6.9 5.0 5.7 4.9 6.7 4.9 5.7 6.0\n[127] 4.8 4.9 5.6 5.8 6.1 6.4 5.6 5.1 5.6 6.1 5.6 5.5 4.8 5.4 5.6 5.1 5.1 5.9\n[145] 5.7 5.2 5.0 5.2 5.4 5.1\n\n\nWe can also use the single, [], or double, [[]], square bracket operators. As with lists, these operators differ in two respects how many columns they can select and how they format resulting selection.\n\n[]: Can select multiple elements and always returns a data frame.\n[[]]: Can select only one element and returns the column contents as a vector (or whatever type of object the column contained).\n\n\n# Return a one-column data frame comprising the 'b' column from d1\nd1[\"b\"]\n\n     b\n1  bar\n2  bar\n3  foo\n4  bar\n5  bar\n6  foo\n7  foo\n8  bar\n9  foo\n10 foo\n\n# The same as above, but using the column index instead of the column name\nd1[2]\n\n     b\n1  bar\n2  bar\n3  foo\n4  bar\n5  bar\n6  foo\n7  foo\n8  bar\n9  foo\n10 foo\n\n# Return a two-column data frame comprising the 'a' and 'b' columns from d1\nd1[c(\"a\", \"b\")]\n\n       a   b\n1  FALSE bar\n2   TRUE bar\n3   TRUE foo\n4   TRUE bar\n5   TRUE bar\n6  FALSE foo\n7   TRUE foo\n8   TRUE bar\n9  FALSE foo\n10 FALSE foo\n\n# The same as above, but using the column indices instead of the column names\nd1[1:2]\n\n       a   b\n1  FALSE bar\n2   TRUE bar\n3   TRUE foo\n4   TRUE bar\n5   TRUE bar\n6  FALSE foo\n7   TRUE foo\n8   TRUE bar\n9  FALSE foo\n10 FALSE foo\n\n# Return the 'b' column from d1 as a character vector\nd1[[\"b\"]]\n\n [1] \"bar\" \"bar\" \"foo\" \"bar\" \"bar\" \"foo\" \"foo\" \"bar\" \"foo\" \"foo\"\n\n# The same as above, but using the column index instead of the column name\nd1[[2]]\n\n [1] \"bar\" \"bar\" \"foo\" \"bar\" \"bar\" \"foo\" \"foo\" \"bar\" \"foo\" \"foo\"\n\n\n\n\nData frames also support matrix-style subsetting, where we define the selection by specifying both the row and column indices.\n\nd1[1:2, 2:3]\n\n    b         c\n1 bar 0.4957513\n2 bar 0.3761720\n\nd1[ , 1:2]\n\n       a   b\n1  FALSE bar\n2   TRUE bar\n3   TRUE foo\n4   TRUE bar\n5   TRUE bar\n6  FALSE foo\n7   TRUE foo\n8   TRUE bar\n9  FALSE foo\n10 FALSE foo\n\nd1[2:3, ]\n\n     a   b         c\n2 TRUE bar 0.3761720\n3 TRUE foo 0.9735387\n\n\nIn most cases, matrix style subsetting behaves the same was as the [] list-style operator—you can select any number of elements, and the selection is returned as a data frame—but there is one exception If you select a single column using matrix-style subsetting, the selection will be converted to a vector.\n\nd1[ , 1]\n\n [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames",
+      "Manipulating Data Frames"
+    ]
+  },
+  {
+    "objectID": "tutorials/data_frames/manipulating.html#accessing-data-frame-elements",
+    "href": "tutorials/data_frames/manipulating.html#accessing-data-frame-elements",
+    "title": "Manipulating Data Frames",
+    "section": "",
+    "text": "Because data frames are just lists, we can access a data frame’s columns using the same methods we would use for lists. To access a single column by name, the most efficient method is typically the $ operator.\n\nd1 &lt;- data.frame(a = sample(c(TRUE, FALSE), 10, replace = TRUE),\n                 b = sample(c(\"foo\", \"bar\"), 10, replace = TRUE),\n                 c = runif(10)\n                 )\nd1$b\n\n [1] \"bar\" \"bar\" \"foo\" \"bar\" \"bar\" \"foo\" \"foo\" \"bar\" \"foo\" \"foo\"\n\ndata(iris)\niris$Petal.Length\n\n  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4\n [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2\n [37] 1.3 1.4 1.3 1.5 1.3 1.3 1.3 1.6 1.9 1.4 1.6 1.4 1.5 1.4 4.7 4.5 4.9 4.0\n [55] 4.6 4.5 4.7 3.3 4.6 3.9 3.5 4.2 4.0 4.7 3.6 4.4 4.5 4.1 4.5 3.9 4.8 4.0\n [73] 4.9 4.7 4.3 4.4 4.8 5.0 4.5 3.5 3.8 3.7 3.9 5.1 4.5 4.5 4.7 4.4 4.1 4.0\n [91] 4.4 4.6 4.0 3.3 4.2 4.2 4.2 4.3 3.0 4.1 6.0 5.1 5.9 5.6 5.8 6.6 4.5 6.3\n[109] 5.8 6.1 5.1 5.3 5.5 5.0 5.1 5.3 5.5 6.7 6.9 5.0 5.7 4.9 6.7 4.9 5.7 6.0\n[127] 4.8 4.9 5.6 5.8 6.1 6.4 5.6 5.1 5.6 6.1 5.6 5.5 4.8 5.4 5.6 5.1 5.1 5.9\n[145] 5.7 5.2 5.0 5.2 5.4 5.1\n\n\nWe can also use the single, [], or double, [[]], square bracket operators. As with lists, these operators differ in two respects how many columns they can select and how they format resulting selection.\n\n[]: Can select multiple elements and always returns a data frame.\n[[]]: Can select only one element and returns the column contents as a vector (or whatever type of object the column contained).\n\n\n# Return a one-column data frame comprising the 'b' column from d1\nd1[\"b\"]\n\n     b\n1  bar\n2  bar\n3  foo\n4  bar\n5  bar\n6  foo\n7  foo\n8  bar\n9  foo\n10 foo\n\n# The same as above, but using the column index instead of the column name\nd1[2]\n\n     b\n1  bar\n2  bar\n3  foo\n4  bar\n5  bar\n6  foo\n7  foo\n8  bar\n9  foo\n10 foo\n\n# Return a two-column data frame comprising the 'a' and 'b' columns from d1\nd1[c(\"a\", \"b\")]\n\n       a   b\n1  FALSE bar\n2   TRUE bar\n3   TRUE foo\n4   TRUE bar\n5   TRUE bar\n6  FALSE foo\n7   TRUE foo\n8   TRUE bar\n9  FALSE foo\n10 FALSE foo\n\n# The same as above, but using the column indices instead of the column names\nd1[1:2]\n\n       a   b\n1  FALSE bar\n2   TRUE bar\n3   TRUE foo\n4   TRUE bar\n5   TRUE bar\n6  FALSE foo\n7   TRUE foo\n8   TRUE bar\n9  FALSE foo\n10 FALSE foo\n\n# Return the 'b' column from d1 as a character vector\nd1[[\"b\"]]\n\n [1] \"bar\" \"bar\" \"foo\" \"bar\" \"bar\" \"foo\" \"foo\" \"bar\" \"foo\" \"foo\"\n\n# The same as above, but using the column index instead of the column name\nd1[[2]]\n\n [1] \"bar\" \"bar\" \"foo\" \"bar\" \"bar\" \"foo\" \"foo\" \"bar\" \"foo\" \"foo\"\n\n\n\n\nData frames also support matrix-style subsetting, where we define the selection by specifying both the row and column indices.\n\nd1[1:2, 2:3]\n\n    b         c\n1 bar 0.4957513\n2 bar 0.3761720\n\nd1[ , 1:2]\n\n       a   b\n1  FALSE bar\n2   TRUE bar\n3   TRUE foo\n4   TRUE bar\n5   TRUE bar\n6  FALSE foo\n7   TRUE foo\n8   TRUE bar\n9  FALSE foo\n10 FALSE foo\n\nd1[2:3, ]\n\n     a   b         c\n2 TRUE bar 0.3761720\n3 TRUE foo 0.9735387\n\n\nIn most cases, matrix style subsetting behaves the same was as the [] list-style operator—you can select any number of elements, and the selection is returned as a data frame—but there is one exception If you select a single column using matrix-style subsetting, the selection will be converted to a vector.\n\nd1[ , 1]\n\n [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames",
+      "Manipulating Data Frames"
+    ]
+  },
+  {
+    "objectID": "tutorials/data_frames/manipulating.html#modifying-data-frame-elements",
+    "href": "tutorials/data_frames/manipulating.html#modifying-data-frame-elements",
+    "title": "Manipulating Data Frames",
+    "section": "Modifying Data Frame Elements",
+    "text": "Modifying Data Frame Elements\nNaturally, we can overwrite the columns of a data frame using the same procedures that we use to modify list slots. When modifying one column at a time, we directly apply the intuitive operations.\n\n# View the original data frame\nd1\n\n       a   b          c\n1  FALSE bar 0.49575135\n2   TRUE bar 0.37617197\n3   TRUE foo 0.97353867\n4   TRUE bar 0.30581726\n5   TRUE bar 0.58252890\n6  FALSE foo 0.75880503\n7   TRUE foo 0.04691056\n8   TRUE bar 0.27594473\n9  FALSE foo 0.45335390\n10 FALSE foo 0.04816235\n\n## Modify some list elements\nd1$a &lt;- LETTERS[1:10]\nd1[[2]] &lt;- rnorm(10)\nd1[\"c\"] &lt;- rep(c(TRUE, FALSE), each = 5)\n\n# View the modified data frame\nd1\n\n   a          b     c\n1  A -0.5906956  TRUE\n2  B -0.5742008  TRUE\n3  C -1.7411826  TRUE\n4  D  0.0294189  TRUE\n5  E  1.1534412  TRUE\n6  F  0.6410818 FALSE\n7  G -1.3527182 FALSE\n8  H -1.7820197 FALSE\n9  I  0.7982336 FALSE\n10 J  1.5504525 FALSE\n\n\nWhen modifying multiple columns with the [], operator, it’s best to supply the replacement values as a data frame or list with the same size as the selected columns.\n\n# Replace the first two columns of d1 with an equivalently sized data frame\n# extracted from the 'iris' dataset\nd1[1:2] &lt;- iris[1:10, 1:2]\nd1\n\n     a   b     c\n1  5.1 3.5  TRUE\n2  4.9 3.0  TRUE\n3  4.7 3.2  TRUE\n4  4.6 3.1  TRUE\n5  5.0 3.6  TRUE\n6  5.4 3.9 FALSE\n7  4.6 3.4 FALSE\n8  5.0 3.4 FALSE\n9  4.4 2.9 FALSE\n10 4.9 3.1 FALSE\n\n# Replace the 'a' and 'c' columns in d1 with an equivalently sized list\nd1[c(\"a\", \"c\")] &lt;- list(rnorm(10), runif(10))\nd1\n\n            a   b         c\n1  -0.5783726 3.5 0.3187378\n2   0.2407284 3.0 0.6187480\n3   0.2428955 3.2 0.2440667\n4   1.1796540 3.1 0.4660315\n5  -0.1874361 3.6 0.2406703\n6  -0.9529284 3.9 0.6078704\n7   0.5847080 3.4 0.3974096\n8   2.1370098 3.4 0.7703554\n9  -0.1480493 2.9 0.1016348\n10  1.7395392 3.1 0.8043306\n\n\n\nMatrix-Style Selection\nIf we only want to replace part of a column, we can use matrix-style selection to choose the target cells.\n\nd1[1:5, 2] &lt;- 41:45\nd1\n\n            a    b         c\n1  -0.5783726 41.0 0.3187378\n2   0.2407284 42.0 0.6187480\n3   0.2428955 43.0 0.2440667\n4   1.1796540 44.0 0.4660315\n5  -0.1874361 45.0 0.2406703\n6  -0.9529284  3.9 0.6078704\n7   0.5847080  3.4 0.3974096\n8   2.1370098  3.4 0.7703554\n9  -0.1480493  2.9 0.1016348\n10  1.7395392  3.1 0.8043306\n\nd1[3:6, c(\"a\", \"c\")] &lt;- list(-99, 888)\nd1\n\n             a    b           c\n1   -0.5783726 41.0   0.3187378\n2    0.2407284 42.0   0.6187480\n3  -99.0000000 43.0 888.0000000\n4  -99.0000000 44.0 888.0000000\n5  -99.0000000 45.0 888.0000000\n6  -99.0000000  3.9 888.0000000\n7    0.5847080  3.4   0.3974096\n8    2.1370098  3.4   0.7703554\n9   -0.1480493  2.9   0.1016348\n10   1.7395392  3.1   0.8043306\n\n\n\n\nRecycling\nWhen the replacement size doesn’t match the selection size, R will use recycling to resolve the discrepancy, but it’s not always easy to predict how the replacement will behave.\n\n# Replace the first two columns of d1 by recycling the vector `1:5`\nd1[1:2] &lt;- 1:5\nd1\n\n   a b           c\n1  1 1   0.3187378\n2  2 2   0.6187480\n3  3 3 888.0000000\n4  4 4 888.0000000\n5  5 5 888.0000000\n6  1 1 888.0000000\n7  2 2   0.3974096\n8  3 3   0.7703554\n9  4 4   0.1016348\n10 5 5   0.8043306\n\n# Replace the 'a' and 'c' columns in d1 with a list containing vectors that\n# will need to be recycled\nd1[c(\"a\", \"c\")] &lt;- list(c(\"yes\", \"no\"), 7:8)\nd1\n\n     a b c\n1  yes 1 7\n2   no 2 8\n3  yes 3 7\n4   no 4 8\n5  yes 5 7\n6   no 1 8\n7  yes 2 7\n8   no 3 8\n9  yes 4 7\n10  no 5 8\n\n\nAs with matrices, R is oddly specific (in a slightly different way) about the kinds of size discrepancies it will automatically resolved when modifying data frames.\n\nOK\n\nReplacement length &gt; Selection length\nReplacement length cleanly divides the selection length\nReplacement length exceeds selection length\nReplacement list contains more slots than columns selected\nReplacement data frame contains more slots than columns selected\n\nNot OK\n\nReplacement length does not cleanly divide selection length\n\n\n\n# Works: Replace the first two columns of d1 by using the first 20 elements\n# from the `100:500`\nd1[1:2] &lt;- 100:500\nd1\n\n     a   b c\n1  100 110 7\n2  101 111 8\n3  102 112 7\n4  103 113 8\n5  104 114 7\n6  105 115 8\n7  106 116 7\n8  107 117 8\n9  108 118 7\n10 109 119 8\n\n# Works: Replace the 'a' and 'c' columns in d1 with a list containing vectors\n# that are too long\nd1[c(\"a\", \"c\")] &lt;- list(rnorm(100), runif(100))\nd1\n\n             a   b         c\n1   2.93028916 110 0.2347217\n2  -0.28528570 111 0.1280478\n3  -0.07273495 112 0.8675576\n4  -1.39133153 113 0.7250560\n5  -0.54652858 114 0.5995073\n6   1.09164117 115 0.1685879\n7   0.71862569 116 0.7697158\n8  -1.88902780 117 0.3991020\n9   2.85287584 118 0.8479088\n10  0.65070784 119 0.1337530\n\n# Works: Replace the 'a' and 'c' columns in d1 with a the first two slots in a\n# length-3 list\nd1[c(\"a\", \"c\")] &lt;- list(1, 2, 3)\nd1\n\n   a   b c\n1  1 110 2\n2  1 111 2\n3  1 112 2\n4  1 113 2\n5  1 114 2\n6  1 115 2\n7  1 116 2\n8  1 117 2\n9  1 118 2\n10 1 119 2\n\n# Works: Replace the 'a' and 'c' columns in d1 with a the first two columns\n# from a three-column data frame\nd1[c(\"a\", \"c\")] &lt;- data.frame(\"foo\", \"bar\", \"baz\")\nd1\n\n     a   b   c\n1  foo 110 bar\n2  foo 111 bar\n3  foo 112 bar\n4  foo 113 bar\n5  foo 114 bar\n6  foo 115 bar\n7  foo 116 bar\n8  foo 117 bar\n9  foo 118 bar\n10 foo 119 bar\n\n# Fails: Replace the first two columns of d1 by using non-conformable vector 1:3\nd1[1:2] &lt;- 1:3\n\nError in `[&lt;-.data.frame`(`*tmp*`, 1:2, value = 1:3): replacement has 3 items, need 20\n\n# Fails: Replace the 'a' and 'c' columns in d1 with a list containing\n# non-conformable vectors\nd1[c(\"a\", \"c\")] &lt;- list(letters[4], 1:8)\n\nError in `[&lt;-.data.frame`(`*tmp*`, c(\"a\", \"c\"), value = list(\"d\", 1:8)): replacement element 2 has 8 rows, need 10",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames",
+      "Manipulating Data Frames"
+    ]
+  },
+  {
+    "objectID": "tutorials/data_frames/manipulating.html#adding-columns",
+    "href": "tutorials/data_frames/manipulating.html#adding-columns",
+    "title": "Manipulating Data Frames",
+    "section": "Adding Columns",
+    "text": "Adding Columns\nAs with lists, we can add new columns to an existing data frame using the $ or [[]] operators.\n\n# Create an empty list\n(d2 &lt;- data.frame(a = 1:10, b = \"bob\"))\n\n    a   b\n1   1 bob\n2   2 bob\n3   3 bob\n4   4 bob\n5   5 bob\n6   6 bob\n7   7 bob\n8   8 bob\n9   9 bob\n10 10 bob\n\n## Various ways of adding new single columns\nd2$c &lt;- letters[1:10]\nd2[[\"d\"]] &lt;- runif(10)\nd2[[5]] &lt;- rnorm(10)\nd2[\"alice\"] &lt;- TRUE\nd2\n\n    a   b c          d         V5 alice\n1   1 bob a 0.39551254  0.9116125  TRUE\n2   2 bob b 0.02311933  0.3341865  TRUE\n3   3 bob c 0.16358210  1.3088335  TRUE\n4   4 bob d 0.96102468 -0.5141460  TRUE\n5   5 bob e 0.34147122 -0.3722525  TRUE\n6   6 bob f 0.59231193  0.3462801  TRUE\n7   7 bob g 0.40779073  0.7340008  TRUE\n8   8 bob h 0.94040284  1.4507504  TRUE\n9   9 bob i 0.28812749  0.4430496  TRUE\n10 10 bob j 0.60931561  0.1972789  TRUE\n\n\nWe can add multiple columns using the [] operator.\n\nd2[7:8] &lt;- rnorm(20)\nd2[c(\"foo\", \"bar\")] &lt;- list(TRUE, FALSE)\nd2\n\n    a   b c          d         V5 alice         V7          V8  foo   bar\n1   1 bob a 0.39551254  0.9116125  TRUE -2.4591839 -0.71035093 TRUE FALSE\n2   2 bob b 0.02311933  0.3341865  TRUE -0.4603825 -0.04109860 TRUE FALSE\n3   3 bob c 0.16358210  1.3088335  TRUE  0.1271004  0.85363963 TRUE FALSE\n4   4 bob d 0.96102468 -0.5141460  TRUE  0.2922169 -0.83978767 TRUE FALSE\n5   5 bob e 0.34147122 -0.3722525  TRUE  0.3838345 -0.04331845 TRUE FALSE\n6   6 bob f 0.59231193  0.3462801  TRUE  0.9490207 -0.44625041 TRUE FALSE\n7   7 bob g 0.40779073  0.7340008  TRUE  0.5023876 -0.03732082 TRUE FALSE\n8   8 bob h 0.94040284  1.4507504  TRUE  0.2338697  0.93048072 TRUE FALSE\n9   9 bob i 0.28812749  0.4430496  TRUE -1.4386591 -0.07930940 TRUE FALSE\n10 10 bob j 0.60931561  0.1972789  TRUE  0.8374561  2.30531232 TRUE FALSE\n\n\n\n\n\n\n\n\nPractice\n\n\n\nRun the following code to create an empty data frame containing 10 observations of the 3 variables: a, b, c. Then populate the data frame as described below.\n\nFill column a with the integer sequence from -9 to 0.\n\nUse the column name to assign the new values.\n\nFill column b with the even integers between 1 and 20 (inclusive).\n\nUse the numeric column index to assign the new values.\n\nReplace the odd rows in column c with the odd integers between 11 and 20 (inclusive).\n\nDo not overwrite the missing values in the even rows.\n\n\n\n Interactive Editor Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\ndf &lt;- data.frame(a = rep(NA, 10),\n                 b = rep(NA, 10),\n                 c = rep(NA, 10)\n                 )\ndf\n\n    a  b  c\n1  NA NA NA\n2  NA NA NA\n3  NA NA NA\n4  NA NA NA\n5  NA NA NA\n6  NA NA NA\n7  NA NA NA\n8  NA NA NA\n9  NA NA NA\n10 NA NA NA\n\ndf$a &lt;- -9:0\ndf[2] &lt;- seq(2,20,2)\ndf[seq(1, 9, 2), \"c\"] &lt;- seq(11, 19, 2)\ndf\n\n    a  b  c\n1  -9  2 11\n2  -8  4 NA\n3  -7  6 13\n4  -6  8 NA\n5  -5 10 15\n6  -4 12 NA\n7  -3 14 17\n8  -2 16 NA\n9  -1 18 19\n10  0 20 NA",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Data Frames",
+      "Manipulating Data Frames"
+    ]
+  },
+  {
+    "objectID": "tutorials/factors/index.html",
+    "href": "tutorials/factors/index.html",
+    "title": "Factors",
+    "section": "",
+    "text": "In statistical data analysis, we often necessary to represent categorical variables: data that fall into of discrete groups or levels. Typical examples include nominal variables like {“male”, “female”}, {“yes”, “no”}, or political party affiliation. In R, we use factors to represent categorical variables in our data.\nAn R factor is a special kind of object that encodes a categorical variable’s grouping information through in a consistent way that R functions know how to handle. Factors are particularly important for modeling and plotting functions. When we use a categorical variable as part of a statistical model or visualization, the variable needs special treatment to be treated as groupings or levels, rather than as continuous quantities.\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Factors"
+    ]
+  },
+  {
+    "objectID": "tutorials/lists/creating.html",
+    "href": "tutorials/lists/creating.html",
+    "title": "Creating Lists",
+    "section": "",
+    "text": "We construct lists using the list() function. Lists place essentially no restrictions on the nature of their contents:\n\nA list slot can hold any valid R object (including other lists).\nThe contents of different list slots do not need to have the same type (nor do they need to be different types).\nThe contents of different list slots do not need to have the same—or otherwise conformable—sizes.\n\n\n(l1 &lt;- list(1, 2, 3))\n\n[[1]]\n[1] 1\n\n[[2]]\n[1] 2\n\n[[3]]\n[1] 3\n\n(l2 &lt;- list(\"bob\", TRUE, 33, 42+3i))\n\n[[1]]\n[1] \"bob\"\n\n[[2]]\n[1] TRUE\n\n[[3]]\n[1] 33\n\n[[4]]\n[1] 42+3i\n\n(l3 &lt;- list(c(1, 2), c(3, 4)))\n\n[[1]]\n[1] 1 2\n\n[[2]]\n[1] 3 4",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists",
+      "Creating Lists"
+    ]
+  },
+  {
+    "objectID": "tutorials/lists/creating.html#generating-lists",
+    "href": "tutorials/lists/creating.html#generating-lists",
+    "title": "Creating Lists",
+    "section": "",
+    "text": "We construct lists using the list() function. Lists place essentially no restrictions on the nature of their contents:\n\nA list slot can hold any valid R object (including other lists).\nThe contents of different list slots do not need to have the same type (nor do they need to be different types).\nThe contents of different list slots do not need to have the same—or otherwise conformable—sizes.\n\n\n(l1 &lt;- list(1, 2, 3))\n\n[[1]]\n[1] 1\n\n[[2]]\n[1] 2\n\n[[3]]\n[1] 3\n\n(l2 &lt;- list(\"bob\", TRUE, 33, 42+3i))\n\n[[1]]\n[1] \"bob\"\n\n[[2]]\n[1] TRUE\n\n[[3]]\n[1] 33\n\n[[4]]\n[1] 42+3i\n\n(l3 &lt;- list(c(1, 2), c(3, 4)))\n\n[[1]]\n[1] 1 2\n\n[[2]]\n[1] 3 4",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists",
+      "Creating Lists"
+    ]
+  },
+  {
+    "objectID": "tutorials/lists/creating.html#naming-list-elements",
+    "href": "tutorials/lists/creating.html#naming-list-elements",
+    "title": "Creating Lists",
+    "section": "Naming List Elements",
+    "text": "Naming List Elements\nWe can name the elements of a list by defining the list slots via key-value pairs.\n\nl4 &lt;- list(name = \"bob\",\n           alive = TRUE,\n           age = 33,\n           relationshipStatus = 42+3i)\nl4\n\n$name\n[1] \"bob\"\n\n$alive\n[1] TRUE\n\n$age\n[1] 33\n\n$relationshipStatus\n[1] 42+3i\n\n\nWe can use the names() function to access and modify the names of a list’s slots.\n\nnames(l4)\n\n[1] \"name\"               \"alive\"              \"age\"               \n[4] \"relationshipStatus\"\n\nnames(l1) &lt;- c(\"first\", \"second\", \"third\")\nl1\n\n$first\n[1] 1\n\n$second\n[1] 2\n\n$third\n[1] 3\n\n\n\n\n\n\n\n\nPractice\n\n\n\nCreate a list to describe yourself. Include the following named elements in your list:\n\nYour Name\nYour Eye Color\nYour Hair Color\nYour Favorite Color\n\n\n Question Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nmyInfo &lt;- list(name = \"bob\",\n               eyes = \"blue\",\n               hair = \"black\",\n               color = \"green\")\nmyInfo\n\n$name\n[1] \"bob\"\n\n$eyes\n[1] \"blue\"\n\n$hair\n[1] \"black\"\n\n$color\n[1] \"green\"",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists",
+      "Creating Lists"
+    ]
+  },
+  {
+    "objectID": "tutorials/lists/manipulating.html",
+    "href": "tutorials/lists/manipulating.html",
+    "title": "Manipulating Lists",
+    "section": "",
+    "text": "R provides several mechanisms for accessing the contents of a list, each serving a distinct purpose. The three main operators used for this task are the dollar sign ($), single brackets ([]), and double brackets ([[]]).\nThe $ operator accesses a single list slot by name and returns the contents of that list slot.\n\nl1 &lt;- list(name = \"bob\",\n           alive = TRUE,\n           age = 33,\n           relationshipStatus = 42+3i)\n\nl1$name\n\n[1] \"bob\"\n\nclass(l1$name)\n\n[1] \"character\"\n\n\nThe [[]] operator works like the $ operator but also accepts numeric indices.\n\nl1[[\"age\"]]\n\n[1] 33\n\nl1[[2]]\n\n[1] TRUE\n\nclass(l1[[2]])\n\n[1] \"logical\"\n\n\nThe [] operator is notably different: it extracts any number of list slots and returns the result as a list. Even if only one element is selected, the output remains a list. This behavior is useful when we want to retain the list structure for further processing.\n\nl1[\"name\"]\n\n$name\n[1] \"bob\"\n\nl1[2]\n\n$alive\n[1] TRUE\n\nclass(l1[2])\n\n[1] \"list\"\n\nl1[c(\"name\", \"alive\")]\n\n$name\n[1] \"bob\"\n\n$alive\n[1] TRUE\n\nl1[1:2]\n\n$name\n[1] \"bob\"\n\n$alive\n[1] TRUE\n\nclass(l1[1:2])\n\n[1] \"list\"\n\n\nIf we want to select multiple list elements, the [] operator is our only option. You cannot use the $ or [[]] operators to select multiple list slots.\n\nl1[[1:2]]\n\nError in l1[[1:2]]: subscript out of bounds\n\nl1$c(\"name\", \"alive\")\n\nError: attempt to apply non-function",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists",
+      "Manipulating Lists"
+    ]
+  },
+  {
+    "objectID": "tutorials/lists/manipulating.html#accessing-list-slots",
+    "href": "tutorials/lists/manipulating.html#accessing-list-slots",
+    "title": "Manipulating Lists",
+    "section": "",
+    "text": "R provides several mechanisms for accessing the contents of a list, each serving a distinct purpose. The three main operators used for this task are the dollar sign ($), single brackets ([]), and double brackets ([[]]).\nThe $ operator accesses a single list slot by name and returns the contents of that list slot.\n\nl1 &lt;- list(name = \"bob\",\n           alive = TRUE,\n           age = 33,\n           relationshipStatus = 42+3i)\n\nl1$name\n\n[1] \"bob\"\n\nclass(l1$name)\n\n[1] \"character\"\n\n\nThe [[]] operator works like the $ operator but also accepts numeric indices.\n\nl1[[\"age\"]]\n\n[1] 33\n\nl1[[2]]\n\n[1] TRUE\n\nclass(l1[[2]])\n\n[1] \"logical\"\n\n\nThe [] operator is notably different: it extracts any number of list slots and returns the result as a list. Even if only one element is selected, the output remains a list. This behavior is useful when we want to retain the list structure for further processing.\n\nl1[\"name\"]\n\n$name\n[1] \"bob\"\n\nl1[2]\n\n$alive\n[1] TRUE\n\nclass(l1[2])\n\n[1] \"list\"\n\nl1[c(\"name\", \"alive\")]\n\n$name\n[1] \"bob\"\n\n$alive\n[1] TRUE\n\nl1[1:2]\n\n$name\n[1] \"bob\"\n\n$alive\n[1] TRUE\n\nclass(l1[1:2])\n\n[1] \"list\"\n\n\nIf we want to select multiple list elements, the [] operator is our only option. You cannot use the $ or [[]] operators to select multiple list slots.\n\nl1[[1:2]]\n\nError in l1[[1:2]]: subscript out of bounds\n\nl1$c(\"name\", \"alive\")\n\nError: attempt to apply non-function",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists",
+      "Manipulating Lists"
+    ]
+  },
+  {
+    "objectID": "tutorials/lists/manipulating.html#modifying-list-elements",
+    "href": "tutorials/lists/manipulating.html#modifying-list-elements",
+    "title": "Manipulating Lists",
+    "section": "Modifying List Elements",
+    "text": "Modifying List Elements\nAbove, we used the three selection operators to extract list elements, but you shouldn’t think about those operators as “subsetting operators”. It’s better to think about the selection operators as designating some part of a list for further processing. In the above examples, the further processing was simply printing the selected elements to the R console, but we can also use the selection operators to modify the designated list elements.\n\n# View the original list\nl1\n\n$name\n[1] \"bob\"\n\n$alive\n[1] TRUE\n\n$age\n[1] 33\n\n$relationshipStatus\n[1] 42+3i\n\n## Modify some list elements\nl1$age &lt;- 57\nl1[[1]] &lt;- \"suzy\"\nl1[c(2, 4)] &lt;- c(\"foo\", \"bar\")\n\n# View the modified list\nl1\n\n$name\n[1] \"suzy\"\n\n$alive\n[1] \"foo\"\n\n$age\n[1] 57\n\n$relationshipStatus\n[1] \"bar\"\n\n\nLists in R do not require a fixed length or predefined structure. New elements can be added at any point, either by position or by name. This flexibility makes lists well suited for incremental construction.\n\n# Create an empty list\n(l2 &lt;- list())\n\nlist()\n\n# Add new list slots\nl2$grass &lt;- \"green\"\nl2$logical &lt;- FALSE\nl2[[3]] &lt;- 1:4\n\nl2\n\n$grass\n[1] \"green\"\n\n$logical\n[1] FALSE\n\n[[3]]\n[1] 1 2 3 4\n\n\nImportantly, the types of the objects you store in a list are maintained.\n\n(x &lt;- 1:5)\n\n[1] 1 2 3 4 5\n\n(y &lt;- list())\n\nlist()\n\n(z &lt;- letters[1:10])\n\n [1] \"a\" \"b\" \"c\" \"d\" \"e\" \"f\" \"g\" \"h\" \"i\" \"j\"\n\n(l3 &lt;- list(a = x, b = y, c = z))\n\n$a\n[1] 1 2 3 4 5\n\n$b\nlist()\n\n$c\n [1] \"a\" \"b\" \"c\" \"d\" \"e\" \"f\" \"g\" \"h\" \"i\" \"j\"\n\nclass(x)\n\n[1] \"integer\"\n\nclass(y)\n\n[1] \"list\"\n\nclass(z)\n\n[1] \"character\"\n\nclass(l3$a)\n\n[1] \"integer\"\n\nclass(l3$b)\n\n[1] \"list\"\n\nclass(l3$c)\n\n[1] \"character\"\n\n\nConsequently, objects stored in a list behave just as they would outside of the list. For example, if a function is stored as an element of a list, we can call it directly:\n\n# Create a trivial function\naddOne &lt;- function(x) { x + 1 }\n\n# Store our function object in the 'l3' list\nl3$myFunction &lt;- addOne\n\n# Call both versions of our function\naddOne(2)\n\n[1] 3\n\nl3$myFunction(2)\n\n[1] 3\n\n\n\n\n\n\n\n\nPractice\n\n\n\nUse the list that you created in the last practice problem for this exercise.\nUsing a single command, test if your eye color OR your hair color is also your favorite color.\n\n Question Hint Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nRecall the basic logical operators:\n\n==, !=: Equal, Not Equal\n&gt;, &lt;, &gt;=, &lt;=: Greater Than, Less Than\n&, |: Logical AND, Logical OR (not exclusive)\n\n\n\n\nmyInfo$eyes == myInfo$color | myInfo$hair == myInfo$color\n\n[1] FALSE",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Lists",
+      "Manipulating Lists"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_creation.html",
+    "href": "tutorials/matrices/matrix_creation.html",
+    "title": "Creating Matrices",
+    "section": "",
+    "text": "The most direct way to create a new matrix is the matrix() function.\n(m1 &lt;- matrix(data = 1, nrow = 3, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    1    1\n[2,]    1    1    1\n[3,]    1    1    1\nIf we inspect the object, we’ll see it now has an attribute, dim. The attribute dim is a two element vector, in which the first element shows the number of rows and the second element the number of columns.\n# Create a numeric vector for comparison\ny1 &lt;- c(1, 2, 3)\n\n# Basic vectors don't have attributes\nattributes(y1)\n\nNULL\n\n# Matrices must have at least a 'dim' attribute\nattributes(m1)\n\n$dim\n[1] 3 3",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Creating Matrices"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_creation.html#the-matrixvector-relation",
+    "href": "tutorials/matrices/matrix_creation.html#the-matrixvector-relation",
+    "title": "Creating Matrices",
+    "section": "The Matrix/Vector Relation",
+    "text": "The Matrix/Vector Relation\nI’m not being facetious when I say that a matrix is just a vector with a dim attribute. In fact, we can convert a vector to a matrix simply by adding a dim attribute to the vector.\n\n# y1 is an ordinary numeric vector\nclass(y1)\n\n[1] \"numeric\"\n\nis.vector(y1)\n\n[1] TRUE\n\nis.matrix(y1)\n\n[1] FALSE\n\n# m1 is a matrix (which is a special case of an 'array')\nclass(m1)\n\n[1] \"matrix\" \"array\" \n\nis.vector(m1)\n\n[1] FALSE\n\nis.matrix(m1)\n\n[1] TRUE\n\n# Add a 'dim' attribute to y1\nattr(y1, \"dim\") &lt;- c(3, 1)\n\n# Now, y1 looks like a 3x1 matrix\ny1\n\n     [,1]\n[1,]    1\n[2,]    2\n[3,]    3\n\n# Indeed, y1 is now a matrix, as far as R is concerned\nclass(y1)\n\n[1] \"matrix\" \"array\" \n\nattributes(y1)\n\n$dim\n[1] 3 1\n\nis.vector(y1)\n\n[1] FALSE\n\nis.matrix(y1)\n\n[1] TRUE\n\n\nSimilarly, we can convert a matrix to a vector by removing the dim attribute from the matrix.\n\n# Setting the 'dim' attribute of m1 to NULL effectively removes that attribute\nattr(m1, \"dim\") &lt;- NULL\n\n# Now, m1 looks like a vector\nm1\n\n[1] 1 1 1 1 1 1 1 1 1\n\n# And R agrees: m1 is now a vector, not a matrix\nclass(m1)\n\n[1] \"numeric\"\n\nis.vector(m1)\n\n[1] TRUE\n\nis.matrix(m1)\n\n[1] FALSE",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Creating Matrices"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_creation.html#element-ordering",
+    "href": "tutorials/matrices/matrix_creation.html#element-ordering",
+    "title": "Creating Matrices",
+    "section": "Element Ordering",
+    "text": "Element Ordering\nBy default, R fills matrices column-wise (i.e., using column-major order): the first column is filled top to bottom, then the second column, and so on.\n\nmatrix(1:9, 3, 3)\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n\nIf we want to fill the matrix row-by-row instead (i.e., using row-major order), we can use the byrow = TRUE argument.\n\nmatrix(1:9, 3, 3, byrow = TRUE)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Creating Matrices"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_selection.html",
+    "href": "tutorials/matrices/matrix_selection.html",
+    "title": "Manipulating Matrices",
+    "section": "",
+    "text": "As with vectors, we can access and assign values within a matrix using the square brackets operator, [], but with one key difference: matrices require two indices, one to define the row selection and one to define the column selection.\n\n(m1 &lt;- matrix(1:12, 3, 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n# Select the first two rows and the first three columns, then print the selected\n# elements as a matrix\nm1[1:2, 1:3]\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n\n# Select the first and third rows and second and third column, then save the\n# selection as a new matrix called `m2`\n(m2 &lt;- m1[c(1, 3), 2:3])\n\n     [,1] [,2]\n[1,]    4    7\n[2,]    6    9",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Manipulating Matrices"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_selection.html#accessing-matrix-elements",
+    "href": "tutorials/matrices/matrix_selection.html#accessing-matrix-elements",
+    "title": "Manipulating Matrices",
+    "section": "",
+    "text": "As with vectors, we can access and assign values within a matrix using the square brackets operator, [], but with one key difference: matrices require two indices, one to define the row selection and one to define the column selection.\n\n(m1 &lt;- matrix(1:12, 3, 4))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n# Select the first two rows and the first three columns, then print the selected\n# elements as a matrix\nm1[1:2, 1:3]\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n\n# Select the first and third rows and second and third column, then save the\n# selection as a new matrix called `m2`\n(m2 &lt;- m1[c(1, 3), 2:3])\n\n     [,1] [,2]\n[1,]    4    7\n[2,]    6    9",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Manipulating Matrices"
+    ]
+  },
+  {
+    "objectID": "tutorials/matrices/matrix_selection.html#modifying-matrix-elements",
+    "href": "tutorials/matrices/matrix_selection.html#modifying-matrix-elements",
+    "title": "Manipulating Matrices",
+    "section": "Modifying Matrix Elements",
+    "text": "Modifying Matrix Elements\nEditing the value of matrix elements works the same way it did for vectors. We , use the [] operator to select the values we want to overwrite, and assign new values for the selected elements using the ordinary assignment operator, &lt;-.\n\n(m3 &lt;- matrix(1, 3, 3))\n\n     [,1] [,2] [,3]\n[1,]    1    1    1\n[2,]    1    1    1\n[3,]    1    1    1\n\n# Replace the element in the first row and second column with 33\nm3[1, 2] &lt;- 33\nm3\n\n     [,1] [,2] [,3]\n[1,]    1   33    1\n[2,]    1    1    1\n[3,]    1    1    1\n\n# Replace all elements in the range covered by the second and third rows and the\n# first and third columns with 44 \nm3[2:3, c(1, 3)] &lt;- 44\nm3\n\n     [,1] [,2] [,3]\n[1,]    1   33    1\n[2,]   44    1   44\n[3,]   44    1   44",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Matrices",
+      "Manipulating Matrices"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/elements_selection.html",
+    "href": "tutorials/vectors/elements_selection.html",
+    "title": "Manipulating Vectors",
+    "section": "",
+    "text": "We can access specific elements in a vector using the square bracket selection operator, []. To select specific elements, provide an integer vector defining the positions of the desired elements.\n\n# Define some vector\n(y &lt;- letters[1:10])\n\n [1] \"a\" \"b\" \"c\" \"d\" \"e\" \"f\" \"g\" \"h\" \"i\" \"j\"\n\n# Select the third entry in y\ny[3]\n\n[1] \"c\"\n\n# Select the second through fifth elements of y\ny[2:5]\n\n[1] \"b\" \"c\" \"d\" \"e\"\n\n# Select the fourth, sixth, seventh, and eighth elements of y\ny[c(4, 6, 8, 7)]\n\n[1] \"d\" \"f\" \"h\" \"g\"\n\n# Same as above but combining c() and : \ny[c(4, 6:8)]\n\n[1] \"d\" \"f\" \"g\" \"h\"\n\n\nWhen selecting vector elements, we must use a single vector to index the target elements.\n\ny[2, 3]\n\nError in y[2, 3]: incorrect number of dimensions\n\n\nSpecifying multiple arguments inside [] is reserved for multi-dimensional structures like matrices or data frames and will trigger an error with vectors.",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Manipulating Vectors"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/elements_selection.html#accessing-vector-elements",
+    "href": "tutorials/vectors/elements_selection.html#accessing-vector-elements",
+    "title": "Manipulating Vectors",
+    "section": "",
+    "text": "We can access specific elements in a vector using the square bracket selection operator, []. To select specific elements, provide an integer vector defining the positions of the desired elements.\n\n# Define some vector\n(y &lt;- letters[1:10])\n\n [1] \"a\" \"b\" \"c\" \"d\" \"e\" \"f\" \"g\" \"h\" \"i\" \"j\"\n\n# Select the third entry in y\ny[3]\n\n[1] \"c\"\n\n# Select the second through fifth elements of y\ny[2:5]\n\n[1] \"b\" \"c\" \"d\" \"e\"\n\n# Select the fourth, sixth, seventh, and eighth elements of y\ny[c(4, 6, 8, 7)]\n\n[1] \"d\" \"f\" \"h\" \"g\"\n\n# Same as above but combining c() and : \ny[c(4, 6:8)]\n\n[1] \"d\" \"f\" \"g\" \"h\"\n\n\nWhen selecting vector elements, we must use a single vector to index the target elements.\n\ny[2, 3]\n\nError in y[2, 3]: incorrect number of dimensions\n\n\nSpecifying multiple arguments inside [] is reserved for multi-dimensional structures like matrices or data frames and will trigger an error with vectors.",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Manipulating Vectors"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/elements_selection.html#modifying-vector-elements",
+    "href": "tutorials/vectors/elements_selection.html#modifying-vector-elements",
+    "title": "Manipulating Vectors",
+    "section": "Modifying Vector Elements",
+    "text": "Modifying Vector Elements\nAbove, we used the selection operator, [], to extract vector elements, but you shouldn’t think about that operator as a “subsetting operator”. I prefer to think about the selection operator as designating some part of a vector for further processing. In the above examples, the further processing was simply printing the selected elements to the R console, but we can also use the selection operators to modify the designated vector elements.\nWe can overwrite vector elements with new values by selecting the target elements using the [] operator and assigning new values with the ordinary assignment operator, &lt;-.\n\n# Replace the first elements of y with \"bob\"\ny[1] &lt;- \"bob\"\ny\n\n [1] \"bob\" \"b\"   \"c\"   \"d\"   \"e\"   \"f\"   \"g\"   \"h\"   \"i\"   \"j\"  \n\n# Replace the fourth and sixth elements of y with \"foo\" and \"bar\", respectively\ny[c(4, 6)] &lt;- c(\"foo\", \"bar\")\ny\n\n [1] \"bob\" \"b\"   \"c\"   \"foo\" \"e\"   \"bar\" \"g\"   \"h\"   \"i\"   \"j\"  \n\n\nOverwriting vector elements uses ordinary recycling to harmonize the lengths of the selected set of elements and the length of the replacement vector.\n\ny[8:10] &lt;- \"alice\"\ny\n\n [1] \"bob\"   \"b\"     \"c\"     \"foo\"   \"e\"     \"bar\"   \"g\"     \"alice\" \"alice\"\n[10] \"alice\"\n\ny[1:3] &lt;- c(\"hello\", \"world\")\n\nWarning in y[1:3] &lt;- c(\"hello\", \"world\"): number of items to replace is not a\nmultiple of replacement length\n\ny\n\n [1] \"hello\" \"world\" \"hello\" \"foo\"   \"e\"     \"bar\"   \"g\"     \"alice\" \"alice\"\n[10] \"alice\"\n\n## Extra elements in the replacement vector are dropped with a warning\ny[1:4] &lt;- c(\"It\", \"was\", \"the\", \"best\", \"of\", \"times\")\n\nWarning in y[1:4] &lt;- c(\"It\", \"was\", \"the\", \"best\", \"of\", \"times\"): number of\nitems to replace is not a multiple of replacement length\n\ny\n\n [1] \"It\"    \"was\"   \"the\"   \"best\"  \"e\"     \"bar\"   \"g\"     \"alice\" \"alice\"\n[10] \"alice\"\n\n\n\n\n\n\n\n\nPractice\n\n\n\n\nCreate an integer vector called myVec that contains all the whole numbers from 1 to 11.\nUse a single command to replace all the even numbers in myVec with 0.\n\n\n Interactive Editor Solution\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nmyVec &lt;- 1:11\nmyVec[seq(2, 10, 2)] &lt;- 0\nmyVec\n\n [1]  1  0  3  0  5  0  7  0  9  0 11",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors",
+      "Manipulating Vectors"
+    ]
+  },
+  {
+    "objectID": "tutorials/vectors/index.html",
+    "href": "tutorials/vectors/index.html",
+    "title": "Vectors",
+    "section": "",
+    "text": "Vectors are the simplest data structure in R: scalars don’t exist in R. A vector is simply an ordered collection of values with the same type (e.g., all numbers, all character strings, or all boolean values).\nWhenever you’re working with R, you’re almost always using vectors, whether you realize it or not. Vectors are very simple objects, but the more complex objects you’ll encounter (e.g., data frames, lists, factors) are built from vectors.\n\n\n\n Back to top",
+    "crumbs": [
+      "Open-Stat-Prog",
+      "Vectors"
+    ]
+  }
+]
